@@ -1,6 +1,16 @@
+import AsideMenu from "../../components/AsideMenu/AsideMenu";
+import Header from "../../components/Header/Header";
+import MainContent from "../../components/MainContent/MainContent";
+
 function Home() {
-    return(
-        <h1>Esta es la pantalla de incio</h1>
+    return (
+        <>
+            <AsideMenu />
+            <div id="contenedor">
+                <Header title="Inicio" />
+                <MainContent />
+            </div>
+        </>
     );
 }
 

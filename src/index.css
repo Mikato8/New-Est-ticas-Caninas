@@ -1,0 +1,14 @@
+#headerNav {
+    display: inline-block;
+    width: 100%;
+}
+#asideNav{
+    display: inline-block;
+    height: 100vh;
+    float:inline-start;
+    width: 16%;
+}
+#contenedor{
+    display: inline-block;
+    width: 84%;
+}
