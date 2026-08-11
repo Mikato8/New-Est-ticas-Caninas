@@ -21,6 +21,7 @@ function Login() {
                         className="form-control"
                         type="text"
                         onChange={(e) => { setUserName(e.target.value) }}
+                        placeholder="Ingrese su nombre de usuario"
                     />
 
                     <label className="mt-4" htmlFor="">Contraseña:</label>
@@ -28,6 +29,7 @@ function Login() {
                         className="form-control"
                         type="password"
                         onChange={(e) => { setUserPass(e.target.value) }}
+                        placeholder="Ingrese su contraseña"
                     />
 
                     <input
