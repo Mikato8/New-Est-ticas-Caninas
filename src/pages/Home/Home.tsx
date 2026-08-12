@@ -1,6 +1,6 @@
 function Home() {
     return(
-        <h1>Esta es la pantalla de incio</h1>
+        <h1>Esta es la pantalla de inicio</h1>
     );
 }
 
