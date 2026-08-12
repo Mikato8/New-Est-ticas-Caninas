@@ -6,7 +6,8 @@ interface FormProps {
 }
 export function LoginForm({ user, password }: FormProps) {
     if (user !== "" && password !== "") {
-        LoginController;
+        const response = LoginController({user_name: user});
+        return response;
     } if (user !== "" && password == "") {
         return alert("Ingrese su contraseña");
     } if (user == "" && password !== "") {
