@@ -1,43 +1,104 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 
-const navItems = [
-  { to: "/home", label: "Inicio" },
-  { to: "/customers", label: "Clientes" },
-  { to: "/pets", label: "Mascotas" },
-  { to: "/appointments", label: "Citas" },
+interface NavItem {
+  to: string;
+  label: string;
+  adminOnly?: boolean;
+}
+
+interface NavGroup {
+  title: string;
+  items: NavItem[];
+}
+
+const navGroups: NavGroup[] = [
+  {
+    title: "Principal",
+    items: [{ to: "/home", label: "Inicio" }],
+  },
+  {
+    title: "Gestión",
+    items: [
+      { to: "/customers", label: "Clientes" },
+      { to: "/pets", label: "Mascotas" },
+      { to: "/appointments", label: "Citas" },
+      { to: "/services", label: "Servicios" },
+      { to: "/packages", label: "Paquetes" },
+      { to: "/species", label: "Especies" },
+      { to: "/contracts", label: "Contratos" },
+    ],
+  },
+  {
+    title: "Tienda",
+    items: [
+      { to: "/sales", label: "Ventas" },
+      { to: "/products", label: "Productos" },
+    ],
+  },
+  {
+    title: "Finanzas",
+    items: [
+      { to: "/expenses", label: "Gastos" },
+      { to: "/payment-methods", label: "Métodos de pago" },
+    ],
+  },
+  {
+    title: "Administración",
+    items: [
+      { to: "/users", label: "Usuarios", adminOnly: true },
+      { to: "/settings", label: "Configuración", adminOnly: true },
+    ],
+  },
 ];
 
 export default function AppLayout() {
   const { profile, signOut } = useAuth();
+  const isAdmin = profile?.id_rol === 1;
 
   return (
     <div className="d-flex vh-100">
-      <nav className="d-flex flex-column bg-dark text-white p-3 sidebar">
+      <nav
+        className="d-flex flex-column text-white p-3 sidebar overflow-auto"
+        style={{ backgroundColor: "var(--brand-color, #212529)" }}
+      >
         <div className="mb-4">
           <h5 className="fw-bold mb-0">Estética Canina</h5>
-          <small className="text-secondary">Panel de administración</small>
+          <small className="text-white-50">Panel de administración</small>
         </div>
 
-        <ul className="nav nav-pills flex-column gap-1">
-          {navItems.map((item) => (
-            <li className="nav-item" key={item.to}>
-              <NavLink
-                to={item.to}
-                className={({ isActive }) =>
-                  `nav-link text-white ${isActive ? "active" : ""}`
-                }
-              >
-                {item.label}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+        {navGroups.map((group) => {
+          const visible = group.items.filter(
+            (item) => !item.adminOnly || isAdmin,
+          );
+          if (visible.length === 0) return null;
+          return (
+            <div className="mb-3" key={group.title}>
+              <div className="text-uppercase text-white-50 small fw-semibold mb-1">
+                {group.title}
+              </div>
+              <ul className="nav nav-pills flex-column gap-1">
+                {visible.map((item) => (
+                  <li className="nav-item" key={item.to}>
+                    <NavLink
+                      to={item.to}
+                      className={({ isActive }) =>
+                        `nav-link text-white ${isActive ? "active" : ""}`
+                      }
+                    >
+                      {item.label}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
 
         <div className="mt-auto pt-3 border-top border-secondary">
           <div className="mb-2">
             <div className="fw-semibold">{profile?.user_name}</div>
-            <small className="text-secondary text-break">{profile?.email}</small>
+            <small className="text-white-50 text-break">{profile?.email}</small>
           </div>
           <button
             type="button"
