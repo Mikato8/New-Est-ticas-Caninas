@@ -12,20 +12,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.auth.getSession().then(async ({ data }) => {
-      const email = data.session?.user.email;
-      if (email) {
-        const { data: user } = await supabase
-          .from("users")
-          .select("id_user, user_name, email, id_rol, id_business")
-          .eq("email", email)
-          .maybeSingle();
-        if (user) {
-          setProfile(user as UserProfile);
+    supabase.auth
+      .getSession()
+      .then(async ({ data }) => {
+        const email = data.session?.user.email;
+        if (email) {
+          const { data: user } = await supabase
+            .from("users")
+            .select("id_user, user_name, email, id_rol, id_business")
+            .eq("email", email)
+            .maybeSingle();
+          if (user) {
+            setProfile(user as UserProfile);
+          }
         }
-      }
-      setLoading(false);
-    });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   async function signIn(email: string, password: string) {
