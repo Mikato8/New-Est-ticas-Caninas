@@ -1,53 +1,78 @@
-import Header from "../../components/Header/Header";
-import { LoginForm } from "./LoginForm";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/auth";
 
-function Login() {
-    const [userName, setUserName] = useState<string>("");
-    const [userPass, setUserPass] = useState<string>("");
-    return (
-        <>
-            <Header title="Esteticas Caninas" />
-            <div className="row d-flex justify-content-center">
+export default function Login() {
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
-                <div className="col-lg-4 col-sm-12">
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setSubmitting(true);
+    try {
+      await signIn(email, password);
+      navigate("/home", { replace: true });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Error al iniciar sesión");
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
-                    <form className="card m-4 p-3" action="">
-                        <center>
-                            <h2>Inicio de Sesión</h2>
-                        </center>
-                        <label htmlFor="">Usuario:</label>
-                        <input
-                            className="form-control"
-                            type="text"
-                            onChange={(e) => { setUserName(e.target.value) }}
-                            placeholder="Ingrese su nombre de usuario"
-                        />
+  return (
+    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+      <div className="card shadow-sm" style={{ width: "22rem" }}>
+        <div className="card-body p-4">
+          <h4 className="text-center fw-bold mb-1">Estética Canina</h4>
+          <p className="text-center text-secondary mb-4">
+            Inicia sesión para continuar
+          </p>
 
-                        <label className="mt-4" htmlFor="">Contraseña:</label>
-                        <input
-                            className="form-control"
-                            type="password"
-                            onChange={(e) => { setUserPass(e.target.value) }}
-                            placeholder="Ingrese su contraseña"
-                        />
+          {error && <div className="alert alert-danger py-2">{error}</div>}
 
-                        <input
-                            className="btn btn-primary mt-4"
-                            type="button"
-                            value="Ingresar"
-                            onClick={() =>
-                                LoginForm({
-                                    user: userName,
-                                    password: userPass
-                                })
-                            }
-                        />
-                    </form>
-                </div>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">
+                Correo
+              </label>
+              <input
+                id="email"
+                type="email"
+                className="form-control"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoFocus
+              />
             </div>
-        </>
-    );
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">
+                Contraseña
+              </label>
+              <input
+                id="password"
+                type="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="btn btn-primary w-100"
+              disabled={submitting}
+            >
+              {submitting ? "Entrando..." : "Entrar"}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 }
-
-export default Login;
