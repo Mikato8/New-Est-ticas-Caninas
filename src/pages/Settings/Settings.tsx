@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../../context/auth";
 import type { Business, Custom } from "../../types";
@@ -17,6 +17,7 @@ export default function Settings() {
     logo: "",
   });
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
 
@@ -59,6 +60,12 @@ export default function Settings() {
           document.documentElement.style.setProperty(
             "--brand-color",
             c.main_color,
+          );
+        }
+        if (c.secondary_color) {
+          document.documentElement.style.setProperty(
+            "--brand-secondary",
+            c.secondary_color,
           );
         }
       }
@@ -123,7 +130,40 @@ export default function Settings() {
         customForm.main_color,
       );
     }
+    if (customForm.secondary_color) {
+      document.documentElement.style.setProperty(
+        "--brand-secondary",
+        customForm.secondary_color,
+      );
+    }
     setSaved(true);
+  }
+
+  async function handleLogoChange(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setError(null);
+    setUploading(true);
+    try {
+      const idBusiness = profile?.id_business ?? 0;
+      const ext = file.name.split(".").pop() ?? "png";
+      const path = `${idBusiness}/logo-${Date.now()}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("logos")
+        .upload(path, file, { upsert: true, contentType: file.type });
+      if (upErr) throw upErr;
+      const { data } = supabase.storage.from("logos").getPublicUrl(path);
+      setCustomForm((prev) => ({ ...prev, logo: data.publicUrl }));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "No se pudo subir el logo");
+    } finally {
+      setUploading(false);
+      e.target.value = "";
+    }
+  }
+
+  function handleLogoRemove() {
+    setCustomForm((prev) => ({ ...prev, logo: "" }));
   }
 
   if (loading) {
@@ -255,15 +295,57 @@ export default function Settings() {
                 </div>
               </div>
               <div className="col-12 col-md-4">
-                <label className="form-label">Logo (URL)</label>
-                <input
-                  className="form-control"
-                  value={customForm.logo}
-                  placeholder="https://..."
-                  onChange={(e) =>
-                    setCustomForm({ ...customForm, logo: e.target.value })
-                  }
-                />
+                <label className="form-label">Logo</label>
+                <div className="d-flex align-items-center gap-3">
+                  {customForm.logo ? (
+                    <img
+                      src={customForm.logo}
+                      alt="Logo"
+                      className="rounded border"
+                      style={{
+                        width: 64,
+                        height: 64,
+                        objectFit: "cover",
+                        backgroundColor: "#fff",
+                      }}
+                    />
+                  ) : (
+                    <div
+                      className="rounded border d-flex align-items-center justify-content-center text-secondary"
+                      style={{ width: 64, height: 64 }}
+                    >
+                      Sin logo
+                    </div>
+                  )}
+                  <div className="d-flex flex-column gap-2">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="form-control form-control-sm"
+                      onChange={handleLogoChange}
+                      disabled={uploading}
+                    />
+                    <div className="d-flex gap-2">
+                      {customForm.logo && (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-danger"
+                          onClick={handleLogoRemove}
+                        >
+                          Quitar logo
+                        </button>
+                      )}
+                      <small className="text-secondary align-self-center">
+                        {uploading ? "Subiendo..." : "PNG, JPG o SVG"}
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                {customForm.logo && (
+                  <small className="text-secondary text-break d-block mt-1">
+                    {customForm.logo}
+                  </small>
+                )}
               </div>
             </div>
           </div>
