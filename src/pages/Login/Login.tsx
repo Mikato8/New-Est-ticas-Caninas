@@ -4,6 +4,78 @@ import { useAuth } from "../../context/auth";
 
 type Mode = "login" | "register";
 
+function PasswordInput({
+  id,
+  value,
+  onChange,
+  required = true,
+  minLength,
+  autoFocus,
+}: {
+  id: string;
+  value: string;
+  onChange: (value: string) => void;
+  required?: boolean;
+  minLength?: number;
+  autoFocus?: boolean;
+}) {
+  const [show, setShow] = useState(false);
+
+  return (
+    <div className="input-group">
+      <input
+        id={id}
+        type={show ? "text" : "password"}
+        className="form-control"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        required={required}
+        minLength={minLength}
+        autoFocus={autoFocus}
+      />
+      <button
+        type="button"
+        className="btn btn-outline-secondary"
+        onClick={() => setShow((prev) => !prev)}
+        aria-label={show ? "Ocultar contraseña" : "Mostrar contraseña"}
+        title={show ? "Ocultar contraseña" : "Mostrar contraseña"}
+      >
+        {show ? (
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+            <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+            <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+            <line x1="2" y1="2" x2="22" y2="22" />
+          </svg>
+        ) : (
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        )}
+      </button>
+    </div>
+  );
+}
+
 export default function Login() {
   const { signIn, signUp } = useAuth();
   const navigate = useNavigate();
@@ -118,13 +190,10 @@ export default function Login() {
                 <label htmlFor="password" className="form-label">
                   Contraseña
                 </label>
-                <input
+                <PasswordInput
                   id="password"
-                  type="password"
-                  className="form-control"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
+                  onChange={setPassword}
                 />
               </div>
               <button
@@ -181,14 +250,11 @@ export default function Login() {
                 <label htmlFor="regPassword" className="form-label">
                   Contraseña
                 </label>
-                <input
+                <PasswordInput
                   id="regPassword"
-                  type="password"
-                  className="form-control"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={setPassword}
                   minLength={6}
-                  required
                 />
                 <div className="form-text">Mínimo 6 caracteres</div>
               </div>
