@@ -1,10 +1,12 @@
 import { createContext, useContext } from "react";
 import type { UserProfile } from "../types";
+import type { RegisterInput } from "../lib/auth";
 
 export interface AuthContextValue {
   profile: UserProfile | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
+  signUp: (input: RegisterInput) => Promise<void>;
   signOut: () => Promise<void>;
 }
 

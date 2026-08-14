@@ -1,6 +1,13 @@
 import { supabase } from "./supabase";
 import type { UserProfile } from "../types";
 
+export interface RegisterInput {
+  business_name: string;
+  user_name: string;
+  email: string;
+  password: string;
+}
+
 export async function signIn(email: string, password: string): Promise<UserProfile> {
   const res = await fetch(
     `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/login`,
@@ -18,6 +25,33 @@ export async function signIn(email: string, password: string): Promise<UserProfi
   }
 
   const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data.user;
+}
+
+export async function register(input: RegisterInput): Promise<UserProfile> {
+  const res = await fetch(
+    `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/register`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(input),
+    },
+  );
+
+  const data = (await res.json()) as { user?: UserProfile; error?: string };
+
+  if (!res.ok || !data.user) {
+    throw new Error(data.error ?? "No se pudo crear la cuenta");
+  }
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email: input.email,
+    password: input.password,
+  });
   if (error) {
     throw new Error(error.message);
   }

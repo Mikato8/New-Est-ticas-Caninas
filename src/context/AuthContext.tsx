@@ -2,8 +2,10 @@ import { useEffect, useState, type ReactNode } from "react";
 import { supabase } from "../lib/supabase";
 import {
   signIn as signInRequest,
+  register as registerRequest,
   signOut as signOutRequest,
 } from "../lib/auth";
+import type { RegisterInput } from "../lib/auth";
 import { AuthContext } from "./auth";
 import type { UserProfile } from "../types";
 
@@ -33,13 +35,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setProfile(user);
   }
 
+  async function signUp(input: RegisterInput) {
+    const user = await registerRequest(input);
+    setProfile(user);
+  }
+
   async function signOut() {
     await signOutRequest();
     setProfile(null);
   }
 
   return (
-    <AuthContext.Provider value={{ profile, loading, signIn, signOut }}>
+    <AuthContext.Provider value={{ profile, loading, signIn, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );

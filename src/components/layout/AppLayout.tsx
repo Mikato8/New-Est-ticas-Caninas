@@ -63,8 +63,8 @@ export default function AppLayout() {
         style={{ backgroundColor: "var(--brand-color, #212529)" }}
       >
         <div className="mb-4">
-          <h5 className="fw-bold mb-0">Estética Canina</h5>
-          <small className="text-white-50">Panel de administración</small>
+          <h5 className="fw-bold mb-0">Mikato Software</h5>
+          <small className="text-white-50">Estética canina</small>
         </div>
 
         {navGroups.map((group) => {
@@ -107,6 +107,9 @@ export default function AppLayout() {
           >
             Cerrar sesión
           </button>
+          <div className="text-white-50 small text-center mt-2">
+            © {new Date().getFullYear()} Mikato Software
+          </div>
         </div>
       </nav>
 

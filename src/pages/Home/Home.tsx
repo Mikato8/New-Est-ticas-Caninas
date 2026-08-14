@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
+import { useAuth } from "../../context/auth";
 import type { AppointmentWithDetails } from "../../types";
 import {
   formatDate,
@@ -19,9 +20,17 @@ interface Stats {
 }
 
 export default function Home() {
+  const { profile } = useAuth();
   const [stats, setStats] = useState<Stats | null>(null);
   const [upcoming, setUpcoming] = useState<AppointmentWithDetails[]>([]);
   const [error, setError] = useState<string | null>(null);
+
+  const roleLabel =
+    profile?.id_rol === 1
+      ? "Administrador"
+      : profile?.id_rol === 2
+        ? "Capturista de datos"
+        : "Usuario";
 
   useEffect(() => {
     let active = true;
@@ -130,6 +139,14 @@ export default function Home() {
           <p className="text-secondary mb-0">
             {stats ? `Bienvenido a ${stats.businessName}` : "Cargando..."}
           </p>
+        </div>
+        <div className="text-end">
+          <div className="fw-semibold">{profile?.user_name}</div>
+          <span
+            className={`badge ${profile?.id_rol === 1 ? "bg-primary" : "bg-secondary"}`}
+          >
+            {roleLabel}
+          </span>
         </div>
       </div>
 
