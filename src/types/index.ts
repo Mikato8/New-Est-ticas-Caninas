@@ -26,6 +26,7 @@ export interface Custom {
   id_custom: number;
   main_color: string | null;
   secondary_color: string | null;
+  text_color: string | null;
   logo: string | null;
   id_business: number;
 }

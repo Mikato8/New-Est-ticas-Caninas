@@ -65,7 +65,7 @@ export default function AppLayout() {
     let active = true;
     supabase
       .from("custom")
-      .select("main_color, secondary_color, logo")
+      .select("main_color, secondary_color, text_color, logo")
       .eq("id_business", idBusiness)
       .maybeSingle()
       .then(({ data }) => {
@@ -73,6 +73,7 @@ export default function AppLayout() {
         const c = data as {
           main_color: string | null;
           secondary_color: string | null;
+          text_color: string | null;
           logo: string | null;
         };
         if (c.main_color) {
@@ -83,6 +84,9 @@ export default function AppLayout() {
             "--brand-secondary",
             c.secondary_color,
           );
+        }
+        if (c.text_color) {
+          document.documentElement.style.setProperty("--brand-text", c.text_color);
         }
         if (c.logo) setLogo(c.logo);
       });
@@ -160,6 +164,15 @@ export default function AppLayout() {
 
       <main className="flex-grow-1 overflow-auto bg-light">
         <div className="container-fluid py-4 px-4">
+          {logo && (
+            <div className="d-flex justify-content-center mb-4">
+              <img
+                src={logo}
+                alt="Logo"
+                style={{ height: 64, maxWidth: "100%", objectFit: "contain" }}
+              />
+            </div>
+          )}
           <Outlet />
         </div>
       </main>

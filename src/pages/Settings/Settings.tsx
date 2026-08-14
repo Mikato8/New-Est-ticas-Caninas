@@ -14,6 +14,7 @@ export default function Settings() {
   const [customForm, setCustomForm] = useState({
     main_color: "",
     secondary_color: "",
+    text_color: "",
     logo: "",
   });
   const [loading, setLoading] = useState(true);
@@ -54,6 +55,7 @@ export default function Settings() {
         setCustomForm({
           main_color: c.main_color ?? "",
           secondary_color: c.secondary_color ?? "",
+          text_color: c.text_color ?? "",
           logo: c.logo ?? "",
         });
         if (c.main_color) {
@@ -66,6 +68,12 @@ export default function Settings() {
           document.documentElement.style.setProperty(
             "--brand-secondary",
             c.secondary_color,
+          );
+        }
+        if (c.text_color) {
+          document.documentElement.style.setProperty(
+            "--brand-text",
+            c.text_color,
           );
         }
       }
@@ -93,6 +101,7 @@ export default function Settings() {
     const customPayload = {
       main_color: customForm.main_color || null,
       secondary_color: customForm.secondary_color || null,
+      text_color: customForm.text_color || null,
       logo: customForm.logo || null,
       id_business: idBusiness,
     };
@@ -134,6 +143,12 @@ export default function Settings() {
       document.documentElement.style.setProperty(
         "--brand-secondary",
         customForm.secondary_color,
+      );
+    }
+    if (customForm.text_color) {
+      document.documentElement.style.setProperty(
+        "--brand-text",
+        customForm.text_color,
       );
     }
     setSaved(true);
@@ -295,6 +310,33 @@ export default function Settings() {
                 </div>
               </div>
               <div className="col-12 col-md-4">
+                <label className="form-label">Color de letra</label>
+                <div className="d-flex gap-2">
+                  <input
+                    type="color"
+                    className="form-control form-control-color"
+                    value={customForm.text_color || "#ffffff"}
+                    onChange={(e) =>
+                      setCustomForm({
+                        ...customForm,
+                        text_color: e.target.value,
+                      })
+                    }
+                  />
+                  <input
+                    className="form-control"
+                    value={customForm.text_color}
+                    placeholder="#ffffff"
+                    onChange={(e) =>
+                      setCustomForm({
+                        ...customForm,
+                        text_color: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+              </div>
+              <div className="col-12">
                 <label className="form-label">Logo</label>
                 <div className="d-flex align-items-center gap-3">
                   {customForm.logo ? (

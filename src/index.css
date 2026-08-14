@@ -5,6 +5,26 @@
 
 :root {
   --brand-secondary: #0d6efd;
+  --brand-text: #ffffff;
+}
+
+.sidebar {
+  color: var(--brand-text, #ffffff);
+}
+
+.sidebar .nav-link,
+.sidebar .nav-link.active,
+.sidebar h5,
+.sidebar .fw-semibold {
+  color: var(--brand-text, #ffffff) !important;
+}
+
+.sidebar .text-white-50 {
+  color: color-mix(
+    in srgb,
+    var(--brand-text, #ffffff) 65%,
+    transparent
+  ) !important;
 }
 
 .sidebar .nav-link.active {
