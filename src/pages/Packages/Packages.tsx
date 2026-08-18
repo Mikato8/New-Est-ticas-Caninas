@@ -2,7 +2,9 @@ import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../../context/auth";
 import type { PackageWithDetails, Product, Service } from "../../types";
-import { formatMoney } from "../../lib/format";
+import { formatMoney, serviceSizeLabels } from "../../lib/format";
+
+const sizes = ["small", "medium", "large", "xl"] as const;
 
 export default function Packages() {
   const { profile } = useAuth();
@@ -13,6 +15,7 @@ export default function Packages() {
     package_name: "",
     description: "",
     price: "",
+    size: "",
     services: [] as number[],
     products: [] as number[],
   });
@@ -57,6 +60,7 @@ export default function Packages() {
       package_name: "",
       description: "",
       price: "",
+      size: "",
       services: [],
       products: [],
     });
@@ -69,6 +73,7 @@ export default function Packages() {
       package_name: p.package_name,
       description: p.description ?? "",
       price: String(p.price ?? ""),
+      size: p.size ?? "",
       services: (p.package_services ?? []).map((r) => r.services.id_service),
       products: (p.package_products ?? []).map((r) => r.products.id_product),
     });
@@ -117,6 +122,7 @@ export default function Packages() {
       package_name: form.package_name,
       description: form.description || null,
       price: Number(form.price || 0),
+      size: form.size || null,
       id_business: profile?.id_business,
     };
 
@@ -170,7 +176,7 @@ export default function Packages() {
             </h5>
             <form onSubmit={handleSubmit}>
               <div className="row g-3">
-                <div className="col-12 col-md-4">
+                <div className="col-12 col-md-3">
                   <label className="form-label">Nombre</label>
                   <input
                     className="form-control"
@@ -181,7 +187,7 @@ export default function Packages() {
                     required
                   />
                 </div>
-                <div className="col-12 col-md-4">
+                <div className="col-12 col-md-3">
                   <label className="form-label">Descripción</label>
                   <input
                     className="form-control"
@@ -191,7 +197,7 @@ export default function Packages() {
                     }
                   />
                 </div>
-                <div className="col-12 col-md-4">
+                <div className="col-12 col-md-3">
                   <label className="form-label">Precio</label>
                   <input
                     type="number"
@@ -204,6 +210,21 @@ export default function Packages() {
                   <div className="form-text">
                     Total sugerido: {formatMoney(computedTotal)}
                   </div>
+                </div>
+                <div className="col-12 col-md-3">
+                  <label className="form-label">Talla</label>
+                  <select
+                    className="form-select"
+                    value={form.size}
+                    onChange={(e) => setForm({ ...form, size: e.target.value })}
+                  >
+                    <option value="">Sin talla</option>
+                    {sizes.map((s) => (
+                      <option key={s} value={s}>
+                        {serviceSizeLabels[s]}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className="col-12 col-md-6">
                   <label className="form-label">Servicios incluidos</label>

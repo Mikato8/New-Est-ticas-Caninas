@@ -87,6 +87,7 @@ export interface Package {
   description: string | null;
   price: number;
   id_business: number;
+  size: ServiceSize | null;
 }
 
 export interface PackageWithDetails extends Package {
