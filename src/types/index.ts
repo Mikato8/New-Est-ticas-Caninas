@@ -159,6 +159,7 @@ export interface Contract {
   signed: boolean;
   signed_date: string | null;
   id_business: number;
+  template: string | null;
 }
 
 export interface ContractWithDetails extends Contract {
