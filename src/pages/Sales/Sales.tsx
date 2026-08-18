@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../../context/auth";
 import type {
+  Customer,
   PaymentMethod,
   Product,
   SaleStatus,
@@ -24,10 +25,12 @@ export default function Sales() {
   const [services, setServices] = useState<Service[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [methods, setMethods] = useState<PaymentMethod[]>([]);
+  const [customers, setCustomers] = useState<Customer[]>([]);
   const [form, setForm] = useState({
     services: [] as number[],
     products: [] as number[],
     id_payment_method: "",
+    costumer_id: "",
     sale_date: todayISO(),
     status: "pending" as SaleStatus,
   });
@@ -36,23 +39,26 @@ export default function Sales() {
   const [error, setError] = useState<string | null>(null);
 
   async function load() {
-    const [salesRes, servicesRes, productsRes, methodsRes] = await Promise.all([
-      supabase
-        .from("sales")
-        .select(
-          "*, payment_methods(method_name), sale_services(services(service_name, price)), sale_products(products(product_name, sale_price))",
-        )
-        .order("sale_date", { ascending: false }),
-      supabase.from("services").select("*").order("service_name"),
-      supabase.from("products").select("*").order("product_name"),
-      supabase.from("payment_methods").select("*").order("method_name"),
-    ]);
+    const [salesRes, servicesRes, productsRes, methodsRes, customersRes] =
+      await Promise.all([
+        supabase
+          .from("sales")
+          .select(
+            "*, payment_methods(method_name), customers(customer_name), sale_services(services(service_name, price)), sale_products(products(product_name, sale_price))",
+          )
+          .order("sale_date", { ascending: false }),
+        supabase.from("services").select("*").order("service_name"),
+        supabase.from("products").select("*").order("product_name"),
+        supabase.from("payment_methods").select("*").order("method_name"),
+        supabase.from("customers").select("*").order("customer_name"),
+      ]);
 
     if (salesRes.error) setError(salesRes.error.message);
     else setSales((salesRes.data as unknown as SaleWithDetails[]) ?? []);
     if (servicesRes.data) setServices(servicesRes.data as Service[]);
     if (productsRes.data) setProducts(productsRes.data as Product[]);
     if (methodsRes.data) setMethods(methodsRes.data as PaymentMethod[]);
+    if (customersRes.data) setCustomers(customersRes.data as Customer[]);
   }
 
   useEffect(() => {
@@ -74,6 +80,7 @@ export default function Sales() {
       services: [],
       products: [],
       id_payment_method: "",
+      costumer_id: "",
       sale_date: todayISO(),
       status: "pending",
     });
@@ -88,6 +95,7 @@ export default function Sales() {
       id_payment_method: s.id_payment_method
         ? String(s.id_payment_method)
         : "",
+      costumer_id: s.costumer_id ? String(s.costumer_id) : "",
       sale_date: s.sale_date ?? todayISO(),
       status: s.status,
     });
@@ -131,6 +139,7 @@ export default function Sales() {
       id_payment_method: form.id_payment_method
         ? Number(form.id_payment_method)
         : null,
+      costumer_id: form.costumer_id ? Number(form.costumer_id) : null,
       sale_date: form.sale_date || null,
       status: form.status,
       id_business: profile?.id_business,
@@ -231,6 +240,23 @@ export default function Sales() {
                   </div>
                 </div>
                 <div className="col-12 col-md-3">
+                  <label className="form-label">Cliente</label>
+                  <select
+                    className="form-select"
+                    value={form.costumer_id}
+                    onChange={(e) =>
+                      setForm({ ...form, costumer_id: e.target.value })
+                    }
+                  >
+                    <option value="">Sin cliente</option>
+                    {customers.map((c) => (
+                      <option key={c.id_customer} value={c.id_customer}>
+                        {c.customer_name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="col-12 col-md-3">
                   <label className="form-label">Método de pago</label>
                   <select
                     className="form-select"
@@ -304,6 +330,7 @@ export default function Sales() {
             <thead className="table-light">
               <tr>
                 <th>Fecha</th>
+                <th>Cliente</th>
                 <th>Total</th>
                 <th>Método</th>
                 <th>Conceptos</th>
@@ -314,7 +341,7 @@ export default function Sales() {
             <tbody>
               {sales.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="text-center text-secondary py-4">
+                  <td colSpan={7} className="text-center text-secondary py-4">
                     No hay ventas registradas
                   </td>
                 </tr>
@@ -322,6 +349,7 @@ export default function Sales() {
               {sales.map((s) => (
                 <tr key={s.id_sale}>
                   <td className="fw-semibold">{formatDate(s.sale_date)}</td>
+                  <td>{s.customers?.customer_name ?? "—"}</td>
                   <td>{formatMoney(s.total_price)}</td>
                   <td>{s.payment_methods?.method_name ?? "—"}</td>
                   <td>

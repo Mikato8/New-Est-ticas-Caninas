@@ -115,10 +115,12 @@ export interface Sale {
   sale_date: string | null;
   status: SaleStatus;
   id_business: number;
+  costumer_id: number | null;
 }
 
 export interface SaleWithDetails extends Sale {
   payment_methods: { method_name: string } | null;
+  customers: { customer_name: string } | null;
   sale_services: {
     id_service: number;
     services: { service_name: string; price: number } | null;
