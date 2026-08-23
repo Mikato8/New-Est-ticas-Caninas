@@ -126,7 +126,7 @@ export default function Appointments() {
 
   return (
     <div>
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
         <h1 className="h3 mb-0">Citas</h1>
         <button className="btn btn-primary" onClick={openNew}>
           Nueva cita
@@ -204,7 +204,7 @@ export default function Appointments() {
                   />
                 </div>
               </div>
-              <div className="mt-3 d-flex gap-2">
+              <div className="mt-3 d-flex flex-wrap gap-2">
                 <button type="submit" className="btn btn-success">
                   Guardar
                 </button>

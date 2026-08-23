@@ -111,7 +111,7 @@ export default function Users() {
 
   return (
     <div>
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
         <h1 className="h3 mb-0">Usuarios</h1>
         <button className="btn btn-primary" onClick={openNew}>
           Nuevo usuario
@@ -202,7 +202,7 @@ export default function Users() {
                   </select>
                 </div>
               </div>
-              <div className="mt-3 d-flex gap-2">
+              <div className="mt-3 d-flex flex-wrap gap-2">
                 <button type="submit" className="btn btn-success">
                   Guardar
                 </button>

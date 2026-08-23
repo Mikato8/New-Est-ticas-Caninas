@@ -58,6 +58,8 @@ export default function AppLayout() {
   const { profile, signOut } = useAuth();
   const isAdmin = profile?.id_rol === 1;
   const [logo, setLogo] = useState<string | null>(null);
+  const [businessName, setBusinessName] = useState("Mikato Software");
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   useEffect(() => {
     const idBusiness = profile?.id_business;
@@ -90,15 +92,79 @@ export default function AppLayout() {
         }
         if (c.logo) setLogo(c.logo);
       });
+    supabase
+      .from("business")
+      .select("business_name")
+      .eq("id_business", idBusiness)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (active && data?.business_name) setBusinessName(data.business_name);
+      });
     return () => {
       active = false;
     };
   }, [profile]);
 
+  useEffect(() => {
+    if (!isNavOpen) return;
+
+    const closeWithEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsNavOpen(false);
+    };
+    const closeOnDesktop = () => {
+      if (window.innerWidth >= 992) setIsNavOpen(false);
+    };
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", closeWithEscape);
+    window.addEventListener("resize", closeOnDesktop);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", closeWithEscape);
+      window.removeEventListener("resize", closeOnDesktop);
+    };
+  }, [isNavOpen]);
+
   return (
-    <div className="d-flex vh-100">
+    <div className="app-shell d-flex flex-column flex-lg-row">
+      <header className="mobile-topbar d-lg-none">
+        <button
+          type="button"
+          className="btn btn-outline-secondary mobile-menu-button"
+          aria-label="Abrir menú de navegación"
+          aria-expanded={isNavOpen}
+          aria-controls="main-navigation"
+          onClick={() => setIsNavOpen(true)}
+        >
+          <span aria-hidden="true" className="fs-4 lh-1">
+            ☰
+          </span>
+        </button>
+        {logo && (
+          <img
+            src={logo}
+            alt="Logo"
+            className="rounded bg-white mobile-topbar-logo"
+          />
+        )}
+        <span className="fw-semibold text-truncate">{businessName}</span>
+      </header>
+
+      <button
+        type="button"
+        className={`sidebar-backdrop ${isNavOpen ? "show" : ""}`}
+        aria-label="Cerrar menú de navegación"
+        tabIndex={isNavOpen ? 0 : -1}
+        onClick={() => setIsNavOpen(false)}
+      />
+
       <nav
-        className="d-flex flex-column text-white p-3 sidebar overflow-auto"
+        id="main-navigation"
+        className={`d-flex flex-column text-white p-3 sidebar overflow-auto ${
+          isNavOpen ? "sidebar-open" : ""
+        }`}
         style={{ backgroundColor: "var(--brand-color, #212529)" }}
       >
         <div className="mb-4 d-flex align-items-center gap-2">
@@ -111,7 +177,7 @@ export default function AppLayout() {
             />
           )}
           <div>
-            <h5 className="fw-bold mb-0">Mikato Software</h5>
+            <h5 className="fw-bold mb-0">{businessName}</h5>
             <small className="text-white-50">Estética canina</small>
           </div>
         </div>
@@ -134,6 +200,7 @@ export default function AppLayout() {
                       className={({ isActive }) =>
                         `nav-link text-white ${isActive ? "active" : ""}`
                       }
+                      onClick={() => setIsNavOpen(false)}
                     >
                       {item.label}
                     </NavLink>
@@ -162,10 +229,10 @@ export default function AppLayout() {
         </div>
       </nav>
 
-      <main className="flex-grow-1 overflow-auto bg-light">
+      <main className="app-main flex-grow-1 bg-light">
         <div className="container-fluid py-4 px-4">
           {logo && (
-            <div className="d-flex justify-content-center mb-4">
+            <div className="d-none d-lg-flex justify-content-center mb-4">
               <img
                 src={logo}
                 alt="Logo"
