@@ -58,7 +58,6 @@ export default function AppLayout() {
   const { profile, signOut } = useAuth();
   const isAdmin = profile?.id_rol === 1;
   const [logo, setLogo] = useState<string | null>(null);
-  const [businessName, setBusinessName] = useState("Mikato Software");
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   useEffect(() => {
@@ -91,14 +90,6 @@ export default function AppLayout() {
           document.documentElement.style.setProperty("--brand-text", c.text_color);
         }
         if (c.logo) setLogo(c.logo);
-      });
-    supabase
-      .from("business")
-      .select("business_name")
-      .eq("id_business", idBusiness)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (active && data?.business_name) setBusinessName(data.business_name);
       });
     return () => {
       active = false;
@@ -149,7 +140,7 @@ export default function AppLayout() {
             className="rounded bg-white mobile-topbar-logo"
           />
         )}
-        <span className="fw-semibold text-truncate">{businessName}</span>
+        <span className="fw-semibold text-truncate">Mikato Software</span>
       </header>
 
       <button
@@ -177,7 +168,7 @@ export default function AppLayout() {
             />
           )}
           <div>
-            <h5 className="fw-bold mb-0">{businessName}</h5>
+            <h5 className="fw-bold mb-0">Mikato Software</h5>
             <small className="text-white-50">Estética canina</small>
           </div>
         </div>
