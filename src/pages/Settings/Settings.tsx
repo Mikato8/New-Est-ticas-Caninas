@@ -257,7 +257,7 @@ export default function Settings() {
             <div className="row g-3">
               <div className="col-12 col-md-4">
                 <label className="form-label">Color principal</label>
-                <div className="d-flex gap-2">
+                <div className="d-flex gap-2 min-w-0">
                   <input
                     type="color"
                     className="form-control form-control-color"
@@ -284,7 +284,7 @@ export default function Settings() {
               </div>
               <div className="col-12 col-md-4">
                 <label className="form-label">Color secundario</label>
-                <div className="d-flex gap-2">
+                <div className="d-flex gap-2 min-w-0">
                   <input
                     type="color"
                     className="form-control form-control-color"
@@ -311,7 +311,7 @@ export default function Settings() {
               </div>
               <div className="col-12 col-md-4">
                 <label className="form-label">Color de letra</label>
-                <div className="d-flex gap-2">
+                <div className="d-flex gap-2 min-w-0">
                   <input
                     type="color"
                     className="form-control form-control-color"
@@ -338,7 +338,7 @@ export default function Settings() {
               </div>
               <div className="col-12">
                 <label className="form-label">Logo</label>
-                <div className="d-flex align-items-center gap-3">
+                <div className="d-flex flex-wrap align-items-center gap-3">
                   {customForm.logo ? (
                     <img
                       src={customForm.logo}
@@ -367,7 +367,7 @@ export default function Settings() {
                       onChange={handleLogoChange}
                       disabled={uploading}
                     />
-                    <div className="d-flex gap-2">
+                    <div className="d-flex flex-wrap gap-2">
                       {customForm.logo && (
                         <button
                           type="button"

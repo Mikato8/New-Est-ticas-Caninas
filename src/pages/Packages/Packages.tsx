@@ -159,7 +159,7 @@ export default function Packages() {
 
   return (
     <div>
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
         <h1 className="h3 mb-0">Paquetes</h1>
         <button className="btn btn-primary" onClick={openNew}>
           Nuevo paquete
@@ -271,7 +271,7 @@ export default function Packages() {
                   </div>
                 </div>
               </div>
-              <div className="mt-3 d-flex gap-2">
+              <div className="mt-3 d-flex flex-wrap gap-2">
                 <button type="submit" className="btn btn-success">
                   Guardar
                 </button>
@@ -302,8 +302,8 @@ export default function Packages() {
           <div className="col-12 col-md-6 col-lg-4" key={p.id_package}>
             <div className="card shadow-sm h-100">
               <div className="card-body d-flex flex-column">
-                <div className="d-flex justify-content-between align-items-start">
-                  <h5 className="mb-1">{p.package_name}</h5>
+                <div className="d-flex flex-wrap justify-content-between align-items-start gap-2">
+                  <h5 className="mb-1 text-break">{p.package_name}</h5>
                   <span className="badge bg-primary">
                     {formatMoney(p.price)}
                   </span>
@@ -333,7 +333,7 @@ export default function Packages() {
                     ))}
                   </ul>
                 </div>
-                <div className="mt-auto d-flex gap-2">
+                <div className="mt-auto d-flex flex-wrap gap-2">
                   <button
                     className="btn btn-sm btn-outline-secondary"
                     onClick={() => openEdit(p)}

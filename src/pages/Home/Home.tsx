@@ -133,7 +133,7 @@ export default function Home() {
 
   return (
     <div>
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
         <div>
           <h1 className="h3 mb-0">Inicio</h1>
           <p className="text-secondary mb-0">
@@ -203,7 +203,7 @@ export default function Home() {
             <div className="list-group list-group-flush">
               {upcoming.map((a) => (
                 <div
-                  className="list-group-item d-flex justify-content-between align-items-center px-0"
+                  className="list-group-item d-flex flex-wrap justify-content-between align-items-center gap-2 px-0"
                   key={a.id_appointment}
                 >
                   <div>
