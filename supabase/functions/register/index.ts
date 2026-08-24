@@ -82,7 +82,7 @@ Deno.serve(async (req) => {
         id_rol: 1,
         id_business: business.id_business,
       })
-      .select("id_user, user_name, email, id_rol, id_business")
+      .select("id_user, user_name, email, id_rol, id_business, is_super_admin")
       .single();
 
     if (userError || !user) {

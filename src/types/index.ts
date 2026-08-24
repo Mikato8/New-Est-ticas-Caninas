@@ -7,6 +7,21 @@ export interface UserProfile {
   email: string;
   id_rol: number;
   id_business: number;
+  is_super_admin: boolean;
+}
+
+export interface AccountRow {
+  id_user: number;
+  user_name: string;
+  email: string;
+  id_rol: number;
+  id_business: number;
+  business_name: string;
+  is_active: boolean;
+  access_until: string | null;
+  last_login: string | null;
+  login_count: number;
+  is_super_admin: boolean;
 }
 
 export interface Role {

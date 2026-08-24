@@ -226,6 +226,15 @@ export default function Home() {
           )}
         </div>
       </div>
+      <div className="text-center text-secondary small mt-4">
+        Contacto:{" "}
+        <a
+          href="mailto:clientes@mikatoestilistascaninos.com"
+          className="text-secondary"
+        >
+          clientes@mikatoestilistascaninos.com
+        </a>
+      </div>
     </div>
   );
 }

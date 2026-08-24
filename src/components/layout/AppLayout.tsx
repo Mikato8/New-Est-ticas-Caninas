@@ -7,6 +7,7 @@ interface NavItem {
   to: string;
   label: string;
   adminOnly?: boolean;
+  superAdminOnly?: boolean;
 }
 
 interface NavGroup {
@@ -50,6 +51,7 @@ const navGroups: NavGroup[] = [
     items: [
       { to: "/users", label: "Usuarios", adminOnly: true },
       { to: "/settings", label: "Configuración", adminOnly: true },
+      { to: "/accounts", label: "Cuentas", superAdminOnly: true },
     ],
   },
 ];
@@ -57,6 +59,7 @@ const navGroups: NavGroup[] = [
 export default function AppLayout() {
   const { profile, signOut } = useAuth();
   const isAdmin = profile?.id_rol === 1;
+  const isSuperAdmin = profile?.is_super_admin === true;
   const [logo, setLogo] = useState<string | null>(null);
   const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -175,7 +178,9 @@ export default function AppLayout() {
 
         {navGroups.map((group) => {
           const visible = group.items.filter(
-            (item) => !item.adminOnly || isAdmin,
+            (item) =>
+              (!item.adminOnly || isAdmin) &&
+              (!item.superAdminOnly || isSuperAdmin),
           );
           if (visible.length === 0) return null;
           return (

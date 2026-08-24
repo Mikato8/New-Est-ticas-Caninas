@@ -1,5 +1,5 @@
 import { supabase } from "./supabase";
-import type { UserProfile } from "../types";
+import type { AccountRow, UserProfile } from "../types";
 
 export interface RegisterInput {
   business_name: string;
@@ -77,6 +77,61 @@ export async function requestPasswordReset(email: string): Promise<void> {
   if (!res.ok) {
     throw new Error(data.error ?? "No se pudo solicitar la recuperación");
   }
+}
+
+async function getAccountsHeaders() {
+  const { data } = await supabase.auth.getSession();
+  const accessToken = data.session?.access_token;
+  if (!accessToken) {
+    throw new Error("No hay una sesión activa");
+  }
+
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${accessToken}`,
+    apikey: import.meta.env.VITE_SUPABASE_ANON_KEY as string,
+  };
+}
+
+async function accountsRequest<T>(body: unknown): Promise<T> {
+  const res = await fetch(
+    `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/accounts`,
+    {
+      method: "POST",
+      headers: await getAccountsHeaders(),
+      body: JSON.stringify(body),
+    },
+  );
+  const data = (await res.json()) as T & { error?: string };
+  if (!res.ok) {
+    throw new Error(data.error ?? "No se pudo completar la solicitud");
+  }
+  return data;
+}
+
+export async function listAccounts(): Promise<AccountRow[]> {
+  const data = await accountsRequest<{
+    accounts: AccountRow[];
+  }>({ action: "list" });
+  return data.accounts;
+}
+
+export interface UpdateAccountInput {
+  id_user: number;
+  is_active?: boolean;
+  access_until?: string | null;
+}
+
+export async function updateAccount(
+  input: UpdateAccountInput,
+): Promise<AccountRow> {
+  const data = await accountsRequest<{
+    account: AccountRow;
+  }>({
+    action: "update",
+    ...input,
+  });
+  return data.account;
 }
 
 export async function signOut(): Promise<void> {

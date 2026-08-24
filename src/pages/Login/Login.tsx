@@ -147,7 +147,7 @@ export default function Login() {
   }
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div className="d-flex flex-column justify-content-center align-items-center vh-100 bg-light">
       <div className="card shadow" style={{ width: "24rem", maxWidth: "92vw" }}>
         <div className="card-body p-4">
           <div className="text-center mb-4">
@@ -350,6 +350,15 @@ export default function Login() {
           © {new Date().getFullYear()} Mikato Software. Todos los derechos
           reservados.
         </div>
+      </div>
+      <div className="mt-2 text-secondary small">
+        Contacto:{" "}
+        <a
+          href="mailto:clientes@mikatoestilistascaninos.com"
+          className="text-secondary"
+        >
+          clientes@mikatoestilistascaninos.com
+        </a>
       </div>
     </div>
   );
