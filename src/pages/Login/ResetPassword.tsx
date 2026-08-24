@@ -4,15 +4,6 @@ import { supabase } from "../../lib/supabase";
 
 type ResetStatus = "checking" | "ready" | "success" | "invalid";
 
-function hasRecoveryTypeInUrl() {
-  const hashParams = new URLSearchParams(window.location.hash.slice(1));
-  const searchParams = new URLSearchParams(window.location.search);
-  return (
-    hashParams.get("type") === "recovery" ||
-    searchParams.get("type") === "recovery"
-  );
-}
-
 export default function ResetPassword() {
   const navigate = useNavigate();
   const [status, setStatus] = useState<ResetStatus>("checking");
@@ -23,12 +14,9 @@ export default function ResetPassword() {
 
   useEffect(() => {
     let mounted = true;
-    let recoveryEventReceived = false;
-    const recoveryUrl = hasRecoveryTypeInUrl();
 
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "PASSWORD_RECOVERY" && session) {
-        recoveryEventReceived = true;
         if (mounted) {
           setStatus("ready");
         }
@@ -41,13 +29,8 @@ export default function ResetPassword() {
         return;
       }
 
-      if (sessionData.session && recoveryEventReceived) {
+      if (sessionData.session) {
         setStatus("ready");
-        return;
-      }
-
-      if (!recoveryUrl && !recoveryEventReceived) {
-        setStatus("invalid");
         return;
       }
 
@@ -56,11 +39,7 @@ export default function ResetPassword() {
         if (!mounted) {
           return;
         }
-        setStatus(
-          delayedSessionData.session && recoveryEventReceived
-            ? "ready"
-            : "invalid",
-        );
+        setStatus(delayedSessionData.session ? "ready" : "invalid");
       }, 1500);
     }
 
