@@ -130,17 +130,12 @@ export default function Login() {
       <div className="card shadow" style={{ width: "24rem", maxWidth: "92vw" }}>
         <div className="card-body p-4">
           <div className="text-center mb-4">
-            <div
-              className="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle text-white fw-bold"
-              style={{
-                width: 56,
-                height: 56,
-                fontSize: "1.6rem",
-                backgroundColor: "var(--brand-color, #6c5ce7)",
-              }}
-            >
-              M
-            </div>
+            <img
+              src="/logo-mikato.png"
+              alt="Mikato"
+              className="mx-auto mb-3 d-block"
+              style={{ maxWidth: "14rem", width: "80%", height: "auto" }}
+            />
             <h4 className="fw-bold mb-1">Mikato Software</h4>
             <p className="text-secondary mb-0 small">
               Sistema de gestión para estética canina
