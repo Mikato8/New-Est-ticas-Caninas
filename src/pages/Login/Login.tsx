@@ -87,12 +87,14 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [resetSent, setResetSent] = useState(false);
+  const [registered, setRegistered] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   function switchMode(next: Mode) {
     setMode(next);
     setError(null);
     setResetSent(false);
+    setRegistered(false);
   }
 
   async function handleLogin(e: FormEvent) {
@@ -120,7 +122,7 @@ export default function Login() {
         email,
         password,
       });
-      navigate("/home", { replace: true });
+      setRegistered(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error al registrarse");
     } finally {
@@ -186,7 +188,28 @@ export default function Login() {
 
           {error && <div className="alert alert-danger py-2">{error}</div>}
 
-          {mode === "login" ? (
+          {registered ? (
+            <div className="text-center">
+              <div className="alert alert-success">
+                Cuenta creada correctamente.
+              </div>
+              <p className="text-secondary small">
+                Tu cuenta está pendiente de pago. Para activar tu acceso
+                mensual, contacta a{" "}
+                <a href="mailto:clientes@mikatoestilistascaninos.com">
+                  clientes@mikatoestilistascaninos.com
+                </a>
+                .
+              </p>
+              <button
+                type="button"
+                className="btn btn-primary w-100"
+                onClick={() => switchMode("login")}
+              >
+                Volver al inicio de sesión
+              </button>
+            </div>
+          ) : mode === "login" ? (
             <form onSubmit={handleLogin}>
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">

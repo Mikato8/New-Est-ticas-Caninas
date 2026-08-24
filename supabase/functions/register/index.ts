@@ -53,16 +53,6 @@ Deno.serve(async (req) => {
       return json({ error: "Ya existe una cuenta con ese correo" }, 409);
     }
 
-    const { error: createError } = await admin.auth.admin.createUser({
-      email: normalizedEmail,
-      password: String(password),
-      email_confirm: true,
-    });
-
-    if (createError) {
-      return json({ error: "No se pudo crear la cuenta de acceso" }, 500);
-    }
-
     const { data: business, error: businessError } = await admin
       .from("business")
       .insert({ business_name: String(business_name).trim() })
@@ -81,15 +71,18 @@ Deno.serve(async (req) => {
         password: String(password),
         id_rol: 1,
         id_business: business.id_business,
+        subscription_status: "pending",
       })
-      .select("id_user, user_name, email, id_rol, id_business, is_super_admin")
+      .select(
+        "id_user, user_name, email, id_rol, id_business, is_super_admin, subscription_status",
+      )
       .single();
 
     if (userError || !user) {
       return json({ error: "No se pudo crear el usuario administrador" }, 500);
     }
 
-    return json({ user }, 201);
+    return json({ user, pending: true }, 201);
   } catch {
     return json({ error: "Error interno del servidor" }, 500);
   }

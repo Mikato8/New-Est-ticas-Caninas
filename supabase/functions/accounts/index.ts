@@ -8,7 +8,9 @@ const corsHeaders = {
 };
 
 const accountFields =
-  "id_user, user_name, email, id_rol, id_business, business(business_name), is_active, access_until, last_login, login_count, is_super_admin";
+  "id_user, user_name, email, id_rol, id_business, business(business_name), subscription_status, access_until, last_login, login_count, is_super_admin";
+
+const validStatuses = new Set(["pending", "active", "suspended"]);
 
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -43,6 +45,16 @@ function validDate(value: string) {
     !Number.isNaN(parsed.getTime()) &&
     parsed.toISOString().slice(0, 10) === value
   );
+}
+
+function todayUtc() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function addMonths(iso: string, months: number) {
+  const d = new Date(`${iso}T00:00:00Z`);
+  d.setUTCMonth(d.getUTCMonth() + months);
+  return d.toISOString().slice(0, 10);
 }
 
 Deno.serve(async (req) => {
@@ -82,6 +94,7 @@ Deno.serve(async (req) => {
     }
 
     const body = await req.json();
+
     if (body.action === "list") {
       const { data, error } = await admin
         .from("users")
@@ -97,35 +110,13 @@ Deno.serve(async (req) => {
       });
     }
 
-    if (body.action !== "update") {
-      return json({ error: "Acción no válida" }, 400);
-    }
     if (!Number.isInteger(body.id_user)) {
       return json({ error: "El usuario es requerido" }, 400);
     }
 
-    const hasActive = Object.prototype.hasOwnProperty.call(body, "is_active");
-    const hasAccessUntil = Object.prototype.hasOwnProperty.call(
-      body,
-      "access_until",
-    );
-    if (!hasActive && !hasAccessUntil) {
-      return json({ error: "No hay cambios para guardar" }, 400);
-    }
-    if (hasActive && typeof body.is_active !== "boolean") {
-      return json({ error: "El estado no es válido" }, 400);
-    }
-    if (
-      hasAccessUntil &&
-      body.access_until !== null &&
-      (typeof body.access_until !== "string" || !validDate(body.access_until))
-    ) {
-      return json({ error: "La fecha de acceso no es válida" }, 400);
-    }
-
     const { data: target, error: targetError } = await admin
       .from("users")
-      .select("is_super_admin")
+      .select("is_super_admin, subscription_status, access_until")
       .eq("id_user", body.id_user)
       .maybeSingle();
     if (targetError) {
@@ -138,9 +129,62 @@ Deno.serve(async (req) => {
       return json({ error: "No puedes modificar una cuenta super-admin" }, 403);
     }
 
-    const changes: { is_active?: boolean; access_until?: string | null } = {};
-    if (hasActive) {
-      changes.is_active = body.is_active;
+    if (body.action === "extend_month") {
+      const base =
+        target.access_until && target.access_until >= todayUtc()
+          ? target.access_until
+          : todayUtc();
+      const access_until = addMonths(base, 1);
+
+      const { error: updateError } = await admin
+        .from("users")
+        .update({ subscription_status: "active", access_until })
+        .eq("id_user", body.id_user);
+      if (updateError) {
+        throw updateError;
+      }
+
+      const { data: updated, error: updatedError } = await admin
+        .from("users")
+        .select(accountFields)
+        .eq("id_user", body.id_user)
+        .single();
+      if (updatedError || !updated) {
+        throw updatedError ?? new Error("No se pudo cargar la cuenta");
+      }
+      return json({ account: flattenAccount(updated as Record<string, unknown>) });
+    }
+
+    if (body.action !== "update") {
+      return json({ error: "Acción no válida" }, 400);
+    }
+
+    const hasStatus = Object.prototype.hasOwnProperty.call(
+      body,
+      "subscription_status",
+    );
+    const hasAccessUntil = Object.prototype.hasOwnProperty.call(
+      body,
+      "access_until",
+    );
+    if (!hasStatus && !hasAccessUntil) {
+      return json({ error: "No hay cambios para guardar" }, 400);
+    }
+    if (hasStatus && !validStatuses.has(body.subscription_status)) {
+      return json({ error: "El estado no es válido" }, 400);
+    }
+    if (
+      hasAccessUntil &&
+      body.access_until !== null &&
+      (typeof body.access_until !== "string" || !validDate(body.access_until))
+    ) {
+      return json({ error: "La fecha de acceso no es válida" }, 400);
+    }
+
+    const changes: { subscription_status?: string; access_until?: string | null } =
+      {};
+    if (hasStatus) {
+      changes.subscription_status = body.subscription_status;
     }
     if (hasAccessUntil) {
       changes.access_until = body.access_until;

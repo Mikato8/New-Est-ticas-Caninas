@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { listAccounts, updateAccount } from "../../lib/auth";
+import { extendAccountMonth, listAccounts, updateAccount } from "../../lib/auth";
 import { formatDate, formatDateTime, todayISO } from "../../lib/format";
 import type { AccountRow } from "../../types";
 
 function accountStatus(account: AccountRow) {
-  if (!account.is_active) {
+  if (account.subscription_status === "pending") {
+    return { label: "Pendiente de pago", color: "warning" };
+  }
+  if (account.subscription_status === "suspended") {
     return { label: "Suspendido", color: "secondary" };
   }
   if (account.access_until && account.access_until < todayISO()) {
@@ -52,7 +55,7 @@ export default function Accounts() {
     try {
       const updated = await updateAccount({
         id_user: account.id_user,
-        is_active: account.is_active,
+        subscription_status: account.subscription_status,
         access_until: account.access_until || null,
       });
       setAccounts((current) =>
@@ -63,6 +66,25 @@ export default function Accounts() {
       setSavedId(account.id_user);
     } catch (err) {
       setError(err instanceof Error ? err.message : "No se pudo guardar la cuenta");
+    } finally {
+      setSavingId(null);
+    }
+  }
+
+  async function extendMonth(account: AccountRow) {
+    setSavingId(account.id_user);
+    setError(null);
+    setSavedId(null);
+    try {
+      const updated = await extendAccountMonth(account.id_user);
+      setAccounts((current) =>
+        current.map((item) =>
+          item.id_user === updated.id_user ? updated : item,
+        ),
+      );
+      setSavedId(account.id_user);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "No se pudo extender el acceso");
     } finally {
       setSavingId(null);
     }
@@ -115,6 +137,8 @@ export default function Accounts() {
               {!loading &&
                 accounts.map((account) => {
                   const status = accountStatus(account);
+                  const isPending = account.subscription_status === "pending";
+                  const isSuspended = account.subscription_status === "suspended";
                   return (
                     <tr key={account.id_user}>
                       <td>{account.email}</td>
@@ -148,19 +172,36 @@ export default function Accounts() {
                         {account.is_super_admin ? (
                           <span className="text-secondary small">Super-admin</span>
                         ) : (
-                          <div className="d-flex justify-content-end align-items-center gap-2">
+                          <div className="d-flex justify-content-end align-items-center gap-2 flex-wrap">
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-success"
+                              onClick={() => void extendMonth(account)}
+                              disabled={savingId === account.id_user}
+                              title="Activa y extiende el acceso por un mes"
+                            >
+                              +1 mes
+                            </button>
                             <div className="form-check form-switch mb-0">
                               <input
                                 className="form-check-input"
                                 type="checkbox"
                                 role="switch"
-                                checked={account.is_active}
+                                checked={!isPending && !isSuspended}
+                                disabled={isPending}
                                 onChange={(e) =>
                                   changeAccount(account.id_user, {
-                                    is_active: e.target.checked,
+                                    subscription_status: e.target.checked
+                                      ? "active"
+                                      : "suspended",
                                   })
                                 }
-                                aria-label={`Estado de ${account.email}`}
+                                aria-label={`Suspender a ${account.email}`}
+                                title={
+                                  isPending
+                                    ? "Usa '+1 mes' para activar la cuenta"
+                                    : "Activar o suspender la cuenta"
+                                }
                               />
                             </div>
                             <button

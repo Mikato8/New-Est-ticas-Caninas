@@ -1,5 +1,5 @@
 import { supabase } from "./supabase";
-import type { AccountRow, UserProfile } from "../types";
+import type { AccountRow, SubscriptionStatus, UserProfile } from "../types";
 
 export interface RegisterInput {
   business_name: string;
@@ -32,7 +32,7 @@ export async function signIn(email: string, password: string): Promise<UserProfi
   return data.user;
 }
 
-export async function register(input: RegisterInput): Promise<UserProfile> {
+export async function register(input: RegisterInput): Promise<void> {
   const res = await fetch(
     `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/register`,
     {
@@ -42,21 +42,11 @@ export async function register(input: RegisterInput): Promise<UserProfile> {
     },
   );
 
-  const data = (await res.json()) as { user?: UserProfile; error?: string };
+  const data = (await res.json()) as { error?: string };
 
-  if (!res.ok || !data.user) {
+  if (!res.ok) {
     throw new Error(data.error ?? "No se pudo crear la cuenta");
   }
-
-  const { error } = await supabase.auth.signInWithPassword({
-    email: input.email,
-    password: input.password,
-  });
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data.user;
 }
 
 export async function requestPasswordReset(email: string): Promise<void> {
@@ -118,7 +108,7 @@ export async function listAccounts(): Promise<AccountRow[]> {
 
 export interface UpdateAccountInput {
   id_user: number;
-  is_active?: boolean;
+  subscription_status?: SubscriptionStatus;
   access_until?: string | null;
 }
 
@@ -130,6 +120,16 @@ export async function updateAccount(
   }>({
     action: "update",
     ...input,
+  });
+  return data.account;
+}
+
+export async function extendAccountMonth(id_user: number): Promise<AccountRow> {
+  const data = await accountsRequest<{
+    account: AccountRow;
+  }>({
+    action: "extend_month",
+    id_user,
   });
   return data.account;
 }

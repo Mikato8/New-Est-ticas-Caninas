@@ -38,8 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function signUp(input: RegisterInput) {
-    const user = await registerRequest(input);
-    setProfile(user);
+    await registerRequest(input);
   }
 
   async function signOut() {

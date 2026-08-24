@@ -1,5 +1,6 @@
 export type ServiceSize = "small" | "medium" | "large" | "xl";
 export type SaleStatus = "pending" | "paid" | "cancelled" | "refunded";
+export type SubscriptionStatus = "pending" | "active" | "suspended";
 
 export interface UserProfile {
   id_user: number;
@@ -17,7 +18,7 @@ export interface AccountRow {
   id_rol: number;
   id_business: number;
   business_name: string;
-  is_active: boolean;
+  subscription_status: SubscriptionStatus;
   access_until: string | null;
   last_login: string | null;
   login_count: number;

@@ -7,6 +7,8 @@ const corsHeaders = {
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
+const contactEmail = "clientes@mikatoestilistascaninos.com";
+
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
@@ -37,7 +39,7 @@ Deno.serve(async (req) => {
     const { data: profile, error: profileError } = await admin
       .from("users")
       .select(
-        "id_user, user_name, email, id_rol, id_business, password, is_super_admin, is_active, access_until, login_count",
+        "id_user, user_name, email, id_rol, id_business, password, is_super_admin, subscription_status, access_until, login_count",
       )
       .eq("email", email)
       .maybeSingle();
@@ -48,24 +50,35 @@ Deno.serve(async (req) => {
     if (profile.password !== password) {
       return json({ error: "Correo o contraseña incorrectos" }, 401);
     }
-    if (!profile.is_active) {
-      return json(
-        {
-          error:
-            "Tu cuenta está suspendida. Contacta a clientes@mikatoestilistascaninos.com",
-        },
-        403,
-      );
-    }
-    const todayUtc = new Date().toISOString().slice(0, 10);
-    if (profile.access_until && todayUtc > profile.access_until) {
-      return json(
-        {
-          error:
-            "Tu acceso ha expirado. Contacta a clientes@mikatoestilistascaninos.com",
-        },
-        403,
-      );
+
+    if (!profile.is_super_admin) {
+      if (profile.subscription_status === "pending") {
+        return json(
+          {
+            error:
+              `Tu cuenta está pendiente de pago. Realiza tu pago mensual para activar el acceso. Contacta a ${contactEmail}`,
+          },
+          403,
+        );
+      }
+      if (profile.subscription_status === "suspended") {
+        return json(
+          {
+            error: `Tu cuenta está suspendida. Contacta a ${contactEmail}`,
+          },
+          403,
+        );
+      }
+      const todayUtc = new Date().toISOString().slice(0, 10);
+      if (!profile.access_until || todayUtc > profile.access_until) {
+        return json(
+          {
+            error:
+              `Tu acceso ha expirado. Renueva tu pago mensual. Contacta a ${contactEmail}`,
+          },
+          403,
+        );
+      }
     }
 
     const { error: createError } = await admin.auth.admin.createUser({
