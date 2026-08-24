@@ -1,8 +1,7 @@
 import { Navigate, Outlet, Routes, Route } from "react-router-dom";
 import Login from "../pages/Login/Login";
 import ResetPassword from "../pages/Login/ResetPassword";
-import Accounts from "../pages/Accounts/Accounts";
-import Payments from "../pages/Payments/Payments";
+import Admin from "../pages/Admin/Admin";
 import Home from "../pages/Home/Home";
 import Customers from "../pages/Customers/Customers";
 import Pets from "../pages/Pets/Pets";
@@ -61,8 +60,9 @@ function AppRoutes() {
             <Route path="/settings" element={<Settings />} />
           </Route>
           <Route element={<RequireSuperAdmin />}>
-            <Route path="/accounts" element={<Accounts />} />
-            <Route path="/payments" element={<Payments />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/accounts" element={<Navigate to="/admin" replace />} />
+            <Route path="/payments" element={<Navigate to="/admin" replace />} />
           </Route>
         </Route>
       </Route>

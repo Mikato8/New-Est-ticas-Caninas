@@ -23,7 +23,7 @@ function accountLabel(account: AccountRow) {
   return `${account.email} — ${account.business_name} (${status})`;
 }
 
-export default function Payments() {
+export default function Payments({ embedded = false }: { embedded?: boolean }) {
   const [accounts, setAccounts] = useState<AccountRow[]>([]);
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
@@ -126,12 +126,14 @@ export default function Payments() {
 
   return (
     <div>
-      <div className="mb-4">
-        <h1 className="h3 mb-0">Cobros</h1>
-        <p className="text-secondary mb-0">
-          Registra pagos manuales y da de alta el acceso de las cuentas
-        </p>
-      </div>
+      {!embedded && (
+        <div className="mb-4">
+          <h1 className="h3 mb-0">Cobros</h1>
+          <p className="text-secondary mb-0">
+            Registra pagos manuales y da de alta el acceso de las cuentas
+          </p>
+        </div>
+      )}
 
       {error && <div className="alert alert-danger">{error}</div>}
       {saved && <div className="alert alert-success">{saved}</div>}

@@ -16,7 +16,7 @@ function accountStatus(account: AccountRow) {
   return { label: "Activo", color: "success" };
 }
 
-export default function Accounts() {
+export default function Accounts({ embedded = false }: { embedded?: boolean }) {
   const [accounts, setAccounts] = useState<AccountRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [savingId, setSavingId] = useState<number | null>(null);
@@ -92,12 +92,14 @@ export default function Accounts() {
 
   return (
     <div>
-      <div className="mb-4">
-        <h1 className="h3 mb-0">Cuentas</h1>
-        <p className="text-secondary mb-0">
-          Administra el acceso de las cuentas de la plataforma
-        </p>
-      </div>
+      {!embedded && (
+        <div className="mb-4">
+          <h1 className="h3 mb-0">Cuentas</h1>
+          <p className="text-secondary mb-0">
+            Administra el acceso de las cuentas de la plataforma
+          </p>
+        </div>
+      )}
 
       {error && <div className="alert alert-danger">{error}</div>}
       {savedId !== null && (
