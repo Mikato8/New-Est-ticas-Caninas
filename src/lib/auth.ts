@@ -59,6 +59,26 @@ export async function register(input: RegisterInput): Promise<UserProfile> {
   return data.user;
 }
 
+export async function requestPasswordReset(email: string): Promise<void> {
+  const res = await fetch(
+    `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/recover`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        redirect_to: `${window.location.origin}/reset-password`,
+      }),
+    },
+  );
+
+  const data = (await res.json()) as { error?: string };
+
+  if (!res.ok) {
+    throw new Error(data.error ?? "No se pudo solicitar la recuperación");
+  }
+}
+
 export async function signOut(): Promise<void> {
   await supabase.auth.signOut();
 }

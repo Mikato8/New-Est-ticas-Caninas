@@ -1,8 +1,9 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth";
+import { requestPasswordReset } from "../../lib/auth";
 
-type Mode = "login" | "register";
+type Mode = "login" | "register" | "forgot";
 
 function PasswordInput({
   id,
@@ -85,11 +86,13 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [resetSent, setResetSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   function switchMode(next: Mode) {
     setMode(next);
     setError(null);
+    setResetSent(false);
   }
 
   async function handleLogin(e: FormEvent) {
@@ -120,6 +123,24 @@ export default function Login() {
       navigate("/home", { replace: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error al registrarse");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function handlePasswordReset(e: FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setSubmitting(true);
+    try {
+      await requestPasswordReset(email);
+      setResetSent(true);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "No se pudo solicitar la recuperación",
+      );
     } finally {
       setSubmitting(false);
     }
@@ -196,10 +217,10 @@ export default function Login() {
                 className="btn btn-primary w-100"
                 disabled={submitting}
               >
-                {submitting ? "Entrando..." : "Entrar"}
+                {submitting ? "Iniciando sesión..." : "Iniciar sesión"}
               </button>
             </form>
-          ) : (
+          ) : mode === "register" ? (
             <form onSubmit={handleRegister}>
               <div className="mb-3">
                 <label htmlFor="businessName" className="form-label">
@@ -261,6 +282,67 @@ export default function Login() {
                 {submitting ? "Creando cuenta..." : "Crear cuenta de administrador"}
               </button>
             </form>
+          ) : resetSent ? (
+            <div className="text-center">
+              <div className="alert alert-success">
+                Si el correo está registrado, te enviamos un enlace de
+                recuperación
+              </div>
+              <button
+                type="button"
+                className="btn btn-link p-0"
+                onClick={() => switchMode("login")}
+              >
+                Volver al inicio de sesión
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handlePasswordReset}>
+              <div className="mb-3">
+                <label htmlFor="forgotEmail" className="form-label">
+                  Correo
+                </label>
+                <input
+                  id="forgotEmail"
+                  type="email"
+                  className="form-control"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  autoFocus
+                />
+              </div>
+              <button
+                type="submit"
+                className="btn btn-primary w-100"
+                disabled={submitting}
+              >
+                {submitting
+                  ? "Enviando..."
+                  : "Enviar enlace de recuperación"}
+              </button>
+              <div className="text-center mt-3">
+                <button
+                  type="button"
+                  className="btn btn-link p-0"
+                  onClick={() => switchMode("login")}
+                >
+                  Volver al inicio de sesión
+                </button>
+              </div>
+            </form>
+          )}
+
+          {mode === "login" && (
+            <div className="text-center mt-3">
+              <button
+                type="button"
+                className="btn btn-link p-0"
+                onClick={() => switchMode("forgot")}
+              >
+                ¿Olvidaste tu contraseña?
+              </button>
+            </div>
           )}
         </div>
 

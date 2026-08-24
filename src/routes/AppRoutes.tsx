@@ -1,5 +1,6 @@
 import { Navigate, Outlet, Routes, Route } from "react-router-dom";
 import Login from "../pages/Login/Login";
+import ResetPassword from "../pages/Login/ResetPassword";
 import Home from "../pages/Home/Home";
 import Customers from "../pages/Customers/Customers";
 import Pets from "../pages/Pets/Pets";
@@ -30,6 +31,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<ProtectedRoute />}>
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home />} />
