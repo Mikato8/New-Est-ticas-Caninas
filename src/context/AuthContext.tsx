@@ -17,7 +17,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     supabase.auth.getSession().then(async ({ data }) => {
       const email = data.session?.user.email;
       if (email) {
-          const { data: user } = await supabase
+        const { data: user } = await supabase
           .from("users")
           .select(
             "id_user, user_name, email, id_rol, id_business, is_super_admin",

@@ -66,7 +66,7 @@ Deno.serve(async (req) => {
       { auth: { autoRefreshToken: false, persistSession: false } },
     );
     const { data: authData, error: authError } =
-      await admin.auth.admin.getUser(token);
+      await admin.auth.getUser(token);
     const callerEmail = authData.user?.email;
     if (authError || !callerEmail) {
       return noAuthorization();
