@@ -1,5 +1,10 @@
 import { supabase } from "./supabase";
-import type { AccountRow, SubscriptionStatus, UserProfile } from "../types";
+import type {
+  AccountRow,
+  Payment,
+  SubscriptionStatus,
+  UserProfile,
+} from "../types";
 
 export interface RegisterInput {
   business_name: string;
@@ -132,6 +137,47 @@ export async function extendAccountMonth(id_user: number): Promise<AccountRow> {
     id_user,
   });
   return data.account;
+}
+
+async function paymentsRequest<T>(body: unknown): Promise<T> {
+  const res = await fetch(
+    `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/payments`,
+    {
+      method: "POST",
+      headers: await getAccountsHeaders(),
+      body: JSON.stringify(body),
+    },
+  );
+  const data = (await res.json()) as T & { error?: string };
+  if (!res.ok) {
+    throw new Error(data.error ?? "No se pudo completar la solicitud");
+  }
+  return data;
+}
+
+export async function listPayments(): Promise<Payment[]> {
+  const data = await paymentsRequest<{ payments: Payment[] }>({
+    action: "list",
+  });
+  return data.payments;
+}
+
+export interface CreatePaymentInput {
+  id_user: number;
+  amount: number;
+  months: number;
+  payment_date: string;
+  method?: string | null;
+  notes?: string | null;
+}
+
+export async function createPayment(
+  input: CreatePaymentInput,
+): Promise<{ access_until: string }> {
+  return paymentsRequest<{ access_until: string }>({
+    action: "create",
+    ...input,
+  });
 }
 
 export async function signOut(): Promise<void> {

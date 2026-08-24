@@ -2,6 +2,7 @@ import { Navigate, Outlet, Routes, Route } from "react-router-dom";
 import Login from "../pages/Login/Login";
 import ResetPassword from "../pages/Login/ResetPassword";
 import Accounts from "../pages/Accounts/Accounts";
+import Payments from "../pages/Payments/Payments";
 import Home from "../pages/Home/Home";
 import Customers from "../pages/Customers/Customers";
 import Pets from "../pages/Pets/Pets";
@@ -61,6 +62,7 @@ function AppRoutes() {
           </Route>
           <Route element={<RequireSuperAdmin />}>
             <Route path="/accounts" element={<Accounts />} />
+            <Route path="/payments" element={<Payments />} />
           </Route>
         </Route>
       </Route>

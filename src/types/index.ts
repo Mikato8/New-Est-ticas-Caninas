@@ -25,6 +25,22 @@ export interface AccountRow {
   is_super_admin: boolean;
 }
 
+export interface Payment {
+  id_payment: number;
+  id_user: number;
+  amount: number;
+  months: number;
+  payment_date: string | null;
+  method: string | null;
+  notes: string | null;
+  created_by: number | null;
+  created_at: string;
+  user_email: string | null;
+  user_name: string | null;
+  business_name: string | null;
+  created_by_name: string | null;
+}
+
 export interface Role {
   id_role: number;
   rol_name: string;

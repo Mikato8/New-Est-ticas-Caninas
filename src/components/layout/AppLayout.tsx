@@ -52,6 +52,7 @@ const navGroups: NavGroup[] = [
       { to: "/users", label: "Usuarios", adminOnly: true },
       { to: "/settings", label: "Configuración", adminOnly: true },
       { to: "/accounts", label: "Cuentas", superAdminOnly: true },
+      { to: "/payments", label: "Cobros", superAdminOnly: true },
     ],
   },
 ];
