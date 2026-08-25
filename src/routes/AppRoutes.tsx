@@ -1,5 +1,7 @@
 import { Navigate, Outlet, Routes, Route } from "react-router-dom";
 import Login from "../pages/Login/Login";
+import ResetPassword from "../pages/Login/ResetPassword";
+import Admin from "../pages/Admin/Admin";
 import Home from "../pages/Home/Home";
 import Customers from "../pages/Customers/Customers";
 import Pets from "../pages/Pets/Pets";
@@ -26,10 +28,19 @@ function RequireAdmin() {
   return <Outlet />;
 }
 
+function RequireSuperAdmin() {
+  const { profile } = useAuth();
+  if (!profile?.is_super_admin) {
+    return <Navigate to="/home" replace />;
+  }
+  return <Outlet />;
+}
+
 function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<ProtectedRoute />}>
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home />} />
@@ -47,6 +58,11 @@ function AppRoutes() {
           <Route element={<RequireAdmin />}>
             <Route path="/users" element={<Users />} />
             <Route path="/settings" element={<Settings />} />
+          </Route>
+          <Route element={<RequireSuperAdmin />}>
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/accounts" element={<Navigate to="/admin" replace />} />
+            <Route path="/payments" element={<Navigate to="/admin" replace />} />
           </Route>
         </Route>
       </Route>

@@ -1,8 +1,9 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth";
+import { requestPasswordReset } from "../../lib/auth";
 
-type Mode = "login" | "register";
+type Mode = "login" | "register" | "forgot";
 
 function PasswordInput({
   id,
@@ -85,11 +86,15 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [resetSent, setResetSent] = useState(false);
+  const [registered, setRegistered] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   function switchMode(next: Mode) {
     setMode(next);
     setError(null);
+    setResetSent(false);
+    setRegistered(false);
   }
 
   async function handleLogin(e: FormEvent) {
@@ -117,7 +122,7 @@ export default function Login() {
         email,
         password,
       });
-      navigate("/home", { replace: true });
+      setRegistered(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error al registrarse");
     } finally {
@@ -125,22 +130,35 @@ export default function Login() {
     }
   }
 
+  async function handlePasswordReset(e: FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setSubmitting(true);
+    try {
+      await requestPasswordReset(email);
+      setResetSent(true);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "No se pudo solicitar la recuperación",
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div className="d-flex flex-column justify-content-center align-items-center vh-100 bg-light">
       <div className="card shadow" style={{ width: "24rem", maxWidth: "92vw" }}>
         <div className="card-body p-4">
           <div className="text-center mb-4">
-            <div
-              className="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle text-white fw-bold"
-              style={{
-                width: 56,
-                height: 56,
-                fontSize: "1.6rem",
-                backgroundColor: "var(--brand-color, #6c5ce7)",
-              }}
-            >
-              M
-            </div>
+            <img
+              src="/logo-mikato.png"
+              alt="Mikato"
+              className="mx-auto mb-3 d-block"
+              style={{ maxWidth: "14rem", width: "80%", height: "auto" }}
+            />
             <h4 className="fw-bold mb-1">Mikato Software</h4>
             <p className="text-secondary mb-0 small">
               Sistema de gestión para estética canina
@@ -170,7 +188,28 @@ export default function Login() {
 
           {error && <div className="alert alert-danger py-2">{error}</div>}
 
-          {mode === "login" ? (
+          {registered ? (
+            <div className="text-center">
+              <div className="alert alert-success">
+                Cuenta creada correctamente.
+              </div>
+              <p className="text-secondary small">
+                Tu cuenta está pendiente de pago. Para activar tu acceso
+                mensual, contacta a{" "}
+                <a href="mailto:clientes@mikatoestilistascaninos.com">
+                  clientes@mikatoestilistascaninos.com
+                </a>
+                .
+              </p>
+              <button
+                type="button"
+                className="btn btn-primary w-100"
+                onClick={() => switchMode("login")}
+              >
+                Volver al inicio de sesión
+              </button>
+            </div>
+          ) : mode === "login" ? (
             <form onSubmit={handleLogin}>
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">
@@ -201,10 +240,10 @@ export default function Login() {
                 className="btn btn-primary w-100"
                 disabled={submitting}
               >
-                {submitting ? "Entrando..." : "Entrar"}
+                {submitting ? "Iniciando sesión..." : "Iniciar sesión"}
               </button>
             </form>
-          ) : (
+          ) : mode === "register" ? (
             <form onSubmit={handleRegister}>
               <div className="mb-3">
                 <label htmlFor="businessName" className="form-label">
@@ -266,6 +305,67 @@ export default function Login() {
                 {submitting ? "Creando cuenta..." : "Crear cuenta de administrador"}
               </button>
             </form>
+          ) : resetSent ? (
+            <div className="text-center">
+              <div className="alert alert-success">
+                Si el correo está registrado, te enviamos un enlace de
+                recuperación
+              </div>
+              <button
+                type="button"
+                className="btn btn-link p-0"
+                onClick={() => switchMode("login")}
+              >
+                Volver al inicio de sesión
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handlePasswordReset}>
+              <div className="mb-3">
+                <label htmlFor="forgotEmail" className="form-label">
+                  Correo
+                </label>
+                <input
+                  id="forgotEmail"
+                  type="email"
+                  className="form-control"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  autoFocus
+                />
+              </div>
+              <button
+                type="submit"
+                className="btn btn-primary w-100"
+                disabled={submitting}
+              >
+                {submitting
+                  ? "Enviando..."
+                  : "Enviar enlace de recuperación"}
+              </button>
+              <div className="text-center mt-3">
+                <button
+                  type="button"
+                  className="btn btn-link p-0"
+                  onClick={() => switchMode("login")}
+                >
+                  Volver al inicio de sesión
+                </button>
+              </div>
+            </form>
+          )}
+
+          {mode === "login" && (
+            <div className="text-center mt-3">
+              <button
+                type="button"
+                className="btn btn-link p-0"
+                onClick={() => switchMode("forgot")}
+              >
+                ¿Olvidaste tu contraseña?
+              </button>
+            </div>
           )}
         </div>
 
@@ -273,6 +373,15 @@ export default function Login() {
           © {new Date().getFullYear()} Mikato Software. Todos los derechos
           reservados.
         </div>
+      </div>
+      <div className="mt-2 text-secondary small">
+        Contacto:{" "}
+        <a
+          href="mailto:clientes@mikatoestilistascaninos.com"
+          className="text-secondary"
+        >
+          clientes@mikatoestilistascaninos.com
+        </a>
       </div>
     </div>
   );

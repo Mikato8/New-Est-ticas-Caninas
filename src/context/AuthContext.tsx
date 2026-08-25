@@ -19,7 +19,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (email) {
         const { data: user } = await supabase
           .from("users")
-          .select("id_user, user_name, email, id_rol, id_business")
+          .select(
+            "id_user, user_name, email, id_rol, id_business, is_super_admin",
+          )
           .eq("email", email)
           .maybeSingle();
         if (user) {
@@ -36,8 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function signUp(input: RegisterInput) {
-    const user = await registerRequest(input);
-    setProfile(user);
+    await registerRequest(input);
   }
 
   async function signOut() {

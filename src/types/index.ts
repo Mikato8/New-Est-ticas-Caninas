@@ -1,5 +1,6 @@
 export type ServiceSize = "small" | "medium" | "large" | "xl";
 export type SaleStatus = "pending" | "paid" | "cancelled" | "refunded";
+export type SubscriptionStatus = "pending" | "active" | "suspended";
 
 export interface UserProfile {
   id_user: number;
@@ -7,6 +8,37 @@ export interface UserProfile {
   email: string;
   id_rol: number;
   id_business: number;
+  is_super_admin: boolean;
+}
+
+export interface AccountRow {
+  id_user: number;
+  user_name: string;
+  email: string;
+  id_rol: number;
+  id_business: number;
+  business_name: string;
+  subscription_status: SubscriptionStatus;
+  access_until: string | null;
+  last_login: string | null;
+  login_count: number;
+  is_super_admin: boolean;
+}
+
+export interface Payment {
+  id_payment: number;
+  id_user: number;
+  amount: number;
+  months: number;
+  payment_date: string | null;
+  method: string | null;
+  notes: string | null;
+  created_by: number | null;
+  created_at: string;
+  user_email: string | null;
+  user_name: string | null;
+  business_name: string | null;
+  created_by_name: string | null;
 }
 
 export interface Role {
