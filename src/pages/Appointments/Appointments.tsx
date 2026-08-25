@@ -279,7 +279,7 @@ export default function Appointments() {
                   <td>{formatDate(a.appointment_date)}</td>
                   <td>{formatTime(a.appointment_time)}</td>
                   <td className="text-end">
-                    {waLink && (
+                    {waLink ? (
                       <a
                         href={waLink}
                         target="_blank"
@@ -289,6 +289,15 @@ export default function Appointments() {
                       >
                         WhatsApp
                       </a>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-success me-1"
+                        disabled
+                        title="El cliente no tiene teléfono registrado"
+                      >
+                        WhatsApp
+                      </button>
                     )}
                     <button
                       className="btn btn-sm btn-outline-secondary me-1"
