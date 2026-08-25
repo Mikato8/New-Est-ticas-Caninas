@@ -140,6 +140,13 @@ export async function extendAccountMonth(id_user: number): Promise<AccountRow> {
   return data.account;
 }
 
+export async function deleteAccount(id_user: number): Promise<void> {
+  await accountsRequest<{ deleted: boolean }>({
+    action: "delete",
+    id_user,
+  });
+}
+
 async function paymentsRequest<T>(body: unknown): Promise<T> {
   const res = await fetch(
     `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/payments`,

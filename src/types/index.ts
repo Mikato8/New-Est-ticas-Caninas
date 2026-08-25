@@ -18,6 +18,8 @@ export interface AccountRow {
   id_rol: number;
   id_business: number;
   business_name: string;
+  phone: string | null;
+  created_at: string | null;
   subscription_status: SubscriptionStatus;
   access_until: string | null;
   last_login: string | null;
