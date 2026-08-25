@@ -139,7 +139,9 @@ export interface Appointment {
 }
 
 export interface AppointmentWithDetails extends Appointment {
-  pets: { pet_name: string; customers: { customer_name: string } | null } | null;
+  pets:
+    | { pet_name: string; customers: { customer_name: string; phone: string | null } | null }
+    | null;
   services: { service_name: string } | null;
 }
 

@@ -29,6 +29,33 @@ function formatDate(date: string | null): string {
   });
 }
 
+function onlyDigits(value: string | null | undefined): string {
+  return (value ?? "").replace(/\D/g, "");
+}
+
+function whatsAppLink(a: AppointmentWithDetails): string | null {
+  const phone = onlyDigits(a.pets?.customers?.phone);
+  if (phone.length < 10) return null;
+
+  const pet = a.pets?.pet_name ?? "";
+  const customer = a.pets?.customers?.customer_name ?? "";
+  const service = a.services?.service_name ?? "";
+  const date = a.appointment_date ? formatDate(a.appointment_date) : "";
+  const time = formatTime(a.appointment_time);
+
+  const message = [
+    `Hola ${customer}, le confirmamos la cita de ${pet}`,
+    service ? `para el servicio de ${service}` : "",
+    date ? `el ${date}` : "",
+    time !== "—" ? `a las ${time}` : "",
+    "¡Lo esperamos!",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+}
+
 export default function Appointments() {
   const { profile } = useAuth();
   const [appointments, setAppointments] = useState<AppointmentWithDetails[]>([]);
@@ -44,7 +71,7 @@ export default function Appointments() {
       supabase
         .from("appointments")
         .select(
-          "*, pets(pet_name, customers(customer_name)), services(service_name)",
+          "*, pets(pet_name, customers(customer_name, phone)), services(service_name)",
         )
         .order("appointment_date", { ascending: false }),
       supabase.from("pets").select("*").order("pet_name"),
@@ -242,7 +269,9 @@ export default function Appointments() {
                   </td>
                 </tr>
               )}
-              {appointments.map((a) => (
+              {appointments.map((a) => {
+                const waLink = whatsAppLink(a);
+                return (
                 <tr key={a.id_appointment}>
                   <td className="fw-semibold">{a.pets?.pet_name ?? "—"}</td>
                   <td>{a.pets?.customers?.customer_name ?? "—"}</td>
@@ -250,6 +279,17 @@ export default function Appointments() {
                   <td>{formatDate(a.appointment_date)}</td>
                   <td>{formatTime(a.appointment_time)}</td>
                   <td className="text-end">
+                    {waLink && (
+                      <a
+                        href={waLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn btn-sm btn-success me-1"
+                        title="Confirmar por WhatsApp"
+                      >
+                        WhatsApp
+                      </a>
+                    )}
                     <button
                       className="btn btn-sm btn-outline-secondary me-1"
                       onClick={() => openEdit(a)}
@@ -264,7 +304,8 @@ export default function Appointments() {
                     </button>
                   </td>
                 </tr>
-              ))}
+                );
+              })}
             </tbody>
           </table>
         </div>
