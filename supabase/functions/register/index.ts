@@ -23,9 +23,10 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { business_name, user_name, email, password } = await req.json();
+    const { business_name, user_name, phone, email, password } = await req
+      .json();
 
-    if (!business_name || !user_name || !email || !password) {
+    if (!business_name || !user_name || !phone || !email || !password) {
       return json({ error: "Todos los campos son requeridos" }, 400);
     }
     if (String(password).length < 6) {
@@ -55,8 +56,11 @@ Deno.serve(async (req) => {
 
     const { data: business, error: businessError } = await admin
       .from("business")
-      .insert({ business_name: String(business_name).trim() })
-      .select("id_business, business_name")
+      .insert({
+        business_name: String(business_name).trim(),
+        phone: String(phone).trim(),
+      })
+      .select("id_business, business_name, phone")
       .single();
 
     if (businessError || !business) {

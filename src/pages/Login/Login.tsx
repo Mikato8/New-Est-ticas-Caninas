@@ -83,6 +83,7 @@ export default function Login() {
   const [mode, setMode] = useState<Mode>("login");
   const [businessName, setBusinessName] = useState("");
   const [userName, setUserName] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -119,6 +120,7 @@ export default function Login() {
       await signUp({
         business_name: businessName,
         user_name: userName,
+        phone,
         email,
         password,
       });
@@ -269,6 +271,19 @@ export default function Login() {
                   className="form-control"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="regPhone" className="form-label">
+                  Número de teléfono
+                </label>
+                <input
+                  id="regPhone"
+                  type="tel"
+                  className="form-control"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                   required
                 />
               </div>

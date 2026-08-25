@@ -9,6 +9,7 @@ import type {
 export interface RegisterInput {
   business_name: string;
   user_name: string;
+  phone: string;
   email: string;
   password: string;
 }
