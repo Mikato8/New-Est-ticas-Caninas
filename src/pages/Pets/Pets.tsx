@@ -6,6 +6,8 @@ import { formatDateTime } from "../../lib/format";
 
 const emptyForm = { pet_name: "", id_specie: "", id_customer: "" };
 
+const kardexTags = ["Agresivo", "Baño medicado", "Alergias"];
+
 export default function Pets() {
   const { profile } = useAuth();
   const [pets, setPets] = useState<PetWithDetails[]>([]);
@@ -20,6 +22,8 @@ export default function Pets() {
   const [history, setHistory] = useState<PetHistory[]>([]);
   const [newNote, setNewNote] = useState("");
   const [historySaving, setHistorySaving] = useState(false);
+  const [editingNote, setEditingNote] = useState<PetHistory | null>(null);
+  const [editingText, setEditingText] = useState("");
 
   async function load() {
     const [petsRes, speciesRes, customersRes] = await Promise.all([
@@ -97,6 +101,8 @@ export default function Pets() {
   async function openKardex(p: PetWithDetails) {
     setKardexPet(p);
     setNewNote("");
+    setEditingNote(null);
+    setEditingText("");
     setHistory([]);
     const { data, error: err } = await supabase
       .from("pet_history")
@@ -111,22 +117,60 @@ export default function Pets() {
     setKardexPet(null);
     setHistory([]);
     setNewNote("");
+    setEditingNote(null);
+    setEditingText("");
   }
 
-  async function addHistory(e: FormEvent) {
-    e.preventDefault();
-    if (!kardexPet || !newNote.trim()) return;
+  async function saveNote(noteText: string) {
+    if (!kardexPet || !noteText.trim()) return;
     setHistorySaving(true);
     setError(null);
     const { error: err } = await supabase.from("pet_history").insert({
       id_pet: kardexPet.id_pet,
-      note: newNote.trim(),
+      note: noteText.trim(),
       id_business: profile?.id_business,
     });
     setHistorySaving(false);
     if (err) return setError(err.message);
     setNewNote("");
     openKardex(kardexPet);
+  }
+
+  function addHistory(e: FormEvent) {
+    e.preventDefault();
+    void saveNote(newNote);
+  }
+
+  function startEditNote(h: PetHistory) {
+    setEditingNote(h);
+    setEditingText(h.note);
+  }
+
+  async function saveEditNote() {
+    if (!editingNote || !editingText.trim()) return;
+    const { error: err } = await supabase
+      .from("pet_history")
+      .update({ note: editingText.trim() })
+      .eq("id_history", editingNote.id_history);
+    if (err) return setError(err.message);
+    setEditingNote(null);
+    setEditingText("");
+    if (kardexPet) openKardex(kardexPet);
+  }
+
+  function cancelEditNote() {
+    setEditingNote(null);
+    setEditingText("");
+  }
+
+  async function deleteNote(id: number) {
+    if (!window.confirm("¿Eliminar esta nota?")) return;
+    const { error: err } = await supabase
+      .from("pet_history")
+      .delete()
+      .eq("id_history", id);
+    if (err) return setError(err.message);
+    if (kardexPet) openKardex(kardexPet);
   }
 
   return (
@@ -284,8 +328,22 @@ export default function Pets() {
               </div>
               <div className="modal-body">
                 <form onSubmit={addHistory} className="mb-3">
+                  <label className="form-label d-block">Etiquetas rápidas</label>
+                  <div className="d-flex flex-wrap gap-2 mb-3">
+                    {kardexTags.map((tag) => (
+                      <button
+                        key={tag}
+                        type="button"
+                        className="btn btn-sm btn-outline-primary"
+                        disabled={historySaving}
+                        onClick={() => void saveNote(tag)}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
                   <label htmlFor="kardex-note" className="form-label">
-                    Nueva nota (ej. es agresivo, requiere baño medicado…)
+                    Nota personalizada
                   </label>
                   <textarea
                     id="kardex-note"
@@ -311,17 +369,62 @@ export default function Pets() {
                   </p>
                 ) : (
                   <ul className="list-group list-group-flush">
-                    {history.map((h) => (
-                      <li
-                        key={h.id_history}
-                        className="list-group-item d-flex justify-content-between gap-3"
-                      >
-                        <span className="text-break">{h.note}</span>
-                        <small className="text-secondary text-nowrap">
-                          {formatDateTime(h.created_at)}
-                        </small>
-                      </li>
-                    ))}
+                    {history.map((h) =>
+                      editingNote?.id_history === h.id_history ? (
+                        <li key={h.id_history} className="list-group-item">
+                          <textarea
+                            className="form-control mb-2"
+                            rows={2}
+                            value={editingText}
+                            onChange={(e) => setEditingText(e.target.value)}
+                          />
+                          <div className="d-flex gap-2">
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-success"
+                              onClick={() => void saveEditNote()}
+                            >
+                              Guardar
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-outline-secondary"
+                              onClick={cancelEditNote}
+                            >
+                              Cancelar
+                            </button>
+                          </div>
+                        </li>
+                      ) : (
+                        <li
+                          key={h.id_history}
+                          className="list-group-item d-flex justify-content-between align-items-start gap-3"
+                        >
+                          <div className="d-flex flex-column flex-grow-1">
+                            <span className="text-break">{h.note}</span>
+                            <small className="text-secondary">
+                              {formatDateTime(h.created_at)}
+                            </small>
+                          </div>
+                          <div className="d-flex gap-1 text-nowrap">
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-outline-secondary"
+                              onClick={() => startEditNote(h)}
+                            >
+                              Editar
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-outline-danger"
+                              onClick={() => void deleteNote(h.id_history)}
+                            >
+                              Eliminar
+                            </button>
+                          </div>
+                        </li>
+                      ),
+                    )}
                   </ul>
                 )}
               </div>
