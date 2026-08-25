@@ -1,7 +1,8 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../../context/auth";
-import type { Customer, PetWithDetails, Specie } from "../../types";
+import type { Customer, PetHistory, PetWithDetails, Specie } from "../../types";
+import { formatDateTime } from "../../lib/format";
 
 const emptyForm = { pet_name: "", id_specie: "", id_customer: "" };
 
@@ -14,6 +15,11 @@ export default function Pets() {
   const [editing, setEditing] = useState<number | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [kardexPet, setKardexPet] = useState<PetWithDetails | null>(null);
+  const [history, setHistory] = useState<PetHistory[]>([]);
+  const [newNote, setNewNote] = useState("");
+  const [historySaving, setHistorySaving] = useState(false);
 
   async function load() {
     const [petsRes, speciesRes, customersRes] = await Promise.all([
@@ -86,6 +92,41 @@ export default function Pets() {
     const { error: err } = await supabase.from("pets").delete().eq("id_pet", id);
     if (err) setError(err.message);
     load();
+  }
+
+  async function openKardex(p: PetWithDetails) {
+    setKardexPet(p);
+    setNewNote("");
+    setHistory([]);
+    const { data, error: err } = await supabase
+      .from("pet_history")
+      .select("*")
+      .eq("id_pet", p.id_pet)
+      .order("created_at", { ascending: false });
+    if (err) setError(err.message);
+    else setHistory((data as unknown as PetHistory[]) ?? []);
+  }
+
+  function closeKardex() {
+    setKardexPet(null);
+    setHistory([]);
+    setNewNote("");
+  }
+
+  async function addHistory(e: FormEvent) {
+    e.preventDefault();
+    if (!kardexPet || !newNote.trim()) return;
+    setHistorySaving(true);
+    setError(null);
+    const { error: err } = await supabase.from("pet_history").insert({
+      id_pet: kardexPet.id_pet,
+      note: newNote.trim(),
+      id_business: profile?.id_business,
+    });
+    setHistorySaving(false);
+    if (err) return setError(err.message);
+    setNewNote("");
+    openKardex(kardexPet);
   }
 
   return (
@@ -198,6 +239,12 @@ export default function Pets() {
                   <td>{p.customers?.customer_name ?? "—"}</td>
                   <td className="text-end">
                     <button
+                      className="btn btn-sm btn-outline-info me-1"
+                      onClick={() => openKardex(p)}
+                    >
+                      Kardex
+                    </button>
+                    <button
                       className="btn btn-sm btn-outline-secondary me-1"
                       onClick={() => openEdit(p)}
                     >
@@ -216,6 +263,81 @@ export default function Pets() {
           </table>
         </div>
       </div>
+
+      {kardexPet && (
+        <div
+          className="modal d-block"
+          tabIndex={-1}
+          role="dialog"
+          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+        >
+          <div className="modal-dialog modal-dialog-centered modal-lg">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Kardex — {kardexPet.pet_name}</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={closeKardex}
+                  aria-label="Cerrar"
+                />
+              </div>
+              <div className="modal-body">
+                <form onSubmit={addHistory} className="mb-3">
+                  <label htmlFor="kardex-note" className="form-label">
+                    Nueva nota (ej. es agresivo, requiere baño medicado…)
+                  </label>
+                  <textarea
+                    id="kardex-note"
+                    className="form-control mb-2"
+                    rows={2}
+                    value={newNote}
+                    onChange={(e) => setNewNote(e.target.value)}
+                    placeholder="Describe una observación o condición de la mascota"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="btn btn-success"
+                    disabled={historySaving}
+                  >
+                    {historySaving ? "Guardando..." : "Agregar nota"}
+                  </button>
+                </form>
+
+                {history.length === 0 ? (
+                  <p className="text-secondary mb-0">
+                    Sin notas en el historial.
+                  </p>
+                ) : (
+                  <ul className="list-group list-group-flush">
+                    {history.map((h) => (
+                      <li
+                        key={h.id_history}
+                        className="list-group-item d-flex justify-content-between gap-3"
+                      >
+                        <span className="text-break">{h.note}</span>
+                        <small className="text-secondary text-nowrap">
+                          {formatDateTime(h.created_at)}
+                        </small>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary"
+                  onClick={closeKardex}
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

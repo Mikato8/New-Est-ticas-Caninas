@@ -94,6 +94,14 @@ export interface PetWithDetails extends Pet {
   customers: { customer_name: string } | null;
 }
 
+export interface PetHistory {
+  id_history: number;
+  id_pet: number;
+  note: string;
+  id_business: number;
+  created_at: string;
+}
+
 export interface Service {
   id_service: number;
   service_name: string;
