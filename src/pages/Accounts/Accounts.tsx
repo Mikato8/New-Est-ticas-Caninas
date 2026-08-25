@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { extendAccountMonth, listAccounts, updateAccount } from "../../lib/auth";
+import {
+  deleteAccount,
+  extendAccountMonth,
+  listAccounts,
+  updateAccount,
+} from "../../lib/auth";
 import { formatDate, formatDateTime, todayISO } from "../../lib/format";
 import type { AccountRow } from "../../types";
 
@@ -90,6 +95,29 @@ export default function Accounts({ embedded = false }: { embedded?: boolean }) {
     }
   }
 
+  async function removeAccount(account: AccountRow) {
+    const confirmed = window.confirm(
+      `¿Eliminar la cuenta ${account.email}? Esta acción no se puede deshacer.`,
+    );
+    if (!confirmed) {
+      return;
+    }
+
+    setSavingId(account.id_user);
+    setError(null);
+    setSavedId(null);
+    try {
+      await deleteAccount(account.id_user);
+      setAccounts((current) =>
+        current.filter((item) => item.id_user !== account.id_user),
+      );
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "No se pudo eliminar la cuenta");
+    } finally {
+      setSavingId(null);
+    }
+  }
+
   return (
     <div>
       {!embedded && (
@@ -114,6 +142,8 @@ export default function Accounts({ embedded = false }: { embedded?: boolean }) {
                 <th>Correo</th>
                 <th>Nombre</th>
                 <th>Negocio</th>
+                <th>Teléfono</th>
+                <th>Inscripción</th>
                 <th>Último acceso</th>
                 <th>Accesos</th>
                 <th>Estado</th>
@@ -124,14 +154,14 @@ export default function Accounts({ embedded = false }: { embedded?: boolean }) {
             <tbody>
               {loading && (
                 <tr>
-                  <td colSpan={8} className="text-center text-secondary py-4">
+                  <td colSpan={10} className="text-center text-secondary py-4">
                     Cargando cuentas...
                   </td>
                 </tr>
               )}
               {!loading && accounts.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="text-center text-secondary py-4">
+                  <td colSpan={10} className="text-center text-secondary py-4">
                     No hay cuentas registradas
                   </td>
                 </tr>
@@ -146,6 +176,8 @@ export default function Accounts({ embedded = false }: { embedded?: boolean }) {
                       <td>{account.email}</td>
                       <td className="fw-semibold">{account.user_name}</td>
                       <td>{account.business_name}</td>
+                      <td>{account.phone ?? "—"}</td>
+                      <td>{formatDateTime(account.created_at)}</td>
                       <td>{formatDateTime(account.last_login)}</td>
                       <td>{account.login_count}</td>
                       <td>
@@ -215,6 +247,16 @@ export default function Accounts({ embedded = false }: { embedded?: boolean }) {
                               {savingId === account.id_user
                                 ? "Guardando..."
                                 : "Guardar"}
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-sm btn-outline-danger"
+                              onClick={() => void removeAccount(account)}
+                              disabled={savingId === account.id_user}
+                            >
+                              {savingId === account.id_user
+                                ? "Eliminando..."
+                                : "Eliminar"}
                             </button>
                           </div>
                         )}

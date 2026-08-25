@@ -8,7 +8,7 @@ const corsHeaders = {
 };
 
 const accountFields =
-  "id_user, user_name, email, id_rol, id_business, business(business_name), subscription_status, access_until, last_login, login_count, is_super_admin";
+  "id_user, user_name, email, id_rol, id_business, business(business_name, phone), subscription_status, access_until, last_login, login_count, is_super_admin, created_at";
 
 const validStatuses = new Set(["pending", "active", "suspended"]);
 
@@ -25,15 +25,22 @@ function noAuthorization() {
 
 function flattenAccount(row: Record<string, unknown>) {
   const business = row.business as
-    | { business_name?: string }
-    | { business_name?: string }[]
+    | { business_name?: string; phone?: string | null }
+    | { business_name?: string; phone?: string | null }[]
     | null
     | undefined;
   const businessName = Array.isArray(business)
     ? business[0]?.business_name
     : business?.business_name;
+  const businessPhone = Array.isArray(business)
+    ? business[0]?.phone
+    : business?.phone;
   const { business: _business, ...account } = row;
-  return { ...account, business_name: businessName ?? "—" };
+  return {
+    ...account,
+    business_name: businessName ?? "—",
+    phone: businessPhone ?? null,
+  };
 }
 
 function validDate(value: string) {
@@ -116,7 +123,7 @@ Deno.serve(async (req) => {
 
     const { data: target, error: targetError } = await admin
       .from("users")
-      .select("is_super_admin, subscription_status, access_until")
+      .select("email, is_super_admin, subscription_status, access_until")
       .eq("id_user", body.id_user)
       .maybeSingle();
     if (targetError) {
@@ -127,6 +134,31 @@ Deno.serve(async (req) => {
     }
     if (target.is_super_admin) {
       return json({ error: "No puedes modificar una cuenta super-admin" }, 403);
+    }
+
+    if (body.action === "delete") {
+      const { data: authData, error: authError } =
+        await admin.auth.admin.listUsers({ page: 1, perPage: 1000 });
+      if (authError) {
+        throw authError;
+      }
+      const existing = authData.users.find((user) => user.email === target.email);
+      if (existing) {
+        const { error: deleteAuthError } =
+          await admin.auth.admin.deleteUser(existing.id);
+        if (deleteAuthError) {
+          throw deleteAuthError;
+        }
+      }
+
+      const { error: deleteError } = await admin
+        .from("users")
+        .delete()
+        .eq("id_user", body.id_user);
+      if (deleteError) {
+        throw deleteError;
+      }
+      return json({ deleted: true });
     }
 
     if (body.action === "extend_month") {
