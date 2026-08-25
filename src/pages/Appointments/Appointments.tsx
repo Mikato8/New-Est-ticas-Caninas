@@ -34,8 +34,9 @@ function onlyDigits(value: string | null | undefined): string {
 }
 
 function whatsAppLink(a: AppointmentWithDetails): string | null {
-  const phone = onlyDigits(a.pets?.customers?.phone);
-  if (phone.length < 10) return null;
+  const digits = onlyDigits(a.pets?.customers?.phone);
+  if (digits.length < 10) return null;
+  const phone = digits.length === 10 ? `52${digits}` : digits;
 
   const pet = a.pets?.pet_name ?? "";
   const customer = a.pets?.customers?.customer_name ?? "";
