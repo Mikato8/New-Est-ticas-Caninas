@@ -34,7 +34,7 @@ final class Application
         $peticion = Request::desdeGlobales();
 
         try {
-            $respuesta = $this->router->dispatch($peticion);
+            $respuesta = Confirmacion::interceptar($peticion) ?? $this->router->dispatch($peticion);
         } catch (HttpException $e) {
             $respuesta = Response::html(
                 View::render('paginas/error', [

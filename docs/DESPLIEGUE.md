@@ -93,6 +93,7 @@ Sube `.env.produccion` como `.env` al directorio superior con el administrador d
 - `/` carga con estilos y sin errores en `storage/logs`.
 - Login de administrador y `/panel` responden.
 - Una calculadora devuelve resultado y la API responde JSON.
+- Eliminar un registro del panel muestra la página de confirmación PHP y solo borra al confirmar.
 - `/sitemap.xml` lista guías, comunidad y directorio.
 - La imagen de `public/uploads` se sirve y no ejecuta PHP.
 - El asistente busca en el corpus desde PHP, sin JavaScript ni llamadas externas.

@@ -66,6 +66,7 @@ El esquema es idempotente (`database/schema.sql`). La migración separa sentenci
 - `public/assets/css/app.css`: sistema visual completo (crema, tinta, oro Mikato, petróleo y coral).
 - Menús móviles con checkbox CSS, agenda por pasos GET/POST y ventas con filas fijas de servidor.
 - `PaginasController::asistente`: búsqueda léxica en PHP sobre `public/assets/ia/corpus.json`, sin JavaScript.
+- `app/Core/Confirmacion.php`: intercepta POST destructivos, muestra una página de confirmación y reenvía los campos al confirmar.
 - Tipografías locales: Fraunces (títulos), Archivo (texto), IBM Plex Mono (datos).
 - Ilustraciones SVG propias: portada, productos, favicon e icono social.
 

@@ -45,6 +45,7 @@
 - **PHP 8.3** sin framework: router, vistas, PDO, sesión, CSRF y autenticación propios.
 - **PostgreSQL 17 en Neon**; `pdo_pgsql` y respaldo HTTPS (`DB_DRIVER=http`) para hosting sin salida al puerto 5432.
 - **HTML + CSS sin JavaScript**: menús CSS, agenda por pasos PHP y ventas con formularios del servidor. Tipografías locales (Fraunces + Archivo + IBM Plex Mono).
+- **Confirmaciones PHP** para acciones destructivas (clientes, mascotas, ventas, gastos y moderación), sin diálogos JavaScript.
 - **Sin Composer ni npm en producción.** El despliegue es copiar archivos.
 - **Asistente sin JS** con búsqueda léxica en PHP sobre un corpus JSON.
 
