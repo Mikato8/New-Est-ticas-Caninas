@@ -25,6 +25,20 @@ create unique index if not exists usuarios_usuario_unico on usuarios (lower(usua
 create unique index if not exists usuarios_correo_unico on usuarios (lower(correo));
 create index if not exists usuarios_rol_idx on usuarios (rol);
 
+create table if not exists password_resets (
+  id bigserial primary key,
+  usuario_id bigint not null references usuarios (id) on delete cascade,
+  token_hash text not null unique,
+  creado_en timestamptz not null default now(),
+  expira_en timestamptz not null,
+  usado_en timestamptz,
+  ip text,
+  user_agent text
+);
+
+create index if not exists password_resets_usuario_idx on password_resets (usuario_id, usado_en);
+create index if not exists password_resets_expira_idx on password_resets (expira_en);
+
 create table if not exists clientes (
   id bigserial primary key,
   usuario_id bigint references usuarios (id) on delete set null,

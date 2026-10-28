@@ -78,6 +78,7 @@ Abre <http://127.0.0.1:8090>. El administrador se crea con `ADMIN_USER` y `ADMIN
 | `UPLOAD_MAX_BYTES` | Límite de imágenes (3 MB por defecto) |
 | `POSTS_POR_DIA` / `COMENTARIOS_POR_HORA` / `CITAS_POR_DIA` | Límites antispam |
 | `CONTACT_EMAIL` / `WHATSAPP` / `TELEFONO` | Datos de contacto públicos |
+| `MAIL_ENABLED` / `MAIL_HOST` / `MAIL_PORT` / `MAIL_USERNAME` / `MAIL_PASSWORD` / `MAIL_ENCRYPTION` | SMTP autenticado para recuperación de contraseña |
 | `NEGOCIO_*` | Datos del salón para ticket y configuración |
 
 ## Comandos
@@ -145,7 +146,7 @@ Pasos completos, DNS, SSL, correo, respaldos y solución de problemas: [docs/DES
 - Versión 1.0. Portal, agenda, cuenta, panel, comunidad, directorio, calculadoras y asistente funcionando.
 - El **catálogo, los clientes y las fichas del directorio son datos de ejemplo**. Edítalos en el panel antes de publicar.
 - El **directorio tiene 4 fichas marcadas como “ejemplo”** para mostrar el diseño. Reemplázalas o elimínalas.
-- No hay recuperación de contraseña por correo todavía. El administrador puede restablecerla y cada usuario puede cambiarla en `/perfil`.
+- Recuperación de contraseña por correo con enlace temporal de un solo uso; cada usuario también puede cambiarla en `/perfil`.
 - El envío de correo está desactivado (`MAIL_ENABLED=false`) hasta configurar el buzón del dominio.
 - El contenido está en español de México. No hay versión en inglés.
 - No se incluyen fotos reales de clientes: las ilustraciones son SVG propios y los datos de ejemplo son ficticios.

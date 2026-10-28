@@ -54,9 +54,14 @@ return [
 
     'mail' => [
         'enabled' => env_bool('MAIL_ENABLED', false),
-        'from' => env('MAIL_FROM', 'hola@mikatoestilistascaninos.com'),
+        'host' => env('MAIL_HOST', 'smtp.hostinger.com'),
+        'port' => (int) env('MAIL_PORT', '465'),
+        'username' => env('MAIL_USERNAME', env('MAIL_FROM', 'cuentas@mikatoestilistascaninos.com')),
+        'password' => env('MAIL_PASSWORD', ''),
+        'encryption' => strtolower(env('MAIL_ENCRYPTION', 'ssl')),
+        'from' => env('MAIL_FROM', 'cuentas@mikatoestilistascaninos.com'),
         'from_name' => env('MAIL_FROM_NAME', 'Mikato Estilistas Caninos'),
-        'to' => env('MAIL_TO', 'hola@mikatoestilistascaninos.com'),
+        'to' => env('MAIL_TO', 'mvz.armando@gmail.com'),
     ],
 
     'admin' => [

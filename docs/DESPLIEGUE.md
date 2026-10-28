@@ -84,7 +84,7 @@ Sube `.env.produccion` como `.env` al directorio superior con el administrador d
 1. Apunta `mikatoestilistascaninos.com` al hosting y espera la propagación.
 2. Activa SSL gratuito en el panel y fuerza HTTPS.
 3. Verifica que `APP_URL` use `https://`.
-4. Crea el buzón de `CONTACT_EMAIL` y activa `MAIL_ENABLED=true`.
+4. Configura el buzón de recuperación (`MAIL_FROM` / `MAIL_USERNAME`, por ejemplo `cuentas@mikatoestilistascaninos.com`), su contraseña en `MAIL_PASSWORD` y activa `MAIL_ENABLED=true`. Para Hostinger: `MAIL_HOST=smtp.hostinger.com`, `MAIL_PORT=465`, `MAIL_ENCRYPTION=ssl`.
 5. Revisa `robots.txt` y `sitemap.xml` con el dominio final.
 
 ## Verificación
@@ -115,4 +115,4 @@ Sube `.env.produccion` como `.env` al directorio superior con el administrador d
 | Migración falla | Una sentencia no es idempotente | Revisa el mensaje y el SQL. |
 | Uploads no escriben | Permisos | `chmod -R u+rwX,g+rwX public/uploads`. |
 | Sesión no persiste | HTTPS/proxy | Revisa `X-Forwarded-Proto` y cookies. |
-| Correo no llega | Buzón no creado o `MAIL_ENABLED=false` | Crea el buzón y activa el envío. |
+| Correo no llega | Buzón no creado, `MAIL_ENABLED=false` o SMTP mal configurado | Revisa las variables `MAIL_*`, la contraseña del buzón y los logs del servidor. |

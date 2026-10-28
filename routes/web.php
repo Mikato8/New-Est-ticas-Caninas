@@ -74,6 +74,10 @@ return static function (Router $router): void {
 
     $router->get('/entrar', [AuthController::class, 'form']);
     $router->post('/entrar', [AuthController::class, 'entrar']);
+    $router->get('/recuperar', [AuthController::class, 'recuperarForm']);
+    $router->post('/recuperar', [AuthController::class, 'enviarRecuperacion']);
+    $router->get('/recuperar/{token}', [AuthController::class, 'resetForm']);
+    $router->post('/recuperar/{token}', [AuthController::class, 'resetPassword']);
     $router->get('/registro', [AuthController::class, 'registroForm']);
     $router->post('/registro', [AuthController::class, 'registrar']);
     $router->post('/salir', [AuthController::class, 'salir']);
