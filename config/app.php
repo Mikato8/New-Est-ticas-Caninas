@@ -44,7 +44,7 @@ return [
     ],
 
     'contacto' => [
-        'email' => env('CONTACT_EMAIL', 'hola@mikatoestilistascaninos.com'),
+        'email' => env('CONTACT_EMAIL', 'clientes@mikatoestilistascaninos.com'),
         'whatsapp' => env('WHATSAPP', '523324333262'),
         'telefono' => env('TELEFONO', '+52 33 2433 3262'),
         'direccion' => env('DIRECCION', ''),
@@ -61,7 +61,7 @@ return [
         'encryption' => strtolower(env('MAIL_ENCRYPTION', 'ssl')),
         'from' => env('MAIL_FROM', 'cuentas@mikatoestilistascaninos.com'),
         'from_name' => env('MAIL_FROM_NAME', 'Mikato Estilistas Caninos'),
-        'to' => env('MAIL_TO', 'mvz.armando@gmail.com'),
+        'to' => env('MAIL_TO', 'clientes@mikatoestilistascaninos.com'),
     ],
 
     'admin' => [
@@ -80,7 +80,7 @@ return [
         'direccion' => env('NEGOCIO_DIRECCION', ''),
         'telefono' => env('NEGOCIO_TELEFONO', '+52 33 2433 3262'),
         'whatsapp' => env('NEGOCIO_WHATSAPP', '523324333262'),
-        'correo' => env('NEGOCIO_CORREO', 'hola@mikatoestilistascaninos.com'),
+        'correo' => env('NEGOCIO_CORREO', 'clientes@mikatoestilistascaninos.com'),
         'iva' => (float) env('NEGOCIO_IVA', '0'),
         'capacidad_diaria' => env_int('NEGOCIO_CAPACIDAD', 12),
     ],

@@ -16,6 +16,7 @@ use App\Repositories\NegocioRepository;
 use App\Repositories\ProductoRepository;
 use App\Repositories\PublicacionRepository;
 use App\Repositories\ServicioRepository;
+use App\Support\Mailer;
 use App\Support\Validator;
 
 final class HomeController
@@ -133,6 +134,18 @@ final class HomeController
         }
 
         ContactoRepository::crear($datos);
+
+        $para = (string) config('mail.to', config('contacto.email', ''));
+        if ($para !== '') {
+            $cuerpo = "Nuevo mensaje desde el sitio de Mikato\n\n"
+                . "Nombre: " . $datos['nombre'] . "\n"
+                . "Correo: " . $datos['correo'] . "\n"
+                . "Teléfono: " . ($datos['telefono'] !== '' ? $datos['telefono'] : 'No indicado') . "\n"
+                . "Asunto: " . $datos['asunto'] . "\n\n"
+                . "Mensaje:\n" . $datos['mensaje'] . "\n";
+            Mailer::enviar($para, 'Nuevo mensaje de contacto · Mikato', $cuerpo, $datos['correo']);
+        }
+
         Session::olvidarViejo();
         flash('exito', 'Recibimos tu mensaje. Te respondemos en horario de oficina.');
         return redirigir('/contacto');
