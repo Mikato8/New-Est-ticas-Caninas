@@ -64,8 +64,8 @@ El esquema es idempotente (`database/schema.sql`). La migración separa sentenci
 ## Frontend
 
 - `public/assets/css/app.css`: sistema visual completo (crema, tinta, oro Mikato, petróleo y coral).
-- `public/assets/js/app.js`: menú móvil, agenda dinámica, filtros de mascotas, conceptos de venta y confirmaciones.
-- `public/assets/js/ia/asistente.js`: BM25 local y modelo generativo opcional.
+- Menús móviles con checkbox CSS, agenda por pasos GET/POST y ventas con filas fijas de servidor.
+- `PaginasController::asistente`: búsqueda léxica en PHP sobre `public/assets/ia/corpus.json`, sin JavaScript.
 - Tipografías locales: Fraunces (títulos), Archivo (texto), IBM Plex Mono (datos).
 - Ilustraciones SVG propias: portada, productos, favicon e icono social.
 
@@ -74,5 +74,5 @@ El esquema es idempotente (`database/schema.sql`). La migración separa sentenci
 - **Sin framework:** el hosting compartido solo necesita PHP; no hay Composer ni build.
 - **Contenido editorial en PHP:** se versiona con git y no depende de la base; la comunidad sí vive en PostgreSQL.
 - **Un solo salón:** el panel gestiona la estética de Mikato; el directorio es para la comunidad de estilistas. No es multi-tenant.
-- **Cálculo en servidor:** los resultados son reproducibles y se pueden probar; el asistente local solo recupera y redacta.
+- **Cálculo y búsqueda en servidor:** los resultados son reproducibles y se pueden probar; no hay JavaScript ni modelos externos.
 - **Datos de ejemplo marcados:** el catálogo, clientes y fichas demo se pueden borrar desde el panel.

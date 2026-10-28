@@ -19,6 +19,7 @@ $whatsapp = whatsapp_link();
 </div>
 <header class="cabecera" id="cabecera">
     <div class="contenedor cabecera__barra">
+        <input type="checkbox" id="menu-principal" class="menu-check" aria-hidden="true">
         <a class="marca" href="<?= url('/') ?>" aria-label="Mikato Estilistas Caninos, inicio">
             <img src="<?= asset('/assets/img/logo-mikato.png') ?>" alt="Mikato">
             <span class="marca__texto">
@@ -51,9 +52,9 @@ $whatsapp = whatsapp_link();
                 <a class="boton boton--contorno boton--pequeno" href="<?= url('/entrar') ?>">Entrar</a>
             <?php endif; ?>
             <a class="boton boton--oro boton--pequeno boton--agenda" href="<?= url('/agenda') ?>"><?= icono('agenda') ?> Agendar cita</a>
-            <button class="menu-boton" type="button" data-menu aria-expanded="false" aria-controls="nav-principal" aria-label="Abrir menú">
+            <label class="menu-boton" for="menu-principal" tabindex="0" aria-label="Abrir menú">
                 <?= icono('menu') ?>
-            </button>
+            </label>
         </div>
     </div>
 </header>

@@ -46,7 +46,7 @@ $mostrar = static function (string $campo, mixed $valor) use ($tipo): string {
                             <?php endforeach; ?>
                             <td class="acciones">
                                 <a class="boton boton--contorno" href="<?= url('/panel/' . $tipo . '?editar=' . $item['id']) ?>" title="Editar" aria-label="Editar" style="width:34px;height:34px;padding:0;"><?= icono('editar') ?></a>
-                                <form method="post" action="<?= url('/panel/' . $tipo . '/eliminar') ?>" data-confirmar="¿Archivar este registro?"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $item['id'] ?>"><button class="boton boton--contorno" type="submit" title="Archivar" aria-label="Archivar" style="width:34px;height:34px;padding:0;color:var(--coral);"><?= icono('basura') ?></button></form>
+                                <form method="post" action="<?= url('/panel/' . $tipo . '/eliminar') ?>"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $item['id'] ?>"><button class="boton boton--contorno" type="submit" title="Archivar" aria-label="Archivar" style="width:34px;height:34px;padding:0;color:var(--coral);"><?= icono('basura') ?></button></form>
                             </td>
                         </tr>
                     <?php endforeach; ?>

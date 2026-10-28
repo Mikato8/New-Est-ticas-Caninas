@@ -26,7 +26,7 @@
 - **Comunidad moderada** con casos, técnicas, dudas y empleo.
 - **Directorio nacional** de estéticas, con fichas revisadas antes de publicar.
 - **Glosario** de 32 términos del oficio.
-- **Asistente local** (BM25) que busca en el contenido del sitio; modelo generativo opcional en el navegador.
+- **Asistente de búsqueda en servidor** que consulta 164 fragmentos del contenido del sitio con PHP puro, sin JavaScript ni modelos externos.
 
 ### Para el salón (panel de gestión)
 
@@ -44,9 +44,9 @@
 
 - **PHP 8.3** sin framework: router, vistas, PDO, sesión, CSRF y autenticación propios.
 - **PostgreSQL 17 en Neon**; `pdo_pgsql` y respaldo HTTPS (`DB_DRIVER=http`) para hosting sin salida al puerto 5432.
-- **Vanilla JS + CSS** sin build step; tipografías locales (Fraunces + Archivo + IBM Plex Mono).
+- **HTML + CSS sin JavaScript**: menús CSS, agenda por pasos PHP y ventas con formularios del servidor. Tipografías locales (Fraunces + Archivo + IBM Plex Mono).
 - **Sin Composer ni npm en producción.** El despliegue es copiar archivos.
-- **Asistente local** con BM25 y Transformers.js cargado bajo demanda solo si se activa el modelo.
+- **Asistente sin JS** con búsqueda léxica en PHP sobre un corpus JSON.
 
 ## Empezar en local
 
@@ -145,7 +145,6 @@ Pasos completos, DNS, SSL, correo, respaldos y solución de problemas: [docs/DES
 - El **directorio tiene 4 fichas marcadas como “ejemplo”** para mostrar el diseño. Reemplázalas o elimínalas.
 - No hay recuperación de contraseña por correo todavía. El administrador puede restablecerla y cada usuario puede cambiarla en `/perfil`.
 - El envío de correo está desactivado (`MAIL_ENABLED=false`) hasta configurar el buzón del dominio.
-- El asistente generativo es **opcional y experimental**: requiere WebGPU, memoria y descarga de ~500 MB. La búsqueda guiada funciona sin él.
 - El contenido está en español de México. No hay versión en inglés.
 - No se incluyen fotos reales de clientes: las ilustraciones son SVG propios y los datos de ejemplo son ficticios.
 
@@ -159,8 +158,8 @@ La arquitectura se inspira en [Electricistas MX](https://github.com/Mikato8/Elec
 - [PetCare](https://github.com/geosem42/PetCare) (MIT): modelo de historial.
 - [fci-breeds](https://github.com/paiv/fci-breeds) (MIT): datos de razas.
 - [Dog-Breed-120](https://huggingface.co/prithivMLmods/Dog-Breed-120) (Apache-2.0).
-- [Qwen2.5-0.5B-Instruct ONNX](https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct): modelo opcional.
-- [SmolLM2-360M-Instruct](https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct) (Apache-2.0): alternativa ligera.
+- [Qwen2.5-0.5B-Instruct ONNX](https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct): modelo evaluado, no usado en producción.
+- [SmolLM2-360M-Instruct](https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct) (Apache-2.0): alternativa evaluada, no usada.
 
 Detalle y licencias en [la página de herramientas](https://mikatoestilistascaninos.com/herramientas) y [docs/INVESTIGACION-2026-10-27.md](docs/INVESTIGACION-2026-10-27.md).
 

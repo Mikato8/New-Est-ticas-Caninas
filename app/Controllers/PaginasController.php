@@ -99,16 +99,16 @@ final class PaginasController
                 'nombre' => 'Qwen2.5-0.5B-Instruct (ONNX)',
                 'url' => 'https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct',
                 'licencia' => 'Verificar tarjeta (base Apache-2.0)',
-                'tipo' => 'Asistente local',
-                'uso' => 'Modelo pequeño para el asistente opcional en el navegador. Revisa la licencia antes de producción.',
+                'tipo' => 'Modelo evaluado',
+                'uso' => 'Modelo evaluado durante la investigación; no se usa en producción porque el asistente es búsqueda PHP sin JavaScript.',
                 'reutilizable' => true,
             ],
             [
                 'nombre' => 'SmolLM2-360M-Instruct',
                 'url' => 'https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct',
                 'licencia' => 'Apache-2.0',
-                'tipo' => 'Asistente local',
-                'uso' => 'Alternativa más ligera; español limitado, respuestas cortas.',
+                'tipo' => 'Modelo evaluado',
+                'uso' => 'Alternativa ligera evaluada; no se usa en producción.',
                 'reutilizable' => true,
             ],
             [
@@ -156,10 +156,80 @@ final class PaginasController
 
     public function asistente(Request $peticion): Response
     {
+        $q = trim($peticion->cadena('q'));
+        $resultados = $q !== '' ? $this->buscarEnCorpus($q) : [];
+
         return Response::html(view('paginas/asistente', [
             'titulo' => 'Asistente de estética canina',
             'descripcion' => 'Pregunta sobre baño, corte, uñas, secado o negocio. Busca en las guías de Mikato sin enviar tus datos a ningún servidor.',
+            'q' => $q,
+            'resultados' => $resultados,
         ]));
+    }
+
+    /** @return list<array<string, mixed>> */
+    private function buscarEnCorpus(string $consulta): array
+    {
+        $ruta = BASE_PATH . '/public/assets/ia/corpus.json';
+        if (!is_file($ruta)) {
+            return [];
+        }
+        $datos = json_decode((string) file_get_contents($ruta), true);
+        $chunks = is_array($datos['chunks'] ?? null) ? $datos['chunks'] : [];
+
+        $normalizar = static function (string $texto): string {
+            $texto = mb_strtolower($texto, 'UTF-8');
+            $texto = strtr($texto, ['á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u', 'ü' => 'u', 'ñ' => 'n']);
+            return trim((string) preg_replace('/[^a-z0-9]+/u', ' ', $texto));
+        };
+        $detener = ['para', 'como', 'cual', 'que', 'con', 'por', 'del', 'las', 'los', 'una', 'uno', 'unos', 'unas', 'este', 'esta', 'estos', 'estas', 'mas', 'muy', 'sin', 'sobre', 'entre', 'cuando', 'donde', 'porque', 'pero', 'tambien', 'hasta', 'desde', 'todo', 'toda', 'todos', 'todas', 'hay', 'ser', 'son', 'fue', 'era', 'estan', 'puedo', 'puede', 'debo', 'debe', 'quiero', 'necesito', 'usar', 'uso', 'hacer', 'hago', 'tengo', 'tiene', 'perro', 'perros', 'canina', 'estetica'];
+        $terminos = array_values(array_unique(array_filter(
+            explode(' ', $normalizar($consulta)),
+            static fn (string $t): bool => mb_strlen($t) > 2 && !in_array($t, $detener, true)
+        )));
+        if ($terminos === []) {
+            return [];
+        }
+
+        $puntuados = [];
+        foreach ($chunks as $chunk) {
+            $titulo = $normalizar((string) ($chunk['titulo'] ?? ''));
+            $texto = $normalizar((string) ($chunk['texto'] ?? ''));
+            $score = 0;
+            foreach ($terminos as $termino) {
+                $score += substr_count($titulo, $termino) * 5;
+                $score += substr_count($texto, $termino);
+            }
+            if ($score > 0) {
+                $puntuados[] = ['chunk' => $chunk, 'score' => $score];
+            }
+        }
+        usort($puntuados, static fn (array $a, array $b): int => $b['score'] <=> $a['score']);
+
+        $salida = [];
+        foreach (array_slice($puntuados, 0, 6) as $fila) {
+            $chunk = $fila['chunk'];
+            $oraciones = preg_split('/(?<=[.!?])\s+/u', (string) ($chunk['texto'] ?? '')) ?: [];
+            $relevantes = array_values(array_filter($oraciones, static function (string $oracion) use ($terminos, $normalizar): bool {
+                $plano = $normalizar($oracion);
+                foreach ($terminos as $termino) {
+                    if (str_contains($plano, $termino)) {
+                        return true;
+                    }
+                }
+                return false;
+            }));
+            $extracto = implode(' ', array_slice($relevantes !== [] ? $relevantes : $oraciones, 0, 2));
+            $salida[] = [
+                'titulo' => (string) ($chunk['titulo'] ?? 'Contenido'),
+                'titulo_guia' => (string) ($chunk['titulo_guia'] ?? ''),
+                'extracto' => limitar_texto(trim($extracto), 420),
+                'url' => (string) ($chunk['url'] ?? '/guias'),
+                'categoria' => (string) ($chunk['categoria'] ?? 'guia'),
+                'score' => $fila['score'],
+            ];
+        }
+        return $salida;
     }
 
     public function sitemap(Request $peticion): Response

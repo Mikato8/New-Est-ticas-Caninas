@@ -29,7 +29,7 @@ $pasadas = array_values(array_filter($citas, static fn (array $c): bool => !in_a
                             <p class="texto-suave" style="font-size:.9rem;"><?= e($cita['servicio_nombre']) ?><br><?= e(dia_semana($cita['fecha'])) ?> <?= e(fecha_larga($cita['fecha'])) ?> · <?= e(hora_ampm($cita['hora'])) ?></p>
                             <div class="flex-entre">
                                 <strong><?= precio($cita['precio']) ?></strong>
-                                <form method="post" action="<?= url('/mi-cuenta/citas/cancelar') ?>" data-confirmar="¿Cancelar esta cita?">
+                                <form method="post" action="<?= url('/mi-cuenta/citas/cancelar') ?>">
                                     <?= csrf_field() ?>
                                     <input type="hidden" name="id" value="<?= (int) $cita['id'] ?>">
                                     <button class="boton boton--pequeno boton--contorno" type="submit">Cancelar</button>

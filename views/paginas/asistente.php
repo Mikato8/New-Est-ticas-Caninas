@@ -4,64 +4,86 @@ declare(strict_types=1);
 <div class="contenedor">
     <nav class="migas" aria-label="Ruta"><a href="<?= url('/') ?>">Inicio</a><span>/</span>Asistente</nav>
     <header class="portada-interior">
-        <span class="mono texto-oro">Asistente local</span>
+        <span class="mono texto-oro">Búsqueda en el sitio</span>
         <h1>Pregunta sobre estética canina.</h1>
-        <p>Busca en las guías, calculadoras y glosario de Mikato. La búsqueda corre en tu navegador y no envía tus preguntas a ningún servidor. El modelo generativo es opcional.</p>
+        <p>Busca en las 12 guías, el glosario, las calculadoras y el catálogo. La búsqueda se ejecuta en el servidor de Mikato: no usa JavaScript ni envía tus preguntas a modelos externos.</p>
+        <form class="buscador mt-3" method="get" action="<?= url('/asistente') ?>" style="max-width:640px;">
+            <?= icono('buscar') ?>
+            <label class="sr-only" for="q-asistente">Tu pregunta</label>
+            <input id="q-asistente" type="search" name="q" value="<?= e($q) ?>" placeholder="Ej. ¿cómo diluyo el shampoo?, ¿hasta dónde corto la uña?" maxlength="300" required>
+            <button type="submit">Buscar</button>
+        </form>
     </header>
 </div>
 
 <section class="seccion seccion--compacta">
     <div class="contenedor">
         <div class="grid grid--2" style="align-items:start;">
-            <div class="tarjeta ia-chat" data-ia-chat data-corpus="<?= url('/assets/ia/corpus.json') ?>">
-                <div class="ia-chat__cabecera">
-                    <div class="flex-centro"><span class="avatar avatar--teal"><?= icono('chispa') ?></span><div><strong>Asistente Mikato</strong><br><small class="texto-tenue" data-ia-estado>Preparando índice…</small></div></div>
-                    <span class="badge">Local</span>
-                </div>
-                <div class="ia-log" data-ia-log aria-live="polite">
-                    <div class="ia-burbuja ia-burbuja--sistema">
-                        Hola. Puedo buscar en las <?= (int) \App\Domain\Contenido\Guias::total() ?> guías, el glosario y las calculadoras. Pregúntame por baño, corte, uñas, secado, manejo o precios.
-                        <div class="ia-burbuja__nota">No sustituyo a un veterinario. Si hay dolor, heridas o una urgencia, acude a uno.</div>
+            <div>
+                <?php if ($q === ''): ?>
+                    <div class="tarjeta tarjeta__cuerpo">
+                        <h2 style="font-size:1.5rem;">¿Qué puedes preguntar?</h2>
+                        <div class="filtros mt-2">
+                            <a class="chip" href="<?= url('/asistente?q=' . urlencode('dilución de shampoo')) ?>">Dilución de shampoo</a>
+                            <a class="chip" href="<?= url('/asistente?q=' . urlencode('corte de uñas')) ?>">Corte de uñas</a>
+                            <a class="chip" href="<?= url('/asistente?q=' . urlencode('cómo secar un perro')) ?>">Secado seguro</a>
+                            <a class="chip" href="<?= url('/asistente?q=' . urlencode('precio de un baño')) ?>">Precio de un baño</a>
+                            <a class="chip" href="<?= url('/asistente?q=' . urlencode('manto doble')) ?>">Manto doble</a>
+                            <a class="chip" href="<?= url('/asistente?q=' . urlencode('marco legal')) ?>">Marco legal</a>
+                        </div>
+                        <p class="texto-suave mt-3" style="font-size:.9rem;">La búsqueda compara palabras clave con 164 fragmentos públicos del portal y muestra de dónde sale cada respuesta. Si no encuentra algo, te lo dice.</p>
                     </div>
-                </div>
-                <div class="ia-ejemplos">
-                    <button type="button" class="chip ia-ejemplo">¿Cómo diluyo el shampoo?</button>
-                    <button type="button" class="chip ia-ejemplo">¿Hasta dónde corto la uña?</button>
-                    <button type="button" class="chip ia-ejemplo">¿Cuánto cobro por un baño?</button>
-                    <button type="button" class="chip ia-ejemplo">¿Cómo secar un manto doble?</button>
-                </div>
-                <form class="ia-form" data-ia-form>
-                    <label class="sr-only" for="ia-pregunta">Tu pregunta</label>
-                    <input id="ia-pregunta" type="text" data-ia-pregunta placeholder="Escribe tu pregunta…" autocomplete="off" maxlength="300">
-                    <button class="boton" type="submit">Preguntar</button>
-                </form>
+                <?php elseif ($resultados === []): ?>
+                    <div class="tarjeta tarjeta__cuerpo">
+                        <h2 style="font-size:1.5rem;">No encontré una respuesta documentada</h2>
+                        <p class="texto-suave">Prueba con otra palabra: “baño”, “uñas”, “secado”, “precio”, “doble capa” o “legal”. Si el tema no está en el sitio, <a href="<?= url('/contacto') ?>">escríbenos</a> y lo evaluamos.</p>
+                    </div>
+                <?php else: ?>
+                    <p class="texto-tenue" style="font-size:.85rem;"><?= count($resultados) ?> resultado<?= count($resultados) === 1 ? '' : 's' ?> para «<?= e($q) ?>».</p>
+                    <div style="display:grid;gap:14px;">
+                        <?php foreach ($resultados as $i => $resultado): ?>
+                            <article class="tarjeta tarjeta__cuerpo">
+                                <div class="flex-entre" style="align-items:flex-start;gap:12px;">
+                                    <div>
+                                        <span class="etiqueta etiqueta--teal"><?= e($resultado['categoria']) ?></span>
+                                        <h2 style="font-size:1.15rem;margin:8px 0 4px;"><?= e($resultado['titulo']) ?></h2>
+                                    </div>
+                                    <span class="mono texto-tenue" style="font-size:.62rem;"><?= (int) $i + 1 ?></span>
+                                </div>
+                                <p class="texto-suave" style="font-size:.9rem;"><?= e($resultado['extracto']) ?></p>
+                                <div class="flex-centro">
+                                    <a class="boton boton--pequeno" href="<?= e($resultado['url']) ?>">Abrir fuente</a>
+                                    <?php if ($resultado['titulo_guia'] !== ''): ?><span class="texto-tenue" style="font-size:.78rem;"><?= e($resultado['titulo_guia']) ?></span><?php endif; ?>
+                                </div>
+                            </article>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <aside class="aside-sticky">
                 <div class="aside-caja">
-                    <h3>Búsqueda guiada</h3>
-                    <p style="font-size:.88rem;color:var(--tinta-suave);">La búsqueda BM25 encuentra los fragmentos más relevantes del sitio y te muestra la fuente. No inventa: si no hay información, lo dice.</p>
-                    <div class="flex-centro" style="gap:7px;flex-wrap:wrap;">
-                        <a class="chip" href="<?= url('/guias') ?>">Guías</a>
+                    <h3>Cómo funciona</h3>
+                    <p style="font-size:.88rem;color:var(--tinta-suave);">El servidor lee el corpus público, normaliza acentos, descarta palabras vacías y puntúa coincidencias en títulos y texto. No hay modelos externos ni llamadas a Hugging Face.</p>
+                    <ul style="font-size:.85rem;">
+                        <li>Sin JavaScript.</li>
+                        <li>Sin datos de clientes.</li>
+                        <li>Con enlace a la fuente original.</li>
+                    </ul>
+                </div>
+                <div class="aside-caja" style="background:var(--teal-claro);border-color:#b9d4c9;">
+                    <h3>Más herramientas</h3>
+                    <div style="display:grid;gap:7px;">
                         <a class="chip" href="<?= url('/calculadoras') ?>">Calculadoras</a>
                         <a class="chip" href="<?= url('/glosario') ?>">Glosario</a>
+                        <a class="chip" href="<?= url('/guias') ?>">Todas las guías</a>
                     </div>
                 </div>
                 <div class="aside-caja">
-                    <h3>Modelo generativo opcional</h3>
-                    <p style="font-size:.88rem;color:var(--tinta-suave);">Puedes descargar un modelo pequeño de Hugging Face para redactar respuestas con las fuentes del sitio. Se ejecuta en tu navegador y requiere WebGPU y memoria. Es experimental.</p>
-                    <button class="boton boton--pequeno boton--bloque" type="button" data-ia-cargar>Activar modelo (~500 MB)</button>
-                    <div class="ia-progreso"><span data-ia-progreso></span></div>
-                    <p class="texto-tenue" style="font-size:.76rem;margin-top:8px;" data-ia-modelo-estado>Sin cargar. La búsqueda funciona igual.</p>
-                </div>
-                <div class="aside-caja" style="background:var(--teal-claro);border-color:#b9d4c9;">
-                    <h3>Privacidad</h3>
-                    <p style="font-size:.88rem;color:var(--teal);">Tus preguntas no salen del dispositivo. No usamos datos de clientes para entrenar modelos. Los pesos quedan en la caché del navegador.</p>
-                    <a class="enlace-flecha" href="<?= url('/privacidad') ?>">Aviso de privacidad <?= icono('flecha') ?></a>
+                    <h3>Importante</h3>
+                    <p style="font-size:.85rem;color:var(--tinta-suave);">Las respuestas son extractos del contenido del sitio. No sustituyen la valoración de un médico veterinario. Ante dolor, heridas, fiebre o dificultad para respirar, acude a uno.</p>
                 </div>
             </aside>
         </div>
     </div>
 </section>
-
-<script type="module" src="<?= asset('/assets/js/ia/asistente.js') ?>"></script>

@@ -162,6 +162,8 @@ p { margin-bottom: 1rem; }
 .nav a.activo { color: var(--teal); background: var(--teal-claro); font-weight: 650; }
 .nav__cuenta { display: none; }
 .cabecera__acciones { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.menu-check { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+#menu-principal:checked ~ .nav { display: flex; }
 .menu-boton { display: none; background: transparent; border: 1px solid var(--borde-fuerte); color: var(--tinta); width: 42px; height: 42px; border-radius: 50%; align-items: center; justify-content: center; cursor: pointer; }
 .menu-boton svg { width: 22px; height: 22px; }
 
@@ -587,7 +589,6 @@ p { margin-bottom: 1rem; }
   .cabecera__barra { min-height: 68px; }
   .menu-boton { display: inline-flex; }
   .nav { position: absolute; left: 0; right: 0; top: 100%; background: var(--crema); border-bottom: 1px solid var(--borde); flex-direction: column; align-items: stretch; padding: 10px 18px 18px; display: none; box-shadow: var(--sombra); }
-  .nav--abierta { display: flex; }
   .nav a { padding: 11px 12px; font-size: 0.95rem; }
   .cabecera__acciones .boton--agenda { display: none; }
   .hero__rejilla, .split, .calculadora, .agenda-rejilla, .cuenta, .auth { grid-template-columns: 1fr; }
@@ -605,10 +606,12 @@ p { margin-bottom: 1rem; }
   .auth__lado blockquote { display: none; }
   .panel { grid-template-columns: 1fr; }
   .panel__barra { position: fixed; left: 0; top: 0; bottom: 0; width: 270px; z-index: 80; transform: translateX(-102%); transition: transform .22s ease; height: 100vh; }
-  .panel__barra--abierta { transform: translateX(0); }
+  .panel-menu-check:checked ~ .panel__barra { transform: translateX(0); }
+.panel__cerrar { display: none; }
   .panel__barra-movil { display: flex; align-items: center; gap: 10px; padding: 10px 16px; background: var(--teal-oscuro); color: var(--crema); position: sticky; top: 0; z-index: 30; }
   .panel__barra-movil img { height: 22px; filter: brightness(0) invert(1); }
-  .panel__barra-movil button { margin-left: auto; background: transparent; border: 1px solid rgba(251, 247, 239, 0.3); color: var(--crema); border-radius: 7px; padding: 6px 10px; }
+  .panel__barra-movil .panel__menu-boton { margin-left: auto; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 1px solid rgba(251, 247, 239, 0.3); color: var(--crema); border-radius: 7px; padding: 6px 10px; cursor: pointer; }
+  .panel__cerrar { display: block; margin: 0 0 10px; padding: 7px 10px; border: 1px solid rgba(251, 247, 239, 0.28); border-radius: 7px; color: var(--crema); font-family: var(--fuente-mono); font-size: 0.66rem; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; text-align: center; }
   .panel__rejilla--3, .panel__rejilla--2, .panel__rejilla--catalogo { grid-template-columns: 1fr; }
   .grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }

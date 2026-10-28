@@ -603,41 +603,80 @@ final class PanelController
     {
         $usuario = $this->guard();
         Csrf::verificar($peticion);
-        $tipos = $peticion->cuerpo()['tipo'] ?? [];
-        $referencias = $peticion->cuerpo()['referencia_id'] ?? [];
-        $descripciones = $peticion->cuerpo()['descripcion'] ?? [];
-        $cantidades = $peticion->cuerpo()['cantidad'] ?? [];
-        $precios = $peticion->cuerpo()['precio_unitario'] ?? [];
+        $cuerpo = $peticion->cuerpo();
+        $conceptos = $cuerpo['concepto'] ?? [];
+        $cantidades = $cuerpo['cantidad'] ?? [];
+        $manualesDesc = $cuerpo['manual_descripcion'] ?? [];
+        $manualesCant = $cuerpo['manual_cantidad'] ?? [];
+        $manualesPrecio = $cuerpo['manual_precio'] ?? [];
 
-        if (!is_array($tipos) || !is_array($descripciones) || !is_array($cantidades) || !is_array($precios)) {
+        if (!is_array($conceptos) || !is_array($cantidades)) {
             flash('error', 'No pudimos leer los conceptos de la venta.');
             return redirigir('/panel/ventas/nueva');
         }
 
         $items = [];
         $total = 0.0;
-        foreach ($descripciones as $i => $descripcion) {
-            $descripcion = trim((string) $descripcion);
-            $cantidad = max(0, (int) ($cantidades[$i] ?? 0));
-            $precio = max(0.0, (float) ($precios[$i] ?? 0));
-            $tipo = (string) ($tipos[$i] ?? 'otro');
-            if ($descripcion === '' || $cantidad < 1) {
+        foreach ($conceptos as $i => $valor) {
+            $valor = trim((string) $valor);
+            if ($valor === '') {
                 continue;
             }
-            if (!in_array($tipo, ['servicio', 'producto', 'paquete', 'otro'], true)) {
-                $tipo = 'otro';
+            $partes = explode(':', $valor, 2);
+            $tipo = $partes[0] ?? '';
+            $referencia = (int) ($partes[1] ?? 0);
+            $cantidad = max(1, min(50, (int) ($cantidades[$i] ?? 1)));
+            $descripcion = '';
+            $precio = 0.0;
+            if ($tipo === 'servicio') {
+                $fila = ServicioRepository::porId($referencia);
+                $descripcion = (string) ($fila['nombre'] ?? '');
+                $precio = (float) ($fila['precio'] ?? 0);
+            } elseif ($tipo === 'producto') {
+                $fila = ProductoRepository::porId($referencia);
+                $descripcion = (string) ($fila['nombre'] ?? '');
+                $precio = (float) ($fila['precio'] ?? 0);
+            } elseif ($tipo === 'paquete') {
+                $fila = PaqueteRepository::porId($referencia);
+                $descripcion = (string) ($fila['nombre'] ?? '');
+                $precio = (float) ($fila['precio'] ?? 0);
+            }
+            if ($descripcion === '' || !in_array($tipo, ['servicio', 'producto', 'paquete'], true)) {
+                continue;
             }
             $importe = round($cantidad * $precio, 2);
             $items[] = [
                 'tipo' => $tipo,
-                'referencia_id' => (int) ($referencias[$i] ?? 0) ?: null,
+                'referencia_id' => $referencia,
                 'descripcion' => mb_substr($descripcion, 0, 200),
-                'cantidad' => min(50, $cantidad),
+                'cantidad' => $cantidad,
                 'precio_unitario' => $precio,
                 'importe' => $importe,
             ];
             $total += $importe;
         }
+
+        if (is_array($manualesDesc) && is_array($manualesCant) && is_array($manualesPrecio)) {
+            foreach ($manualesDesc as $i => $descripcion) {
+                $descripcion = trim((string) $descripcion);
+                $cantidad = max(0, min(50, (int) ($manualesCant[$i] ?? 0)));
+                $precio = max(0.0, (float) ($manualesPrecio[$i] ?? 0));
+                if ($descripcion === '' || $cantidad < 1 || $precio <= 0) {
+                    continue;
+                }
+                $importe = round($cantidad * $precio, 2);
+                $items[] = [
+                    'tipo' => 'otro',
+                    'referencia_id' => null,
+                    'descripcion' => mb_substr($descripcion, 0, 200),
+                    'cantidad' => $cantidad,
+                    'precio_unitario' => $precio,
+                    'importe' => $importe,
+                ];
+                $total += $importe;
+            }
+        }
+
         if ($items === [] || count($items) > 30) {
             flash('error', 'Agrega al menos un concepto a la venta.');
             return redirigir('/panel/ventas/nueva');

@@ -28,7 +28,7 @@ declare(strict_types=1);
                             <?php endif; ?>
                             <form method="post" action="<?= url('/admin/negocios/verificar') ?>"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $negocio['id'] ?>"><input type="hidden" name="verificado" value="<?= es_verdadero($negocio['verificado']) ? '0' : '1' ?>"><button class="boton boton--pequeno boton--contorno" type="submit"><?= es_verdadero($negocio['verificado']) ? 'Quitar verificación' : 'Verificar' ?></button></form>
                             <form method="post" action="<?= url('/admin/negocios/destacar') ?>"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $negocio['id'] ?>"><input type="hidden" name="destacado" value="<?= es_verdadero($negocio['destacado']) ? '0' : '1' ?>"><button class="boton boton--pequeno boton--contorno" type="submit"><?= es_verdadero($negocio['destacado']) ? 'Quitar destacada' : 'Destacar' ?></button></form>
-                            <form method="post" action="<?= url('/admin/negocios/eliminar') ?>" data-confirmar="¿Eliminar esta ficha?"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $negocio['id'] ?>"><button class="boton boton--pequeno boton--contorno" type="submit" style="color:var(--coral);">Eliminar</button></form>
+                            <form method="post" action="<?= url('/admin/negocios/eliminar') ?>"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $negocio['id'] ?>"><button class="boton boton--pequeno boton--contorno" type="submit" style="color:var(--coral);">Eliminar</button></form>
                         </td>
                     </tr>
                 <?php endforeach; ?>

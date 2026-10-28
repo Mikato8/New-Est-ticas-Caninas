@@ -30,7 +30,7 @@ $v = static function (string $campo) use ($editar): string {
                             <td><?= $cliente['ultima_cita'] ? e(fecha($cliente['ultima_cita'], 'd M Y')) : '<span class="texto-tenue">—</span>' ?></td>
                             <td class="acciones">
                                 <a class="boton boton--contorno" href="<?= url('/panel/clientes?editar=' . $cliente['id']) ?>" title="Editar" aria-label="Editar" style="width:34px;height:34px;padding:0;"><?= icono('editar') ?></a>
-                                <form method="post" action="<?= url('/panel/clientes/eliminar') ?>" data-confirmar="¿Eliminar a <?= e($cliente['nombre']) ?>? Se conservarán citas y ventas si la base lo permite."><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $cliente['id'] ?>"><button class="boton boton--contorno" type="submit" title="Eliminar" aria-label="Eliminar" style="width:34px;height:34px;padding:0;color:var(--coral);"><?= icono('basura') ?></button></form>
+                                <form method="post" action="<?= url('/panel/clientes/eliminar') ?>"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $cliente['id'] ?>"><button class="boton boton--contorno" type="submit" title="Eliminar" aria-label="Eliminar" style="width:34px;height:34px;padding:0;color:var(--coral);"><?= icono('basura') ?></button></form>
                             </td>
                         </tr>
                     <?php endforeach; ?>

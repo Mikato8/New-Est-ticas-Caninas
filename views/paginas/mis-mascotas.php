@@ -39,7 +39,7 @@ $valor = static function (string $campo, string $defecto = '') use ($editar): st
                                         </div>
                                         <div class="flex-centro">
                                             <a class="boton boton--pequeno boton--contorno" href="<?= url('/mi-cuenta/mascotas?editar=' . $mascota['id']) ?>">Editar</a>
-                                            <form method="post" action="<?= url('/mi-cuenta/mascotas/eliminar') ?>" data-confirmar="¿Quitar a <?= e($mascota['nombre']) ?> de tu cuenta?">
+                                            <form method="post" action="<?= url('/mi-cuenta/mascotas/eliminar') ?>">
                                                 <?= csrf_field() ?>
                                                 <input type="hidden" name="id" value="<?= (int) $mascota['id'] ?>">
                                                 <button class="boton boton--pequeno boton--contorno" type="submit" style="color:var(--coral);">Quitar</button>

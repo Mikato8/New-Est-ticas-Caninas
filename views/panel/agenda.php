@@ -73,7 +73,7 @@ $acciones = [
             <?= csrf_field() ?>
             <div class="campo">
                 <label for="cliente_id">Cliente</label>
-                <select id="cliente_id" name="cliente_id" required data-cliente-select>
+                <select id="cliente_id" name="cliente_id" required>
                     <option value="">Elige cliente</option>
                     <?php foreach ($clientes as $cliente): ?><option value="<?= (int) $cliente['id'] ?>"><?= e($cliente['nombre']) ?><?= $cliente['telefono'] ? ' · ' . e($cliente['telefono']) : '' ?></option><?php endforeach; ?>
                 </select>
@@ -81,10 +81,10 @@ $acciones = [
             </div>
             <div class="campo">
                 <label for="mascota_id">Mascota</label>
-                <select id="mascota_id" name="mascota_id" required data-mascota-select>
+                <select id="mascota_id" name="mascota_id" required>
                     <option value="">Elige mascota</option>
                     <?php foreach ($mascotas as $mascota): ?>
-                        <option value="<?= (int) $mascota['id'] ?>" data-cliente="<?= (int) $mascota['cliente_id'] ?>"><?= e($mascota['nombre']) ?> · <?= e($mascota['cliente_nombre']) ?></option>
+                        <option value="<?= (int) $mascota['id'] ?>"><?= e($mascota['nombre']) ?> · <?= e($mascota['cliente_nombre']) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

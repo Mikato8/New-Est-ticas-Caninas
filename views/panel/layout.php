@@ -25,15 +25,16 @@ $flashError = Session::flash('error');
     <link rel="icon" type="image/svg+xml" href="<?= asset('/assets/img/favicon.svg') ?>">
     <link rel="stylesheet" href="<?= asset('/assets/fonts/fonts.css') ?>">
     <link rel="stylesheet" href="<?= asset('/assets/css/app.css') ?>">
-    <script defer src="<?= asset('/assets/js/app.js') ?>"></script>
 </head>
 <body>
 <div class="panel">
+    <input type="checkbox" id="panel-menu" class="menu-check panel-menu-check" aria-hidden="true">
     <aside class="panel__barra" id="panel-barra">
         <a class="panel__marca" href="<?= url('/panel') ?>">
             <img src="<?= asset('/assets/img/logo-mikato.png') ?>" alt="Mikato">
             <small>Panel</small>
         </a>
+        <label class="panel__cerrar" for="panel-menu">Cerrar menú ×</label>
         <nav class="panel__nav" aria-label="Panel">
             <a class="<?= $activo('/panel') ?>" href="<?= url('/panel') ?>"><?= icono('grafica') ?> Resumen</a>
             <a class="<?= $activo('/panel/agenda') ?>" href="<?= url('/panel/agenda') ?>"><?= icono('agenda') ?> Agenda</a>
@@ -70,7 +71,7 @@ $flashError = Session::flash('error');
         <div class="panel__barra-movil">
             <img src="<?= asset('/assets/img/logo-mikato.png') ?>" alt="Mikato">
             <strong style="font-size:.82rem;">Panel</strong>
-            <button type="button" data-panel-menu aria-label="Abrir menú"><?= icono('menu') ?></button>
+            <label for="panel-menu" class="panel__menu-boton" tabindex="0" aria-label="Abrir menú"><?= icono('menu') ?></label>
         </div>
         <main class="panel__contenido" id="contenido">
             <?php if ($flashExito !== null): ?>

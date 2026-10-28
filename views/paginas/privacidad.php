@@ -37,7 +37,7 @@ $correo = (string) config('contacto.email');
                 <li>Enviar avisos operativos y, si lo autorizas, novedades por correo.</li>
                 <li>Cumplir obligaciones legales y proteger la seguridad del portal.</li>
             </ul>
-            <p>No usamos tus datos para entrenar modelos de inteligencia artificial. El asistente del portal funciona con el contenido público del sitio y, si activas el modelo generativo, se ejecuta en tu navegador.</p>
+            <p>No usamos tus datos para entrenar modelos de inteligencia artificial. El asistente del portal es una búsqueda en PHP sobre contenido público del sitio; no envía tus preguntas a modelos externos.</p>
 
             <h2>4. Consentimiento y aviso integral</h2>
             <p>Al registrarte, agendar o enviar un formulario, aceptas este aviso. Cuando se trate de datos patrimoniales o de salud de la mascota, recabamos tu consentimiento expreso. Puedes solicitar el aviso de privacidad integral escribiendo al correo de contacto.</p>

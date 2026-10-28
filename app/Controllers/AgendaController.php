@@ -26,6 +26,7 @@ final class AgendaController
         if (strtotime($fecha) === false || $fecha < date('Y-m-d')) {
             $fecha = date('Y-m-d', strtotime('+1 day'));
         }
+        $servicio = $servicioId > 0 ? ServicioRepository::porId($servicioId) : null;
 
         $usuario = Auth::usuario();
         $cliente = $usuario !== null ? ClienteRepository::porUsuario((int) $usuario['id']) : null;
@@ -36,8 +37,9 @@ final class AgendaController
             'descripcion' => 'Reserva en línea el baño, corte o spa de tu perro. Elige servicio, día y hora; te confirmamos por WhatsApp.',
             'servicios' => $servicios,
             'servicioId' => $servicioId,
+            'servicio' => $servicio,
             'fecha' => $fecha,
-            'horas' => $this->horasDisponibles($fecha),
+            'horas' => $servicio !== null ? $this->horasDisponibles($fecha) : [],
             'usuario' => $usuario,
             'cliente' => $cliente,
             'mascotas' => $mascotas,

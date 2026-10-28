@@ -6,10 +6,9 @@ $puedeAnular = in_array((string) ($usuario['rol'] ?? ''), ['admin', 'editor'], t
 <header class="panel__cabecera no-imprimir">
     <div><span class="mono texto-oro">Venta</span><h1><?= e($venta['folio']) ?></h1><p><?= e(fecha_larga($venta['fecha'])) ?> · <?= e(ucfirst((string) $venta['metodo_pago'])) ?> · <?= e((string) ($venta['cliente_nombre'] ?? 'Público general')) ?></p></div>
     <div class="panel__acciones">
-        <button class="boton boton--pequeno boton--contorno" type="button" onclick="window.print()"><?= icono('descargar') ?> Imprimir</button>
         <a class="boton boton--pequeno boton--contorno" href="<?= url('/panel/ventas') ?>">← Ventas</a>
         <?php if ($puedeAnular && $venta['estado'] !== 'cancelada'): ?>
-            <form method="post" action="<?= url('/panel/ventas/' . $venta['id'] . '/anular') ?>" data-confirmar="¿Anular esta venta? No se puede deshacer."><?= csrf_field() ?><button class="boton boton--pequeno boton--contorno" type="submit" style="color:var(--coral);">Anular</button></form>
+            <form method="post" action="<?= url('/panel/ventas/' . $venta['id'] . '/anular') ?>"><?= csrf_field() ?><button class="boton boton--pequeno boton--contorno" type="submit" style="color:var(--coral);">Anular</button></form>
         <?php endif; ?>
     </div>
 </header>

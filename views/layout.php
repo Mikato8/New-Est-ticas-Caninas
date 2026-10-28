@@ -9,23 +9,6 @@ $usuario = Auth::usuario();
 $rutaActual = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
 $canonica = url($rutaActual);
 $imagenSocial = url('/assets/img/og.png');
-$jsonLd = $jsonLd ?? [
-    '@context' => 'https://schema.org',
-    '@type' => 'LocalBusiness',
-    'name' => (string) config('negocio.nombre'),
-    'description' => (string) config('tagline'),
-    'url' => (string) config('url'),
-    'image' => $imagenSocial,
-    'priceRange' => '$$',
-    'areaServed' => 'México',
-    'email' => (string) config('contacto.email'),
-];
-if ((string) config('contacto.telefono') !== '') {
-    $jsonLd['telephone'] = (string) config('contacto.telefono');
-}
-if ((string) config('contacto.direccion') !== '') {
-    $jsonLd['address'] = ['@type' => 'PostalAddress', 'streetAddress' => (string) config('contacto.direccion'), 'addressCountry' => 'MX'];
-}
 ?>
 <!doctype html>
 <html lang="es-MX">
@@ -52,8 +35,6 @@ if ((string) config('contacto.direccion') !== '') {
     <link rel="icon" type="image/png" sizes="512x512" href="<?= asset('/assets/img/icono-512.png') ?>">
     <link rel="stylesheet" href="<?= asset('/assets/fonts/fonts.css') ?>">
     <link rel="stylesheet" href="<?= asset('/assets/css/app.css') ?>">
-    <script defer src="<?= asset('/assets/js/app.js') ?>"></script>
-    <script type="application/ld+json"><?= json_encode($jsonLd, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?></script>
 </head>
 <body>
 <a class="sr-only" href="#contenido">Saltar al contenido</a>

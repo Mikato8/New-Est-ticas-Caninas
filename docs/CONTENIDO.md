@@ -52,4 +52,4 @@ Todo se puede editar o borrar desde el panel. No se inventan clientes reales ni 
 
 ## Asistente
 
-`php bin/build-ia.php` genera `public/assets/ia/corpus.json` con fragmentos de guías, FAQ, glosario, calculadoras, servicios y productos. El navegador usa BM25 y muestra la fuente. El modelo generativo es opcional y se ejecuta localmente.
+`php bin/build-ia.php` genera `public/assets/ia/corpus.json` con fragmentos de guías, FAQ, glosario, calculadoras, servicios y productos. La búsqueda se hace en PHP y muestra la fuente; no hay JavaScript ni modelos externos.

@@ -28,7 +28,7 @@ declare(strict_types=1);
                                 <form method="post" action="<?= url('/admin/publicaciones/estado') ?>"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $pub['id'] ?>"><input type="hidden" name="estado" value="rechazado"><button class="boton boton--pequeno boton--contorno" type="submit">Rechazar</button></form>
                             <?php endif; ?>
                             <form method="post" action="<?= url('/admin/publicaciones/fijar') ?>"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $pub['id'] ?>"><input type="hidden" name="fijado" value="<?= es_verdadero($pub['fijado']) ? '0' : '1' ?>"><button class="boton boton--pequeno boton--contorno" type="submit"><?= es_verdadero($pub['fijado']) ? 'Quitar fijo' : 'Fijar' ?></button></form>
-                            <form method="post" action="<?= url('/admin/publicaciones/eliminar') ?>" data-confirmar="¿Eliminar esta publicación y sus comentarios?"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $pub['id'] ?>"><button class="boton boton--pequeno boton--contorno" type="submit" style="color:var(--coral);">Eliminar</button></form>
+                            <form method="post" action="<?= url('/admin/publicaciones/eliminar') ?>"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $pub['id'] ?>"><button class="boton boton--pequeno boton--contorno" type="submit" style="color:var(--coral);">Eliminar</button></form>
                         </td>
                     </tr>
                 <?php endforeach; ?>

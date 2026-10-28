@@ -31,7 +31,7 @@ declare(strict_types=1);
                             <td><?= e($gasto['concepto']) ?><br><small class="texto-tenue"><?= e(ucfirst((string) $gasto['metodo_pago'])) ?></small></td>
                             <td><span class="etiqueta"><?= e($categorias[$gasto['categoria']] ?? $gasto['categoria']) ?></span></td>
                             <td class="num"><?= dinero($gasto['monto']) ?></td>
-                            <td class="acciones"><form method="post" action="<?= url('/panel/gastos/eliminar') ?>" data-confirmar="¿Eliminar este gasto?"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $gasto['id'] ?>"><button class="boton boton--pequeno boton--contorno" type="submit" style="color:var(--coral);">×</button></form></td>
+                            <td class="acciones"><form method="post" action="<?= url('/panel/gastos/eliminar') ?>"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $gasto['id'] ?>"><button class="boton boton--pequeno boton--contorno" type="submit" style="color:var(--coral);">×</button></form></td>
                         </tr>
                     <?php endforeach; ?>
                     <?php if ($gastos === []): ?><tr><td colspan="5" class="tabla-vacia">Sin gastos en el periodo.</td></tr><?php endif; ?>

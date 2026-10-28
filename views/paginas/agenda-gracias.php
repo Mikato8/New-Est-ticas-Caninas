@@ -22,9 +22,8 @@ $google = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' . 
             <span class="mono texto-oro">Solicitud recibida</span>
             <h1 style="font-size:clamp(1.9rem,4vw,2.8rem);margin:10px 0;">Cita de <?= e($cita['mascota_nombre']) ?></h1>
             <p class="texto-suave">Guarda tu código. Te contactamos para confirmar el horario.</p>
-            <div class="cita-confirmada__codigo" data-codigo><?= e($cita['codigo']) ?></div>
+            <div class="cita-confirmada__codigo"><?= e($cita['codigo']) ?></div>
             <div class="flex-centro" style="justify-content:center;">
-                <button class="boton boton--contorno boton--pequeno" type="button" data-copiar="<?= e($cita['codigo']) ?>">Copiar código</button>
                 <span class="badge"><?= e(estado_cita_label($cita['estado'])) ?></span>
             </div>
 

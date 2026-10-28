@@ -24,7 +24,7 @@ $asuntos = ['servicio' => 'Servicio', 'mayoreo' => 'Mayoreo', 'directorio' => 'D
                     <?php if ($contacto['estado'] === 'nuevo'): ?>
                         <form method="post" action="<?= url('/admin/mensajes/atender') ?>"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $contacto['id'] ?>"><button class="boton boton--pequeno" type="submit">Marcar atendido</button></form>
                     <?php endif; ?>
-                    <form method="post" action="<?= url('/admin/mensajes/eliminar') ?>" data-confirmar="¿Eliminar este mensaje?"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $contacto['id'] ?>"><button class="boton boton--pequeno boton--contorno" type="submit" style="color:var(--coral);">Eliminar</button></form>
+                    <form method="post" action="<?= url('/admin/mensajes/eliminar') ?>"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $contacto['id'] ?>"><button class="boton boton--pequeno boton--contorno" type="submit" style="color:var(--coral);">Eliminar</button></form>
                 </div>
             </div>
             <p class="texto-suave mt-2" style="font-size:.9rem;"><?= nl2br(e($contacto['mensaje'])) ?></p>

@@ -16,7 +16,6 @@ $categoriasGasto = \App\Repositories\GastoRepository::categorias();
             <input type="date" name="hasta" value="<?= e($hasta) ?>" style="padding:8px 10px;border:1px solid var(--borde-fuerte);border-radius:8px;">
             <button class="boton boton--pequeno boton--contorno" type="submit">Actualizar</button>
         </form>
-        <button class="boton boton--pequeno boton--contorno" type="button" onclick="window.print()"><?= icono('descargar') ?> Imprimir</button>
     </div>
 </header>
 

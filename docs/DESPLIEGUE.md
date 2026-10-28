@@ -95,7 +95,7 @@ Sube `.env.produccion` como `.env` al directorio superior con el administrador d
 - Una calculadora devuelve resultado y la API responde JSON.
 - `/sitemap.xml` lista guías, comunidad y directorio.
 - La imagen de `public/uploads` se sirve y no ejecuta PHP.
-- El asistente carga el corpus y responde sin llamadas al servidor.
+- El asistente busca en el corpus desde PHP, sin JavaScript ni llamadas externas.
 
 ## Respaldos
 

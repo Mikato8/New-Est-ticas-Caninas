@@ -88,11 +88,11 @@ final class Application
         header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
         header(
             "Content-Security-Policy: default-src 'self'; " .
-            "script-src 'self' 'wasm-unsafe-eval' blob: https://cdn.jsdelivr.net https://unpkg.com; " .
+            "script-src 'none'; " .
             "style-src 'self' 'unsafe-inline'; " .
-            "img-src 'self' data: blob:; font-src 'self'; " .
-            "connect-src 'self' blob: https://huggingface.co https://*.huggingface.co https://*.hf.co https://cdn.jsdelivr.net https://unpkg.com; " .
-            "worker-src 'self' blob:; " .
+            "img-src 'self' data:; font-src 'self'; " .
+            "connect-src 'self'; " .
+            "worker-src 'none'; " .
             "form-action 'self'; frame-ancestors 'none'; base-uri 'self'"
         );
 

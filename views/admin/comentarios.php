@@ -20,7 +20,7 @@ declare(strict_types=1);
             <div class="flex-centro">
                 <form method="post" action="<?= url('/admin/comentarios/estado') ?>"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $comentario['id'] ?>"><input type="hidden" name="estado" value="aprobado"><button class="boton boton--pequeno" type="submit">Aprobar</button></form>
                 <form method="post" action="<?= url('/admin/comentarios/estado') ?>"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $comentario['id'] ?>"><input type="hidden" name="estado" value="rechazado"><button class="boton boton--pequeno boton--contorno" type="submit">Rechazar</button></form>
-                <form method="post" action="<?= url('/admin/comentarios/eliminar') ?>" data-confirmar="¿Eliminar el comentario?"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $comentario['id'] ?>"><button class="boton boton--pequeno boton--contorno" type="submit" style="color:var(--coral);">Eliminar</button></form>
+                <form method="post" action="<?= url('/admin/comentarios/eliminar') ?>"><?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $comentario['id'] ?>"><button class="boton boton--pequeno boton--contorno" type="submit" style="color:var(--coral);">Eliminar</button></form>
             </div>
         </article>
     <?php endforeach; ?>
