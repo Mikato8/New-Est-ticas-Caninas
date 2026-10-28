@@ -37,7 +37,7 @@ $errores = errores();
                 </div>
                 <button class="boton boton--bloque" type="submit">Entrar</button>
                 <script>(function(){var c=document.getElementById('ver-password'),p=document.getElementById('password'),l=document.getElementById('ver-password-label');if(!c||!p||!l){return;}l.hidden=false;c.addEventListener('change',function(){p.type=c.checked?'text':'password';l.textContent=c.checked?'Ocultar':'Ver';p.focus();});})();</script>
-                <p class="auth__cambiar">¿Olvidaste tu contraseña? <a href="<?= url('/recuperar') ?>">Recupérala aquí</a>.</p>
+                <p class="auth__cambiar">¿Olvidaste tu contraseña? <?php if ((bool) config('mail.enabled', false)): ?><a href="<?= url('/recuperar') ?>">Recupérala aquí</a>.<?php else: ?><a href="<?= url('/contacto') ?>">Escríbenos</a> y la restablecemos.<?php endif; ?></p>
                 <div class="separador">o</div>
                 <a class="boton boton--contorno boton--bloque" href="<?= url('/registro') ?>">Crear una cuenta nueva</a>
             </form>

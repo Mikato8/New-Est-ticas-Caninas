@@ -18,6 +18,9 @@ declare(strict_types=1);
             <span class="mono texto-oro">Cuenta</span>
             <h1>Recuperar acceso.</h1>
             <p class="texto-suave">Escribe el correo con el que te registraste. Si existe una cuenta activa, recibirás un enlace válido por 60 minutos.</p>
+            <?php if (!(bool) config('mail.enabled', false)): ?>
+                <div class="nota nota--teal" style="font-size:.86rem;">La recuperación por correo está en preparación. Mientras tanto, <a href="<?= url('/contacto') ?>">escríbenos</a> y restablecemos tu acceso.</div>
+            <?php endif; ?>
             <form class="formulario" method="post" action="<?= url('/recuperar') ?>">
                 <?= csrf_field() ?>
                 <div style="position:absolute;left:-9999px;" aria-hidden="true"><label for="sitio_web">No llenar</label><input id="sitio_web" type="text" name="sitio_web" tabindex="-1" autocomplete="off"></div>

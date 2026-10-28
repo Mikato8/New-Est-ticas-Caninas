@@ -161,6 +161,11 @@ final class AuthController
             return redirigir('/entrar');
         }
 
+        if (!(bool) config('mail.enabled', false)) {
+            flash('error', 'La recuperación por correo aún no está activa. Escríbenos y restablecemos tu acceso.');
+            return redirigir('/recuperar');
+        }
+
         [$permitido, $espera] = Session::limitar('recuperar', 4, 3600);
         if (!$permitido) {
             flash('error', 'Demasiadas solicitudes. Espera ' . ceil($espera / 60) . ' minutos e intenta de nuevo.');
