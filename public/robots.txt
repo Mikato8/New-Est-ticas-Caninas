@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /panel
+Disallow: /admin
+Disallow: /mi-cuenta
+Disallow: /entrar
+Disallow: /registro
+Disallow: /api/
+
+Sitemap: https://mikatoestilistascaninos.com/sitemap.xml

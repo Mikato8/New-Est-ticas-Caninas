@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Botella de shampoo Mikato">
+  <rect width="400" height="400" rx="32" fill="#f3e7d3"/>
+  <circle cx="310" cy="90" r="46" fill="#e4c37a" opacity=".45"/>
+  <path d="M120 330c0 12 10 22 22 22h116c12 0 22-10 22-22V170c0-20-12-36-30-44v-22h-100v22c-18 8-30 24-30 44Z" fill="#245a53"/>
+  <rect x="170" y="96" width="66" height="34" rx="8" fill="#173a36"/>
+  <rect x="162" y="78" width="82" height="22" rx="8" fill="#b98a2e"/>
+  <rect x="146" y="196" width="108" height="98" rx="10" fill="#f7e6cc"/>
+  <text x="200" y="230" text-anchor="middle" font-family="Georgia, serif" font-size="20" fill="#245a53" letter-spacing="2">MIKATO</text>
+  <text x="200" y="254" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#8b5e3c" letter-spacing="3">SHAMPOO</text>
+  <rect x="166" y="268" width="68" height="4" rx="2" fill="#b98a2e"/>
+  <text x="200" y="312" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#245a53">500 ml</text>
+</svg>

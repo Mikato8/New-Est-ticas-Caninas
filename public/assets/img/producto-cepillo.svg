@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Cepillo Mikato">
+  <rect width="400" height="400" rx="32" fill="#f3e7d3"/>
+  <circle cx="302" cy="300" r="62" fill="#d96c57" opacity=".3"/>
+  <g transform="rotate(-24 200 210)">
+    <rect x="172" y="196" width="58" height="150" rx="28" fill="#b98a2e"/>
+    <rect x="132" y="120" width="138" height="92" rx="38" fill="#245a53"/>
+    <g fill="#e4c37a">
+      <circle cx="152" cy="146" r="5"/><circle cx="172" cy="140" r="5"/><circle cx="192" cy="138" r="5"/><circle cx="212" cy="140" r="5"/><circle cx="232" cy="146" r="5"/><circle cx="250" cy="156" r="5"/>
+      <circle cx="152" cy="168" r="5"/><circle cx="172" cy="162" r="5"/><circle cx="192" cy="160" r="5"/><circle cx="212" cy="162" r="5"/><circle cx="232" cy="168" r="5"/><circle cx="250" cy="178" r="5"/>
+      <circle cx="158" cy="190" r="5"/><circle cx="178" cy="184" r="5"/><circle cx="198" cy="182" r="5"/><circle cx="218" cy="184" r="5"/><circle cx="238" cy="190" r="5"/>
+    </g>
+  </g>
+</svg>

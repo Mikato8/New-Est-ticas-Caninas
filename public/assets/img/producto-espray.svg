@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Espray Mikato">
+  <rect width="400" height="400" rx="32" fill="#e9efe6"/>
+  <circle cx="92" cy="104" r="52" fill="#a9b79e" opacity=".55"/>
+  <rect x="160" y="140" width="94" height="196" rx="22" fill="#d96c57"/>
+  <rect x="174" y="112" width="66" height="38" rx="8" fill="#173a36"/>
+  <rect x="186" y="86" width="42" height="30" rx="10" fill="#b98a2e"/>
+  <path d="M228 92h32v10h-32z" fill="#245a53"/>
+  <text x="207" y="252" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#f7e6cc" letter-spacing="2">MIKATO</text>
+  <text x="207" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#f7e6cc" letter-spacing="3">BRISA</text>
+  <path d="M270 80c18-10 32-8 44 2M276 62c22-12 40-10 54 2" fill="none" stroke="#b98a2e" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,13 @@
+.env
+.env.produccion
+.env.local
+.DS_Store
+*.log
+storage/logs/*
+!storage/logs/.gitkeep
+public/uploads/*
+!public/uploads/.htaccess
+!public/uploads/**/.gitkeep
+.cache/
+node_modules/
+vendor/

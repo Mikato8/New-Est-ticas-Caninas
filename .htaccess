@@ -1,0 +1,35 @@
+# Hosting compartido: el documento raíz apunta a public_html, pero el código
+# vive un nivel arriba. Se redirige todo a /public y se bloquean las carpetas
+# sensibles. Si el documento raíz ya apunta a public/, este archivo no se usa.
+Options -Indexes
+DirectoryIndex public/index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Canonical: sin www (APP_URL usa el dominio raíz)
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^(.*)$ https://mikatoestilistascaninos.com%{REQUEST_URI} [R=301,L]
+
+    RewriteRule ^(app|config|database|views|storage|bin|tests|docs|tools)(/|$) - [F,L]
+    RewriteRule ^\.env - [F,L]
+    RewriteRule ^(composer\.(json|lock)|README\.md|LICENSE|CONTRIBUTING\.md|SECURITY\.md|\.git)(/|$) - [F,L]
+
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ public/$1 [L]
+
+    RewriteCond %{REQUEST_URI} ^/public/
+    RewriteRule ^public/(.*)$ public/$1 [L]
+</IfModule>
+
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# MIME correcto para módulos ES y JSON (Hostinger sirve .js como x-javascript)
+<IfModule mod_mime.c>
+    AddType application/javascript .js .mjs
+    AddType application/json .json
+</IfModule>
