@@ -9,8 +9,8 @@ $telefono = (string) config('contacto.telefono');
     <nav class="migas" aria-label="Ruta"><a href="<?= url('/') ?>">Inicio</a><span>/</span>Contacto</nav>
     <header class="portada-interior">
         <span class="mono texto-oro">Contacto</span>
-        <h1>Hablemos de tu perro o de tu estética.</h1>
-        <p>Agenda, mayoreo, dudas de cuidado o registro en el directorio. Escríbenos y te respondemos en horario de oficina.</p>
+        <h1>Hablemos de tu estética.</h1>
+        <p>Dudas del CRM, mayoreo de productos o registro en el directorio. Escríbenos y te respondemos en horario de oficina.</p>
     </header>
 </div>
 

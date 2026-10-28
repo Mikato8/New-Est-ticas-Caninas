@@ -5,9 +5,9 @@ $whatsapp = whatsapp_link();
 <div class="contenedor">
     <nav class="migas" aria-label="Ruta"><a href="<?= url('/') ?>">Inicio</a><span>/</span>Nosotros</nav>
     <header class="portada-interior">
-        <span class="mono texto-oro">Mikato · Hecho en Guadalajara, Jalisco</span>
-        <h1>Nacimos en el salón, no en una oficina.</h1>
-        <p>Somos una marca mexicana que fabrica productos para estilistas caninos y opera su propia estética. Conocemos el olor del shampoo diluido, el ruido de la secadora y la cara del perro que por fin se relaja.</p>
+        <span class="mono texto-oro">Mikato · Software y fábrica en Guadalajara, Jalisco</span>
+        <h1>Nacimos cerca del salón. No somos el salón.</h1>
+        <p>Somos una empresa mexicana que desarrolla un CRM para estéticas caninas y fabrica productos profesionales. No prestamos servicios de estética: conocemos el oficio lo suficiente para construir la herramienta que las estéticas usan todos los días.</p>
     </header>
 </div>
 
@@ -16,8 +16,8 @@ $whatsapp = whatsapp_link();
         <div class="split">
             <div>
                 <h2>Lo que nos mueve</h2>
-                <p class="texto-suave">Mikato empezó como una necesidad del día a día: productos que funcionaran en el salón, con diluciones claras, rendimiento real y precios justos para estilistas mexicanos. Con los años nos volvimos también un punto de encuentro: clientes que preguntan cómo cuidar a su perro y estilistas que comparten técnicas, dudas y casos.</p>
-                <p class="texto-suave">Este portal es la extensión de ese oficio. No es un catálogo con un blog pegado: es una herramienta para agendar, aprender, calcular, conectar y encontrar a otros profesionales que trabajan con el mismo cuidado.</p>
+                <p class="texto-suave">Mikato empezó como una necesidad del día a día: productos que funcionaran en el salón, con diluciones claras, rendimiento real y precios justos para estilistas mexicanos. Con los años nos volvimos también un punto de encuentro: estéticas que necesitan organizar su operación y profesionales que comparten técnicas, dudas y casos.</p>
+                <p class="texto-suave">Este portal es el CRM y la comunidad de ese oficio. No es un catálogo con un blog pegado: es una herramienta para agendar, cobrar, controlar inventario, aprender, calcular y conectar con otras estéticas. La agenda pública que ves es una demostración del módulo de citas.</p>
                 <div class="grid grid--3 mt-3">
                     <div class="estadistica"><strong>12</strong><span>Guías de oficio</span></div>
                     <div class="estadistica"><strong>4</strong><span>Calculadoras</span></div>
@@ -26,11 +26,11 @@ $whatsapp = whatsapp_link();
             </div>
             <div class="tarjeta tarjeta__cuerpo" style="background:linear-gradient(160deg,var(--teal-oscuro),var(--teal));color:var(--crema);">
                 <span class="mono" style="color:var(--oro-claro);">Nuestra promesa</span>
-                <h3 style="color:var(--crema);font-size:1.7rem;">Trato digno, técnica y transparencia.</h3>
+                <h3 style="color:var(--crema);font-size:1.7rem;">Herramientas claras, sin humo.</h3>
                 <ul class="sin-lista" style="display:grid;gap:14px;margin-top:18px;">
-                    <li class="flex-centro" style="align-items:flex-start;"><?= icono('escudo') ?><span>No forzamos a un perro que no tolera el manejo. Si hay riesgo, se detiene y se deriva.</span></li>
-                    <li class="flex-centro" style="align-items:flex-start;"><?= icono('corazon') ?><span>No prometemos "anestesia para estética" ni rasurados que dañan el manto.</span></li>
-                    <li class="flex-centro" style="align-items:flex-start;"><?= icono('libro') ?><span>Explicamos lo que hacemos y documentamos cada servicio.</span></li>
+                    <li class="flex-centro" style="align-items:flex-start;"><?= icono('escudo') ?><span>Diseñamos para el salón real: menos clics, datos claros y respeto por el tiempo del estilista.</span></li>
+                    <li class="flex-centro" style="align-items:flex-start;"><?= icono('corazon') ?><span>No prometemos automatizaciones mágicas ni métricas inventadas.</span></li>
+                    <li class="flex-centro" style="align-items:flex-start;"><?= icono('libro') ?><span>Explicamos cómo funciona el CRM y documentamos cada módulo.</span></li>
                     <li class="flex-centro" style="align-items:flex-start;"><?= icono('pin') ?><span>Elaboramos en Guadalajara, Jalisco y apoyamos a estilistas locales.</span></li>
                 </ul>
             </div>

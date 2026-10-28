@@ -33,8 +33,8 @@ final class AgendaController
         $mascotas = $cliente !== null ? MascotaRepository::porCliente((int) $cliente['id']) : [];
 
         return Response::html(view('paginas/agenda', [
-            'titulo' => 'Agenda tu cita de estética canina',
-            'descripcion' => 'Reserva en línea el baño, corte o spa de tu perro. Elige servicio, día y hora; te confirmamos por WhatsApp.',
+            'titulo' => 'Demo de agenda para estéticas caninas',
+            'descripcion' => 'Así reservan los clientes de una estética en el CRM de Mikato: servicio, fecha, horario y datos de la mascota.',
             'servicios' => $servicios,
             'servicioId' => $servicioId,
             'servicio' => $servicio,

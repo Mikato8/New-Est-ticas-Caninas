@@ -15,9 +15,10 @@ $whatsapp = whatsapp_link();
     <header class="portada-interior">
         <span class="mono texto-oro">Fabricantes mexicanos</span>
         <h1>Productos Mikato para el salón.</h1>
-        <p>Shampoos, acondicionadores, aromas y herramientas que usamos en la estética. Los elaboramos en Guadalajara, Jalisco y los probamos en el día a día del salón.</p>
+        <p>Shampoos, acondicionadores, aromas y herramientas que usan las estéticas. Los elaboramos en Guadalajara, Jalisco y los probamos con estilistas en el día a día del salón.</p>
         <div class="flex-centro mt-3">
             <a class="boton boton--oro" href="<?= url('/contacto') ?>">Pedir catálogo o mayoreo</a>
+            <a class="boton boton--contorno" href="https://mikato.com.mx" target="_blank" rel="noopener">Ver tienda mikato.com.mx <?= icono('flecha') ?></a>
             <?php if ($whatsapp !== ''): ?><a class="boton boton--contorno" href="<?= e($whatsapp) ?>" target="_blank" rel="noopener"><?= icono('whatsapp') ?> WhatsApp</a><?php endif; ?>
         </div>
     </header>
@@ -44,7 +45,8 @@ $whatsapp = whatsapp_link();
             <?php foreach ($lista as $producto): ?>
                 <article class="tarjeta tarjeta-producto">
                     <div class="tarjeta-producto__imagen">
-                        <img src="<?= asset($arte((string) $producto['categoria'])) ?>" alt="<?= e($producto['nombre']) ?>" width="170" height="170" loading="lazy">
+                        <?php $imagenProducto = trim((string) ($producto['imagen'] ?? '')); ?>
+                        <img src="<?= e($imagenProducto !== '' ? $imagenProducto : asset($arte((string) $producto['categoria']))) ?>" alt="<?= e($producto['nombre']) ?>" width="170" height="170" loading="lazy">
                         <?php if (es_verdadero($producto['destacado'])): ?><span class="etiqueta etiqueta--oro" style="position:absolute;top:12px;left:12px;">Destacado</span><?php endif; ?>
                     </div>
                     <div class="tarjeta-producto__cuerpo">
@@ -76,6 +78,7 @@ $whatsapp = whatsapp_link();
             <div class="cta__acciones">
                 <a class="boton boton--oro boton--grande" href="<?= url('/contacto') ?>">Pedir información</a>
                 <a class="boton boton--fantasma boton--grande" href="<?= url('/nosotros') ?>">Conocer Mikato</a>
+                <a class="boton boton--contorno boton--grande" href="https://mikato.com.mx" target="_blank" rel="noopener">Comprar en mikato.com.mx</a>
             </div>
         </div>
     </div>

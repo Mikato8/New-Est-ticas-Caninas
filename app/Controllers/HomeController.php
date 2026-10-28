@@ -12,6 +12,7 @@ use App\Core\Session;
 use App\Domain\Contenido\Guias;
 use App\Repositories\CitaRepository;
 use App\Repositories\ContactoRepository;
+use App\Repositories\GuiaMediaRepository;
 use App\Repositories\NegocioRepository;
 use App\Repositories\ProductoRepository;
 use App\Repositories\PublicacionRepository;
@@ -30,14 +31,15 @@ final class HomeController
         }
 
         return Response::html(view('paginas/home', [
-            'titulo' => 'Estética canina con oficio · Mikato',
-            'descripcion' => 'Baño, corte y cuidado para perros en México. Guías para estilistas caninos, comunidad, directorio y agenda en línea.',
+            'titulo' => 'CRM y productos para estéticas caninas · Mikato',
+            'descripcion' => 'CRM para estéticas caninas: agenda, clientes, mascotas, inventario, ventas y reportes. Productos Mikato elaborados en Guadalajara, Jalisco.',
             'servicios' => $servicios,
             'categoriasServicio' => ServicioRepository::categorias(),
             'productos' => $productos,
             'guias' => Guias::destacadas(4),
             'publicaciones' => PublicacionRepository::publicadas('', '', 3),
             'negocios' => NegocioRepository::aprobados('', '', 3),
+            'trabajos' => GuiaMediaRepository::imagenesRecientes(8),
             'stats' => [
                 'guias' => Guias::total(),
                 'publicaciones' => PublicacionRepository::contarPublicadas(),
@@ -50,18 +52,9 @@ final class HomeController
 
     public function servicios(Request $peticion): Response
     {
-        $servicios = ServicioRepository::activos();
-        $agrupados = [];
-        foreach ($servicios as $servicio) {
-            $agrupados[(string) $servicio['categoria']][] = $servicio;
-        }
-
         return Response::html(view('paginas/servicios', [
-            'titulo' => 'Servicios y precios',
-            'descripcion' => 'Baño, corte, uñas, oídos y spa para perros. Precios por tamaño y qué incluye cada servicio.',
-            'agrupados' => $agrupados,
-            'categorias' => ServicioRepository::categorias(),
-            'paquetes' => \App\Repositories\PaqueteRepository::activos(),
+            'titulo' => 'CRM y productos para estéticas caninas',
+            'descripcion' => 'Mikato es un CRM para estéticas caninas y fabricante de productos. Conoce agenda, clientes, inventario, ventas, reportes y cómo funciona la plataforma.',
         ]));
     }
 
@@ -93,7 +86,7 @@ final class HomeController
     {
         return Response::html(view('paginas/contacto', [
             'titulo' => 'Contacto',
-            'descripcion' => 'Escríbenos para cotizar un servicio, distribuir productos Mikato o resolver dudas de estética canina.',
+            'descripcion' => 'Escríbenos para una demo del CRM para estéticas caninas, mayoreo de productos Mikato o registro en el directorio.',
             'whatsapp' => whatsapp_link(),
         ]));
     }

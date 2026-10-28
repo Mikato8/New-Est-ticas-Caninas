@@ -1,16 +1,15 @@
 <?php
 declare(strict_types=1);
-$iconos = ['bano' => 'bano', 'corte' => 'tijeras', 'unas' => 'una', 'oidos' => 'oido', 'spa' => 'chispa', 'paquete' => 'caja'];
 ?>
 <div class="contenedor">
     <nav class="migas" aria-label="Ruta"><a href="<?= url('/') ?>">Inicio</a><span>/</span>Servicios</nav>
     <header class="portada-interior">
-        <span class="mono texto-oro">Estética canina</span>
-        <h1>Servicios y precios claros.</h1>
-        <p>Baño, corte, uñas, oídos y spa para perros de todas las tallas. Cada servicio incluye revisión en seco, secado completo y recomendaciones para casa.</p>
+        <span class="mono texto-oro">CRM + fábrica</span>
+        <h1>No somos una estética. Somos la herramienta de las estéticas.</h1>
+        <p>Mikato desarrolla un <strong>CRM para estéticas caninas</strong> y fabrica <strong>productos profesionales</strong> en Guadalajara, Jalisco. No atendemos perros directamente: damos a los estilistas la agenda, el expediente, el inventario y los números para que su negocio funcione mejor.</p>
         <div class="flex-centro mt-3">
-            <a class="boton boton--oro" href="<?= url('/agenda') ?>"><?= icono('agenda') ?> Agendar cita</a>
-            <a class="boton boton--contorno" href="<?= url('/contacto') ?>">Preguntar por mi perro</a>
+            <a class="boton boton--oro" href="<?= url('/contacto') ?>"><?= icono('agenda') ?> Solicitar una demo</a>
+            <a class="boton boton--contorno" href="<?= url('/productos') ?>">Ver productos Mikato</a>
         </div>
     </header>
 </div>
@@ -18,89 +17,70 @@ $iconos = ['bano' => 'bano', 'corte' => 'tijeras', 'unas' => 'una', 'oidos' => '
 <section class="seccion seccion--compacta">
     <div class="contenedor">
         <div class="grid grid--2">
-            <div class="nota nota--teal"><strong>Antes de la cita:</strong> si tu perro tiene nudos, pulgas, heridas o piel irritada, avísanos. Ajustamos el servicio y el precio antes de empezar.</div>
-            <div class="nota"><strong>Precios por tamaño:</strong> chico hasta 8 kg, mediano 8–15 kg, grande 15–30 kg y gigante más de 30 kg. El manto y el temperamento también cuentan.</div>
+            <div class="nota nota--teal"><strong>Para estéticas:</strong> agenda, clientes, mascotas, historial, inventario, ventas, gastos y reportes en un solo panel. Tus clientes pueden reservar en línea.</div>
+            <div class="nota"><strong>Para distribuidores:</strong> catálogo de productos Mikato con precios de mayoreo, fichas técnicas y contacto directo. Compra en <a href="https://mikato.com.mx" target="_blank" rel="noopener">mikato.com.mx</a>.</div>
         </div>
     </div>
 </section>
 
-<?php foreach ($agrupados as $categoria => $lista): ?>
-    <section class="seccion seccion--compacta">
-        <div class="contenedor">
-            <div class="encabezado-seccion encabezado-seccion--fila">
-                <div>
-                    <span class="mono texto-oro"><?= e($categorias[$categoria] ?? ucfirst($categoria)) ?></span>
-                    <h2><?= e($categorias[$categoria] ?? ucfirst($categoria)) ?></h2>
-                </div>
-            </div>
-            <div class="grid grid--3">
-                <?php foreach ($lista as $servicio): ?>
-                    <article class="tarjeta tarjeta-servicio">
-                        <div class="tarjeta__cuerpo">
-                            <div class="tarjeta-servicio__icono"><?= icono($iconos[$categoria] ?? 'pata') ?></div>
-                            <h3><?= e($servicio['nombre']) ?></h3>
-                            <p><?= e((string) $servicio['descripcion']) ?></p>
-                            <div class="tarjeta-servicio__precio">
-                                <strong><?= precio($servicio['precio']) ?></strong>
-                                <small><?= e(tamano_label((string) $servicio['tamano'])) ?> · <?= (int) $servicio['duracion_min'] ?> min</small>
-                            </div>
-                        </div>
-                    </article>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </section>
-<?php endforeach; ?>
-
-<?php if ($paquetes !== []): ?>
-<section class="seccion seccion--crema">
+<section class="seccion seccion--compacta">
     <div class="contenedor">
         <div class="encabezado-seccion">
-            <span class="mono">Paquetes</span>
-            <h2>Más cuidado, mejor precio.</h2>
-            <p>Combos pensados para mantenimiento. Pregunta por la vigencia y por las condiciones de cada paquete.</p>
+            <span class="mono texto-oro">Qué incluye el CRM</span>
+            <h2>Las funciones que una estética usa todos los días.</h2>
+            <p>No es un catálogo con un blog: es el sistema operativo del salón.</p>
         </div>
         <div class="grid grid--3">
-            <?php foreach ($paquetes as $paquete): ?>
-                <article class="tarjeta tarjeta__cuerpo">
-                    <span class="etiqueta etiqueta--oro"><?= e(tamano_label((string) $paquete['tamano'])) ?></span>
-                    <h3 class="mt-1"><?= e($paquete['nombre']) ?></h3>
-                    <p class="texto-suave"><?= e((string) $paquete['descripcion']) ?></p>
-                    <div class="flex-entre">
-                        <strong style="font-family:var(--fuente-titulo);font-size:1.6rem;color:var(--teal);"><?= precio($paquete['precio']) ?></strong>
-                        <a class="boton boton--pequeno" href="<?= url('/agenda') ?>">Agendar</a>
-                    </div>
-                </article>
-            <?php endforeach; ?>
+            <article class="tarjeta tarjeta__cuerpo"><div class="tarjeta-servicio__icono"><?= icono('agenda') ?></div><h3>Agenda y citas</h3><p class="texto-suave">Horarios por día, duración por servicio, estados de cita y reserva pública sin llamadas.</p></article>
+            <article class="tarjeta tarjeta__cuerpo"><div class="tarjeta-servicio__icono"><?= icono('clientes') ?></div><h3>Clientes y mascotas</h3><p class="texto-suave">Ficha de cada perro, raza, tamaño, alergias, temperamento y Kardex de servicios.</p></article>
+            <article class="tarjeta tarjeta__cuerpo"><div class="tarjeta-servicio__icono"><?= icono('caja') ?></div><h3>Catálogo e inventario</h3><p class="texto-suave">Servicios, paquetes y productos con precio, stock y alertas de existencias.</p></article>
+            <article class="tarjeta tarjeta__cuerpo"><div class="tarjeta-servicio__icono"><?= icono('dinero') ?></div><h3>Ventas y caja</h3><p class="texto-suave">Tickets con servicios y productos, métodos de pago, descuentos y anulación con reposición de stock.</p></article>
+            <article class="tarjeta tarjeta__cuerpo"><div class="tarjeta-servicio__icono"><?= icono('grafica') ?></div><h3>Gastos y reportes</h3><p class="texto-suave">Ingresos, gastos, utilidad y rendimiento por periodo para tomar decisiones con datos.</p></article>
+            <article class="tarjeta tarjeta__cuerpo"><div class="tarjeta-servicio__icono"><?= icono('escudo') ?></div><h3>Usuarios y permisos</h3><p class="texto-suave">Administrador, editor, estilista y clientes con accesos separados y sesiones protegidas.</p></article>
         </div>
     </div>
 </section>
-<?php endif; ?>
 
-<section class="seccion">
+<section class="seccion seccion--crema">
     <div class="contenedor">
         <div class="split">
             <div>
-                <span class="mono texto-oro">Cómo trabajamos</span>
-                <h2>Tres pasos, cero prisas.</h2>
+                <span class="mono texto-oro">Cómo funciona la página</span>
+                <h2>De la primera visita al reporte del mes.</h2>
                 <div class="pasos mt-3">
-                    <div class="paso"><div><h3>Revisión en seco</h3><p>Revisamos piel, oídos, uñas, nudos y temperamento. Te decimos qué encontramos y qué podemos hacer.</p></div></div>
-                    <div class="paso"><div><h3>Servicio adaptado</h3><p>Baño con producto adecuado, secado seguro y corte según el manto. Si algo no se puede hacer sin riesgo, se detiene.</p></div></div>
-                    <div class="paso"><div><h3>Entrega y recomendaciones</h3><p>Te explicamos el resultado, lo que observamos y cómo mantenerlo en casa. Todo queda en la ficha de tu perro.</p></div></div>
+                    <div class="paso"><div><h3>1. Crea tu cuenta</h3><p>Registra tu estética y entra al panel. Configura tus servicios, precios, horarios y datos del negocio.</p></div></div>
+                    <div class="paso"><div><h3>2. Agenda y registra</h3><p>Da de alta clientes y mascotas, agenda citas y documenta cada servicio en el Kardex.</p></div></div>
+                    <div class="paso"><div><h3>3. Cobra y controla</h3><p>Registra ventas, productos, gastos y stock. El sistema calcula totales y actualiza inventario.</p></div></div>
+                    <div class="paso"><div><h3>4. Revisa y comparte</h3><p>Consulta reportes, publica casos en la comunidad, sube trabajos a las guías y usa las calculadoras.</p></div></div>
                 </div>
             </div>
             <div class="tarjeta tarjeta__cuerpo">
-                <h3>¿Qué incluye un baño?</h3>
-                <ul class="sin-lista" style="display:grid;gap:9px;">
-                    <li class="flex-centro"><?= icono('check', 'texto-teal') ?> Revisión de piel y parásitos</li>
-                    <li class="flex-centro"><?= icono('check', 'texto-teal') ?> Cepillado previo y desenredo básico</li>
-                    <li class="flex-centro"><?= icono('check', 'texto-teal') ?> Baño con shampoo diluido y dos enjuagues</li>
-                    <li class="flex-centro"><?= icono('check', 'texto-teal') ?> Secado completo con control de temperatura</li>
-                    <li class="flex-centro"><?= icono('check', 'texto-teal') ?> Limpieza de oídos externos y uñas</li>
-                    <li class="flex-centro"><?= icono('check', 'texto-teal') ?> Perfume pet-safe y acabado</li>
+                <span class="mono texto-oro">Además</span>
+                <h3 style="font-size:1.5rem;">Comunidad, contenido y productos.</h3>
+                <ul class="sin-lista" style="display:grid;gap:10px;">
+                    <li class="flex-centro"><?= icono('libro', 'texto-teal') ?> 12 guías de oficio y un glosario para formar a tu equipo.</li>
+                    <li class="flex-centro"><?= icono('chispa', 'texto-teal') ?> Calculadoras de dilución, precio, secado y rentabilidad.</li>
+                    <li class="flex-centro"><?= icono('directorio', 'texto-teal') ?> Directorio de estéticas y comunidad moderada.</li>
+                    <li class="flex-centro"><?= icono('caja', 'texto-teal') ?> Productos Mikato fabricados en Guadalajara, Jalisco.</li>
                 </ul>
-                <p class="texto-tenue mt-2" style="font-size:.82rem;">Los nudos severos, el deslanado y los tratamientos especiales se cotizan aparte.</p>
-                <a class="boton boton--bloque" href="<?= url('/agenda') ?>">Reservar ahora</a>
+                <div class="nota mt-3" style="font-size:.84rem;"><strong>Importante:</strong> Mikato no presta servicios de estética canina. La agenda pública es una demostración del módulo de citas para que veas cómo reservarían tus clientes.</div>
+                <a class="boton boton--bloque mt-3" href="<?= url('/contacto') ?>">Quiero una demo del CRM</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="seccion">
+    <div class="contenedor">
+        <div class="cta">
+            <div>
+                <span class="mono texto-oro">Estéticas y distribuidores</span>
+                <h2>¿Tienes una estética o vendes productos?</h2>
+                <p>Te mostramos el CRM con tus propios servicios y horarios, o te armamos una propuesta de mayoreo.</p>
+            </div>
+            <div class="cta__acciones">
+                <a class="boton boton--oro boton--grande" href="<?= url('/contacto') ?>">Hablar con Mikato</a>
+                <a class="boton boton--fantasma boton--grande" href="<?= url('/nosotros') ?>">Conocer la empresa</a>
             </div>
         </div>
     </div>

@@ -7,7 +7,7 @@ $whatsapp = whatsapp_link();
         <div class="pie__rejilla">
             <div class="pie__marca">
                 <img src="<?= asset('/assets/img/logo-mikato.png') ?>" alt="Mikato">
-                <p>Estética canina con oficio. Elaboramos productos en Guadalajara, Jalisco y sostenemos una comunidad de estilistas que cuida a los perros como se debe.</p>
+                <p>CRM y productos para estéticas caninas. Elaboramos en Guadalajara, Jalisco y sostenemos una comunidad de profesionales que cuida a los perros como se debe.</p>
                 <p class="pie__hecho">Mikato · Hecho en Guadalajara, Jalisco</p>
             </div>
             <div>
@@ -23,7 +23,7 @@ $whatsapp = whatsapp_link();
             <div>
                 <h4>Herramientas</h4>
                 <ul>
-                    <li><a href="<?= url('/agenda') ?>">Agendar cita</a></li>
+                    <li><a href="<?= url('/agenda') ?>">Demo de agenda</a></li>
                     <li><a href="<?= url('/calculadoras') ?>">Calculadoras</a></li>
                     <li><a href="<?= url('/asistente') ?>">Asistente local</a></li>
                     <li><a href="<?= url('/glosario') ?>">Glosario</a></li>

@@ -8,7 +8,7 @@ return [
     'name' => env('APP_NAME', 'Mikato Estilistas Caninos'),
     'short' => env('APP_SHORT', 'Mikato Estética'),
     'domain' => env('APP_DOMAIN', 'mikatoestilistascaninos.com'),
-    'tagline' => 'Estética canina, oficio y comunidad · Guadalajara, Jalisco',
+    'tagline' => 'CRM, productos y comunidad para estéticas caninas · Guadalajara, Jalisco',
     'env' => env('APP_ENV', 'production'),
     'debug' => env_bool('APP_DEBUG', false),
     'url' => rtrim((string) env('APP_URL', 'http://127.0.0.1:8080'), '/'),
@@ -31,6 +31,7 @@ return [
         'path' => BASE_PATH . '/public/uploads',
         'url' => '/uploads',
         'max_bytes' => env_int('UPLOAD_MAX_BYTES', 3 * 1024 * 1024),
+        'video_max_bytes' => env_int('VIDEO_MAX_BYTES', 40 * 1024 * 1024),
         'max_dimension' => 1800,
     ],
 
@@ -41,6 +42,7 @@ return [
         'login_ventana' => 900,
         'contacto_por_hora' => 5,
         'citas_por_dia' => 3,
+        'guia_media_por_dia' => 5,
     ],
 
     'contacto' => [

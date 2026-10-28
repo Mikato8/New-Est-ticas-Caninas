@@ -39,6 +39,23 @@ create table if not exists password_resets (
 create index if not exists password_resets_usuario_idx on password_resets (usuario_id, usado_en);
 create index if not exists password_resets_expira_idx on password_resets (expira_en);
 
+create table if not exists guia_media (
+  id bigserial primary key,
+  usuario_id bigint not null references usuarios (id) on delete cascade,
+  guia_slug text not null,
+  tipo text not null default 'imagen',
+  ruta text not null,
+  titulo text not null,
+  descripcion text,
+  estado text not null default 'publicado',
+  creado_en timestamptz not null default now(),
+  constraint guia_media_tipo_valido check (tipo in ('imagen', 'video')),
+  constraint guia_media_estado_valido check (estado in ('publicado', 'oculto'))
+);
+
+create index if not exists guia_media_guia_idx on guia_media (guia_slug, estado, creado_en desc);
+create index if not exists guia_media_usuario_idx on guia_media (usuario_id, creado_en desc);
+
 create table if not exists clientes (
   id bigserial primary key,
   usuario_id bigint references usuarios (id) on delete set null,

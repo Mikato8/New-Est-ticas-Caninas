@@ -65,7 +65,7 @@ echo "→ Subiendo .env fuera del directorio público"
 
 echo "→ Carpetas de escritura y protección de uploads"
 "${SSH[@]}" "$REMOTE_USER@$REMOTE_HOST" \
-  "mkdir -p '$REMOTE_ROOT/public_html/public/uploads/mascotas' '$REMOTE_ROOT/public_html/public/uploads/publicaciones' '$REMOTE_ROOT/public_html/public/uploads/negocios' '$REMOTE_ROOT/public_html/public/uploads/avatares' '$REMOTE_ROOT/public_html/storage/logs'"
+  "mkdir -p '$REMOTE_ROOT/public_html/public/uploads/mascotas' '$REMOTE_ROOT/public_html/public/uploads/publicaciones' '$REMOTE_ROOT/public_html/public/uploads/negocios' '$REMOTE_ROOT/public_html/public/uploads/avatares' '$REMOTE_ROOT/public_html/public/uploads/guias' '$REMOTE_ROOT/public_html/public/uploads/productos' '$REMOTE_ROOT/public_html/storage/logs'"
 
 "${SCP[@]}" "$ROOT/public/uploads/.htaccess" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_ROOT/public_html/public/uploads/.htaccess"
 

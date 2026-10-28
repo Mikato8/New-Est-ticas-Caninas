@@ -108,6 +108,61 @@ $categoriaEtiqueta = Guias::categorias()[$guia['categoria']] ?? $guia['categoria
     </div>
 </section>
 
+<section class="seccion seccion--compacta" id="galeria">
+    <div class="contenedor">
+        <div class="encabezado-seccion encabezado-seccion--fila">
+            <div>
+                <span class="mono texto-oro">Galería de la comunidad</span>
+                <h2>Trabajos reales, subidos por estilistas.</h2>
+                <p>Comparte una foto o un video de tu trabajo en esta guía. Sirve para mostrar técnica, resolver dudas y inspirar a otras estéticas.</p>
+            </div>
+        </div>
+
+        <?php if ($media !== []): ?>
+            <div class="galeria-media">
+                <?php foreach ($media as $trabajo): ?>
+                    <article class="tarjeta tarjeta__cuerpo">
+                        <div class="galeria-media__archivo">
+                            <?php if ($trabajo['tipo'] === 'video'): ?>
+                                <?php $extensionVideo = strtolower((string) pathinfo((string) $trabajo['ruta'], PATHINFO_EXTENSION)); $mimeVideo = $extensionVideo === 'webm' ? 'video/webm' : ($extensionVideo === 'mov' ? 'video/quicktime' : 'video/mp4'); ?>
+                                <video controls preload="metadata" playsinline>
+                                    <source src="<?= e($trabajo['ruta']) ?>" type="<?= e($mimeVideo) ?>">
+                                    Tu navegador no reproduce este video. <a href="<?= e($trabajo['ruta']) ?>">Abrir archivo</a>.
+                                </video>
+                            <?php else: ?>
+                                <img src="<?= e($trabajo['ruta']) ?>" alt="<?= e($trabajo['titulo']) ?>" loading="lazy">
+                            <?php endif; ?>
+                        </div>
+                        <div class="galeria-media__texto">
+                            <h3><?= e($trabajo['titulo']) ?></h3>
+                            <?php if (!empty($trabajo['descripcion'])): ?><p class="texto-suave"><?= e($trabajo['descripcion']) ?></p><?php endif; ?>
+                            <span class="texto-tenue" style="font-size:.76rem;">Por <?= e($trabajo['autor']) ?> · <?= e(fecha($trabajo['creado_en'], 'd M Y')) ?></span>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="nota nota--teal">Todavía no hay trabajos en esta guía. Sé la primera persona en compartir una foto o un video.</div>
+        <?php endif; ?>
+
+        <?php if ($puedeSubir): ?>
+            <form class="tarjeta tarjeta__cuerpo formulario mt-4" method="post" action="<?= url('/guias/' . $guia['slug'] . '/media') ?>" enctype="multipart/form-data">
+                <?= csrf_field() ?>
+                <h3 style="font-size:1.35rem;">Sube tu trabajo a esta guía</h3>
+                <p class="texto-suave" style="font-size:.88rem;">Una imagen JPG, PNG o WebP de hasta 3 MB, o un video MP4, WebM o MOV de hasta 40 MB. Se publica con tu nombre de cuenta.</p>
+                <div class="rejilla-campos">
+                    <div class="campo campo--6"><label for="titulo-media">Título del trabajo *</label><input id="titulo-media" name="titulo" type="text" required minlength="3" maxlength="120" placeholder="Ej. Corte comercial en manto doble"></div>
+                    <div class="campo campo--6"><label for="archivo-media">Foto o video *</label><input id="archivo-media" name="archivo" type="file" required accept="image/jpeg,image/png,image/webp,video/mp4,video/webm,video/quicktime"></div>
+                    <div class="campo"><label for="descripcion-media">Descripción breve</label><textarea id="descripcion-media" name="descripcion" maxlength="400" placeholder="Técnica, producto, tipo de manto o lo que quieras destacar."></textarea></div>
+                </div>
+                <div class="formulario__pie"><button class="boton" type="submit"><?= icono('subir') ?> Publicar en la galería</button></div>
+            </form>
+        <?php else: ?>
+            <div class="nota mt-4"><strong>¿Quieres compartir tu trabajo?</strong> <a href="<?= url('/entrar?destino=' . rawurlencode('/guias/' . $guia['slug'] . '#galeria')) ?>">Entra a tu cuenta</a> o <a href="<?= url('/registro') ?>">crea una gratis</a> para subir fotos y videos.</div>
+        <?php endif; ?>
+    </div>
+</section>
+
 <section class="seccion seccion--compacta">
     <div class="contenedor">
         <div class="flex-entre" style="border-top:1px solid var(--borde);padding-top:24px;">

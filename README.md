@@ -1,6 +1,6 @@
 # Mikato Estilistas Caninos
 
-**Portal de estética canina, comunidad y gestión para estilistas de México.** Baño, corte, uñas, oídos, spa, guías de oficio, calculadoras, directorio y agenda en línea. Hecho en PHP, sin framework y sin build step.
+**CRM para estéticas caninas y fábrica de productos profesionales en Guadalajara, Jalisco.** Agenda, clientes, mascotas, inventario, ventas, reportes, guías, calculadoras, directorio y comunidad. Mikato no presta servicios de estética. Hecho en PHP, sin framework y sin build step.
 
 - Sitio: <https://mikatoestilistascaninos.com>
 - Repositorio: <https://github.com/Mikato8/New-Est-ticas-Caninas>
@@ -11,28 +11,29 @@
 
 ## Qué incluye
 
-### Para tutores y clientes
+### Para clientes de las estéticas
 
 - **Servicios y precios** por tamaño, con duración y alcance claros.
 - **Agenda en línea** con selección de servicio, fecha y horario; confirmación por WhatsApp y código de cita.
 - **Mi cuenta**: mascotas, próximas citas, historial de estética, compras y perfil.
 - **Cuidados antes y después** de la cita, señales para reprogramar y qué llevar en la primera visita.
-- **Productos Mikato** elaborados en Guadalajara, Jalisco, con precios de mayoreo y contacto directo.
+- **Productos Mikato** elaborados en Guadalajara, Jalisco, con precios de mayoreo, imágenes y enlace a [mikato.com.mx](https://mikato.com.mx).
 
 ### Para estilistas caninos
 
 - **12 guías de oficio**: baño, uñas, oídos, corte higiénico, deslanado, manejo de perros nerviosos, secado, primeros auxilios, higiene del equipo, razas, precios y marco legal.
 - **4 calculadoras**: dilución de shampoo, precio de servicio, tiempo/costo de secado y rentabilidad por hora.
 - **Comunidad moderada** con casos, técnicas, dudas y empleo.
+- **Galería de trabajos**: usuarios con cuenta suben fotos o videos a cada guía; los trabajos aparecen en la guía y en el carrusel de la portada.
 - **Directorio nacional** de estéticas, con fichas revisadas antes de publicar.
 - **Glosario** de 32 términos del oficio.
 - **Asistente de búsqueda en servidor** que consulta 164 fragmentos del contenido del sitio con PHP puro, sin JavaScript ni modelos externos.
 
-### Para el salón (panel de gestión)
+### Para estéticas (panel de gestión / CRM)
 
 - Agenda por día, estados de cita, reprogramación y creación de citas.
 - Clientes, mascotas, historial de estética y alertas de manejo.
-- Catálogo de servicios, productos, paquetes e inventario.
+- Catálogo de servicios, productos, paquetes e inventario, con imagen de producto y enlace a la tienda.
 - Ventas con conceptos, descuentos, métodos de pago y ticket imprimible.
 - Gastos, reportes de ventas/utilidad, punto de equilibrio y stock bajo.
 - Usuarios con roles (`admin`, `editor`, `estilista`, `cliente`) y configuración del negocio.
@@ -76,6 +77,7 @@ Abre <http://127.0.0.1:8090>. El administrador se crea con `ADMIN_USER` y `ADMIN
 | `ADMIN_USER` / `ADMIN_PASSWORD` | Bootstrap del administrador |
 | `SESSION_NAME` / `SESSION_LIFETIME` | Cookie de sesión |
 | `UPLOAD_MAX_BYTES` | Límite de imágenes (3 MB por defecto) |
+| `VIDEO_MAX_BYTES` | Límite de videos de galería (40 MB por defecto) |
 | `POSTS_POR_DIA` / `COMENTARIOS_POR_HORA` / `CITAS_POR_DIA` | Límites antispam |
 | `CONTACT_EMAIL` / `WHATSAPP` / `TELEFONO` | Datos de contacto públicos |
 | `MAIL_ENABLED` / `MAIL_HOST` / `MAIL_PORT` / `MAIL_USERNAME` / `MAIL_PASSWORD` / `MAIL_ENCRYPTION` | SMTP autenticado para recuperación de contraseña |

@@ -532,6 +532,18 @@ final class PanelController
             return redirigir('/panel/' . $tipo);
         }
 
+        if ($tipo === 'productos') {
+            $archivo = $peticion->archivo('imagen_archivo');
+            if ($archivo !== null && (int) ($archivo['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
+                $subida = Upload::imagen($archivo, 'productos');
+                if (!($subida['ok'] ?? false)) {
+                    flash('error', (string) ($subida['error'] ?? 'No se pudo subir la imagen del producto.'));
+                    return redirigir('/panel/productos');
+                }
+                $datos['imagen'] = (string) $subida['ruta'];
+            }
+        }
+
         $id = $peticion->entero('id');
         $repo = match ($tipo) {
             'servicios' => ServicioRepository::class,

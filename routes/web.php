@@ -47,6 +47,7 @@ return static function (Router $router): void {
 
     $router->get('/guias', [GuiaController::class, 'index']);
     $router->get('/guias/{slug}', [GuiaController::class, 'show']);
+    $router->post('/guias/{slug}/media', [GuiaController::class, 'subirMedia']);
 
     $router->get('/comunidad', [ComunidadController::class, 'index']);
     $router->get('/comunidad/publicar', [ComunidadController::class, 'crear']);

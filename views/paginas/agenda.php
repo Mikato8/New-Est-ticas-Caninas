@@ -7,9 +7,10 @@ $tieneServicio = $servicio !== null;
 <div class="contenedor">
     <nav class="migas" aria-label="Ruta"><a href="<?= url('/') ?>">Inicio</a><span>/</span>Agenda</nav>
     <header class="portada-interior">
-        <span class="mono texto-oro">Reserva en línea</span>
-        <h1>Agenda una cita tranquila.</h1>
+        <span class="mono texto-oro">Demostración del CRM</span>
+        <h1>Así se agenda una cita.</h1>
         <p>Elige servicio, día y hora. Te confirmamos por WhatsApp. Si es la primera vez, cuéntanos cómo es tu perro para preparar el manejo.</p>
+        <div class="nota nota--teal mt-3" style="font-size:.86rem;"><strong>Demostración del CRM:</strong> esta agenda muestra el módulo de citas que usan las estéticas. Mikato no presta servicios de estética canina.</div>
     </header>
 </div>
 

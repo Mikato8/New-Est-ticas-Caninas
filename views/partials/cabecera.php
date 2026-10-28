@@ -10,7 +10,7 @@ $whatsapp = whatsapp_link();
             <?php if ($whatsapp !== ''): ?>
                 <a href="<?= e($whatsapp) ?>" target="_blank" rel="noopener">WhatsApp</a>
             <?php else: ?>
-                <a href="<?= url('/agenda') ?>">Agenda en línea</a>
+                <a href="<?= url('/servicios') ?>">Demo del CRM</a>
             <?php endif; ?>
             <span>·</span>
             <a href="<?= url('/directorio') ?>">Directorio de estéticas</a>
@@ -24,7 +24,7 @@ $whatsapp = whatsapp_link();
             <img src="<?= asset('/assets/img/logo-mikato.png') ?>" alt="Mikato">
             <span class="marca__texto">
                 <strong>Estilistas Caninos</strong>
-                <small>Estética · oficio · Guadalajara</small>
+                <small>CRM · productos · Guadalajara</small>
             </span>
         </a>
 
@@ -51,7 +51,7 @@ $whatsapp = whatsapp_link();
             <?php else: ?>
                 <a class="boton boton--contorno boton--pequeno" href="<?= url('/entrar') ?>">Entrar</a>
             <?php endif; ?>
-            <a class="boton boton--oro boton--pequeno boton--agenda" href="<?= url('/agenda') ?>"><?= icono('agenda') ?> Agendar cita</a>
+            <a class="boton boton--oro boton--pequeno boton--agenda" href="<?= url('/contacto') ?>"><?= icono('agenda') ?> Solicitar demo</a>
             <label class="menu-boton" for="menu-principal" tabindex="0" aria-label="Abrir menú">
                 <?= icono('menu') ?>
             </label>

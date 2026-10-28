@@ -56,7 +56,7 @@ $mostrar = static function (string $campo, mixed $valor) use ($tipo): string {
         </div>
     </section>
 
-    <form class="panel-caja formulario" method="post" action="<?= url('/panel/' . $tipo . '/guardar') ?>">
+    <form class="panel-caja formulario" method="post" action="<?= url('/panel/' . $tipo . '/guardar') ?>" enctype="multipart/form-data">
         <?= csrf_field() ?>
         <input type="hidden" name="id" value="<?= $editando ? (int) $editar['id'] : 0 ?>">
         <div class="panel__seccion-titulo"><h2><?= $editando ? 'Editar ' . e($config['singular']) : 'Nuevo ' . e($config['singular']) ?></h2></div>
@@ -90,6 +90,14 @@ $mostrar = static function (string $campo, mixed $valor) use ($tipo): string {
                     <?php if (isset($errores[$nombre])): ?><span class="error"><?= e($errores[$nombre]) ?></span><?php endif; ?>
                 </div>
             <?php endforeach; ?>
+            <?php if ($tipo === 'productos'): ?>
+                <div class="campo">
+                    <label for="imagen_archivo">Imagen del producto</label>
+                    <input id="imagen_archivo" name="imagen_archivo" type="file" accept="image/jpeg,image/png,image/webp">
+                    <?php if ($editando && !empty($editar['imagen'])): ?><img src="<?= e((string) $editar['imagen']) ?>" alt="Imagen actual" style="width:90px;height:90px;object-fit:cover;border-radius:8px;margin-top:8px;"><?php endif; ?>
+                    <span class="texto-tenue" style="font-size:.78rem;">JPG, PNG o WebP de hasta 3 MB. Si no subes una, se conserva la actual o se usa la ilustración por categoría.</span>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="flex-centro">
             <button class="boton" type="submit"><?= $editando ? 'Guardar cambios' : 'Crear' ?></button>

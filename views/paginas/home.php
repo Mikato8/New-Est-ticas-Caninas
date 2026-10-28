@@ -31,24 +31,24 @@ $serviciosHome = array_slice(array_values($porNombre), 0, 6);
     <div class="contenedor">
         <div class="hero__rejilla">
             <div>
-                <span class="hero__eyebrow"><span></span>Mikato · Estilistas caninos de México</span>
-                <h1>El oficio de consentir perros, con <em>técnica y cariño</em>.</h1>
-                <p class="hero__lead">Baño, corte y cuidado para perros de todas las tallas. Un espacio para estilistas caninos con guías de oficio, calculadoras, comunidad y agenda en línea. Productos elaborados en Guadalajara, Jalisco.</p>
+                <span class="hero__eyebrow"><span></span>Mikato · CRM y productos para estéticas caninas</span>
+                <h1>El oficio de las estéticas, con <em>técnica y orden</em>.</h1>
+                <p class="hero__lead">Agenda, clientes, mascotas, inventario, ventas y reportes para estéticas caninas. También fabricamos productos profesionales en Guadalajara, Jalisco. Mikato no atiende perros: impulsa a quien lo hace.</p>
                 <div class="hero__acciones">
-                    <a class="boton boton--oro boton--grande" href="<?= url('/agenda') ?>"><?= icono('agenda') ?> Agendar una cita</a>
-                    <a class="boton boton--contorno boton--grande" href="<?= url('/guias') ?>"><?= icono('libro') ?> Aprender el oficio</a>
+                    <a class="boton boton--oro boton--grande" href="<?= url('/servicios') ?>"><?= icono('agenda') ?> Conocer el CRM</a>
+                    <a class="boton boton--contorno boton--grande" href="<?= url('/productos') ?>"><?= icono('caja') ?> Ver productos</a>
                 </div>
                 <ul class="hero__pruebas">
-                    <li><?= icono('check') ?> Atención personalizada</li>
+                    <li><?= icono('check') ?> Agenda y expediente por mascota</li>
                     <li><?= icono('check') ?> Productos hechos en Guadalajara, Jalisco</li>
-                    <li><?= icono('check') ?> Confirmación por WhatsApp</li>
+                    <li><?= icono('check') ?> Reportes para tomar decisiones</li>
                 </ul>
             </div>
             <div class="hero__arte">
                 <img src="<?= asset('/assets/img/hero-perro.svg') ?>" alt="Perro recién bañado y peinado en Mikato" width="470" height="520">
                 <div class="flotante flotante--1">
                     <?= icono('agenda') ?>
-                    <div><strong>Agenda abierta</strong><small>Lun a sáb · 9:00 a 19:00</small></div>
+                    <div><strong>Agenda del salón</strong><small>Módulo de citas y horarios</small></div>
                 </div>
                 <div class="flotante flotante--2">
                     <?= icono('libro') ?>
@@ -61,10 +61,48 @@ $serviciosHome = array_slice(array_values($porNombre), 0, 6);
             </div>
         </div>
         <div class="hero__cinta">
-            <span><?= icono('pata') ?> Baño · corte · uñas · oídos · spa</span>
+            <span><?= icono('agenda') ?> Agenda · clientes · inventario · ventas</span>
             <span><?= icono('escudo') ?> Manejo de bajo estrés</span>
-            <span><?= icono('corazon') ?> Perros de todas las edades</span>
+            <span><?= icono('grafica') ?> Reportes y control del negocio</span>
             <span><?= icono('pin') ?> Hecho en Guadalajara, Jalisco</span>
+        </div>
+    </div>
+</section>
+
+<section class="seccion seccion--compacta">
+    <div class="contenedor">
+        <div class="encabezado-seccion encabezado-seccion--fila">
+            <div>
+                <span class="mono texto-oro">Galería de la comunidad</span>
+                <h2>Trabajos de estilistas, en sus propias palabras.</h2>
+                <p>Fotos y videos que suben las estéticas en las guías. Desliza para ver más; si tienes cuenta, comparte tu trabajo.</p>
+            </div>
+            <a class="boton boton--pequeno" href="<?= url('/guias') ?>">Compartir mi trabajo</a>
+        </div>
+        <div class="carrusel" tabindex="0" aria-label="Trabajos de la comunidad">
+            <?php if (($trabajos ?? []) !== []): ?>
+                <?php foreach ($trabajos as $trabajo): ?>
+                    <article class="carrusel__slide">
+                        <div class="carrusel__imagen"><img src="<?= e($trabajo['ruta']) ?>" alt="<?= e($trabajo['titulo']) ?>" loading="lazy"></div>
+                        <div class="carrusel__texto">
+                            <h3><?= e($trabajo['titulo']) ?></h3>
+                            <p>Por <?= e($trabajo['autor']) ?></p>
+                            <a class="enlace-flecha" href="<?= url('/guias/' . $trabajo['guia_slug'] . '#galeria') ?>">Ver en la guía <?= icono('flecha') ?></a>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <?php for ($i = 0; $i < 3; $i++): ?>
+                    <article class="carrusel__slide carrusel__slide--vacio">
+                        <div class="carrusel__imagen"><img src="<?= asset('/assets/img/hero-perro.svg') ?>" alt="Espacio para el trabajo de una estética" loading="lazy"></div>
+                        <div class="carrusel__texto">
+                            <h3>Tu trabajo aquí</h3>
+                            <p>Sube una foto o un video en cualquiera de las guías y aparece en esta galería.</p>
+                            <a class="enlace-flecha" href="<?= url('/guias') ?>">Elegir una guía <?= icono('flecha') ?></a>
+                        </div>
+                    </article>
+                <?php endfor; ?>
+            <?php endif; ?>
         </div>
     </div>
 </section>
@@ -100,11 +138,11 @@ $serviciosHome = array_slice(array_values($porNombre), 0, 6);
     <div class="contenedor">
         <div class="encabezado-seccion encabezado-seccion--fila">
             <div>
-                <span class="mono">Servicios de estética</span>
-                <h2>Lo que tu perro necesita, sin prisas.</h2>
-                <p>Baño, corte, uñas, oídos y spa. Cada servicio se adapta al tamaño, al manto y al temperamento del perro. Precios claros y tiempos reales.</p>
+                <span class="mono">Módulo de servicios</span>
+                <h2>Así se ve tu catálogo en el CRM.</h2>
+                <p>Configura baño, corte, uñas, oídos y spa con precio, duración y tamaño. Tus clientes reservan en línea y el panel calcula el resto.</p>
             </div>
-            <a class="enlace-flecha" href="<?= url('/servicios') ?>">Ver todos los precios <?= icono('flecha') ?></a>
+            <a class="enlace-flecha" href="<?= url('/servicios') ?>">Cómo funciona el CRM <?= icono('flecha') ?></a>
         </div>
         <div class="grid grid--3">
             <?php foreach ($serviciosHome as $servicio): ?>
@@ -121,7 +159,7 @@ $serviciosHome = array_slice(array_values($porNombre), 0, 6);
                 </article>
             <?php endforeach; ?>
         </div>
-        <p class="texto-tenue mt-3" style="font-size:.84rem;">Los precios son por tamaño y pueden variar si el manto tiene nudos o requiere deslanado. Te confirmamos antes de empezar.</p>
+        <p class="texto-tenue mt-3" style="font-size:.84rem;">Estos son datos de ejemplo del módulo. En tu cuenta configuras tus propios servicios, precios y tiempos; la agenda pública es una demostración.</p>
     </div>
 </section>
 
@@ -170,7 +208,7 @@ $serviciosHome = array_slice(array_values($porNombre), 0, 6);
             <div>
                 <span class="mono">Productos Mikato</span>
                 <h2>Elaborados en Guadalajara, Jalisco, para el salón.</h2>
-                <p>Shampoos, acondicionadores, aromas y herramientas. Lo que usamos en la estética y lo que recomendamos a otros estilistas.</p>
+                <p>Shampoos, acondicionadores, aromas y herramientas. Lo que probamos con estilistas y recomendamos a otras estéticas.</p>
             </div>
             <a class="enlace-flecha" href="<?= url('/productos') ?>">Ver catálogo <?= icono('flecha') ?></a>
         </div>
@@ -285,12 +323,12 @@ $serviciosHome = array_slice(array_values($porNombre), 0, 6);
     <div class="contenedor">
         <div class="cta">
             <div>
-                <span class="mono texto-oro">Reserva en línea</span>
-                <h2>Tu perro merece una cita tranquila.</h2>
-                <p>Elige servicio, día y hora. Te confirmamos por WhatsApp y te decimos qué llevar. Sin filas y sin sorpresas.</p>
+                <span class="mono texto-oro">CRM para estéticas</span>
+                <h2>Haz que tu estética trabaje con orden.</h2>
+                <p>Agenda, clientes, mascotas, inventario y reportes en un solo panel. Solicita una demo y te mostramos el flujo con tus propios servicios.</p>
             </div>
             <div class="cta__acciones">
-                <a class="boton boton--oro boton--grande" href="<?= url('/agenda') ?>">Agendar cita</a>
+                <a class="boton boton--oro boton--grande" href="<?= url('/contacto') ?>">Solicitar demo</a>
                 <?php if ($whatsapp !== ''): ?>
                     <a class="boton boton--fantasma boton--grande" href="<?= e($whatsapp) ?>" target="_blank" rel="noopener"><?= icono('whatsapp') ?> WhatsApp</a>
                 <?php else: ?>
