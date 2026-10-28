@@ -88,7 +88,7 @@ final class Application
         header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
         header(
             "Content-Security-Policy: default-src 'self'; " .
-            "script-src 'none'; " .
+            "script-src 'sha256-fM/rGXvBBRmYpKu9SrXKDv7FjkFkkpP9OtkANF1eKCc='; " .
             "style-src 'self' 'unsafe-inline'; " .
             "img-src 'self' data:; font-src 'self'; " .
             "connect-src 'self'; " .

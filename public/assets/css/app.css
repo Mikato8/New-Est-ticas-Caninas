@@ -427,6 +427,10 @@ p { margin-bottom: 1rem; }
 .auth__caja h1 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 8px; }
 .auth__caja .texto-suave { margin-bottom: 26px; }
 .auth__cambiar { margin-top: 20px; font-size: 0.9rem; color: var(--tinta-suave); }
+.campo-password { position: relative; }
+.campo-password input { width: 100%; padding-right: 72px; }
+.password-ver { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); padding: 5px 4px; border: 0; background: transparent; color: var(--teal); font-family: var(--fuente-mono); font-size: 0.64rem; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; }
+.password-ver:hover { text-decoration: underline; }
 .auth__cambiar a { font-weight: 650; color: var(--teal); }
 .separador { display: flex; align-items: center; gap: 12px; color: var(--tinta-tenue); font-family: var(--fuente-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; margin: 20px 0; }
 .separador::before, .separador::after { content: ""; height: 1px; background: var(--borde); flex: 1; }

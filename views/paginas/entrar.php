@@ -29,9 +29,14 @@ $errores = errores();
                 </div>
                 <div class="campo">
                     <label for="password">Contraseña</label>
-                    <input id="password" name="password" type="password" required autocomplete="current-password">
+                    <div class="campo-password">
+                        <input id="password" name="password" type="password" required autocomplete="current-password">
+                        <input id="ver-password" type="checkbox" hidden>
+                        <label id="ver-password-label" class="password-ver" for="ver-password" hidden>Ver</label>
+                    </div>
                 </div>
                 <button class="boton boton--bloque" type="submit">Entrar</button>
+                <script>(function(){var c=document.getElementById('ver-password'),p=document.getElementById('password'),l=document.getElementById('ver-password-label');if(!c||!p||!l){return;}l.hidden=false;c.addEventListener('change',function(){p.type=c.checked?'text':'password';l.textContent=c.checked?'Ocultar':'Ver';p.focus();});})();</script>
                 <p class="auth__cambiar">¿Olvidaste tu contraseña? <a href="<?= url('/contacto') ?>">Escríbenos</a> y la restablecemos.</p>
                 <div class="separador">o</div>
                 <a class="boton boton--contorno boton--bloque" href="<?= url('/registro') ?>">Crear una cuenta nueva</a>
