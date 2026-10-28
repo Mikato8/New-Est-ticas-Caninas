@@ -144,7 +144,8 @@ p { margin-bottom: 1rem; }
 
 /* ---------- Cabecera pública ---------- */
 .aviso-superior { background: var(--teal-oscuro); color: rgba(251, 247, 239, 0.88); font-family: var(--fuente-mono); font-size: 0.7rem; letter-spacing: 0.09em; text-transform: uppercase; }
-.aviso-superior .contenedor { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 36px; }
+.aviso-superior .contenedor { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 36px; flex-wrap: wrap; }
+.aviso-superior .contenedor > span { min-width: 0; }
 .aviso-superior a { color: var(--oro-claro); text-decoration: none; }
 .aviso-superior a:hover { color: #fff; }
 .aviso-superior__punto { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--oro-claro); margin-right: 8px; }

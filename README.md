@@ -17,7 +17,7 @@
 - **Agenda en línea** con selección de servicio, fecha y horario; confirmación por WhatsApp y código de cita.
 - **Mi cuenta**: mascotas, próximas citas, historial de estética, compras y perfil.
 - **Cuidados antes y después** de la cita, señales para reprogramar y qué llevar en la primera visita.
-- **Productos Mikato** fabricados en México, con precios de mayoreo y contacto directo.
+- **Productos Mikato** elaborados en Guadalajara, Jalisco, con precios de mayoreo y contacto directo.
 
 ### Para estilistas caninos
 

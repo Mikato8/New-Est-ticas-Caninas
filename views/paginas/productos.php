@@ -15,7 +15,7 @@ $whatsapp = whatsapp_link();
     <header class="portada-interior">
         <span class="mono texto-oro">Fabricantes mexicanos</span>
         <h1>Productos Mikato para el salón.</h1>
-        <p>Shampoos, acondicionadores, aromas y herramientas que usamos en la estética. Los fabricamos en México y los probamos en el día a día del salón.</p>
+        <p>Shampoos, acondicionadores, aromas y herramientas que usamos en la estética. Los elaboramos en Guadalajara, Jalisco y los probamos en el día a día del salón.</p>
         <div class="flex-centro mt-3">
             <a class="boton boton--oro" href="<?= url('/contacto') ?>">Pedir catálogo o mayoreo</a>
             <?php if ($whatsapp !== ''): ?><a class="boton boton--contorno" href="<?= e($whatsapp) ?>" target="_blank" rel="noopener"><?= icono('whatsapp') ?> WhatsApp</a><?php endif; ?>

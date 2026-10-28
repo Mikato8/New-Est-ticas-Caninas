@@ -33,14 +33,14 @@ $serviciosHome = array_slice(array_values($porNombre), 0, 6);
             <div>
                 <span class="hero__eyebrow"><span></span>Mikato · Estilistas caninos de México</span>
                 <h1>El oficio de consentir perros, con <em>técnica y cariño</em>.</h1>
-                <p class="hero__lead">Baño, corte y cuidado para perros de todas las tallas. Un espacio para estilistas caninos con guías de oficio, calculadoras, comunidad y agenda en línea. Productos fabricados en México.</p>
+                <p class="hero__lead">Baño, corte y cuidado para perros de todas las tallas. Un espacio para estilistas caninos con guías de oficio, calculadoras, comunidad y agenda en línea. Productos elaborados en Guadalajara, Jalisco.</p>
                 <div class="hero__acciones">
                     <a class="boton boton--oro boton--grande" href="<?= url('/agenda') ?>"><?= icono('agenda') ?> Agendar una cita</a>
                     <a class="boton boton--contorno boton--grande" href="<?= url('/guias') ?>"><?= icono('libro') ?> Aprender el oficio</a>
                 </div>
                 <ul class="hero__pruebas">
                     <li><?= icono('check') ?> Atención personalizada</li>
-                    <li><?= icono('check') ?> Productos hechos en México</li>
+                    <li><?= icono('check') ?> Productos hechos en Guadalajara, Jalisco</li>
                     <li><?= icono('check') ?> Confirmación por WhatsApp</li>
                 </ul>
             </div>
@@ -64,7 +64,7 @@ $serviciosHome = array_slice(array_values($porNombre), 0, 6);
             <span><?= icono('pata') ?> Baño · corte · uñas · oídos · spa</span>
             <span><?= icono('escudo') ?> Manejo de bajo estrés</span>
             <span><?= icono('corazon') ?> Perros de todas las edades</span>
-            <span><?= icono('pin') ?> Hecho en México</span>
+            <span><?= icono('pin') ?> Hecho en Guadalajara, Jalisco</span>
         </div>
     </div>
 </section>
@@ -169,7 +169,7 @@ $serviciosHome = array_slice(array_values($porNombre), 0, 6);
         <div class="encabezado-seccion encabezado-seccion--fila">
             <div>
                 <span class="mono">Productos Mikato</span>
-                <h2>Fabricados en México para el salón.</h2>
+                <h2>Elaborados en Guadalajara, Jalisco, para el salón.</h2>
                 <p>Shampoos, acondicionadores, aromas y herramientas. Lo que usamos en la estética y lo que recomendamos a otros estilistas.</p>
             </div>
             <a class="enlace-flecha" href="<?= url('/productos') ?>">Ver catálogo <?= icono('flecha') ?></a>

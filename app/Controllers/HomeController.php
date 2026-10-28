@@ -74,7 +74,7 @@ final class HomeController
 
         return Response::html(view('paginas/productos', [
             'titulo' => 'Productos Mikato para estilistas caninos',
-            'descripcion' => 'Shampoos, acondicionadores, herramientas y accesorios fabricados en México para estéticas caninas.',
+            'descripcion' => 'Shampoos, acondicionadores, herramientas y accesorios elaborados en Guadalajara, Jalisco para estéticas caninas.',
             'agrupados' => $agrupados,
             'categorias' => ProductoRepository::categorias(),
         ]));
@@ -84,7 +84,7 @@ final class HomeController
     {
         return Response::html(view('paginas/nosotros', [
             'titulo' => 'Somos Mikato, fabricantes mexicanos',
-            'descripcion' => 'Fabricamos productos para estilistas caninos en México y sostenemos una comunidad de oficio con guías, directorio y agenda.',
+            'descripcion' => 'Elaboramos productos para estilistas caninos en Guadalajara, Jalisco y sostenemos una comunidad de oficio con guías, directorio y agenda.',
         ]));
     }
 

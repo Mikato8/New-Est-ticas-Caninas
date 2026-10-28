@@ -15,7 +15,7 @@ $correo = (string) config('contacto.email');
     <div class="contenedor">
         <article class="prosa" style="max-width:820px;">
             <h2>1. Responsable</h2>
-            <p><strong>Mikato</strong>, con domicilio en México y correo de contacto <a href="mailto:<?= e($correo) ?>"><?= e($correo) ?></a>, es responsable del tratamiento de los datos personales que recaba a través de este portal.</p>
+            <p><strong>Mikato</strong>, con domicilio en Guadalajara, Jalisco, México y correo de contacto <a href="mailto:<?= e($correo) ?>"><?= e($correo) ?></a>, es responsable del tratamiento de los datos personales que recaba a través de este portal.</p>
 
             <h2>2. Datos que tratamos</h2>
             <ul>

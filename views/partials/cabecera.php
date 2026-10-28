@@ -5,7 +5,7 @@ $whatsapp = whatsapp_link();
 ?>
 <div class="aviso-superior">
     <div class="contenedor">
-        <span><span class="aviso-superior__punto"></span>Hecho en México · Fabricantes de productos para estilistas caninos</span>
+        <span><span class="aviso-superior__punto"></span>Hecho en Guadalajara, Jalisco</span>
         <span class="aviso-superior__derecha">
             <?php if ($whatsapp !== ''): ?>
                 <a href="<?= e($whatsapp) ?>" target="_blank" rel="noopener">WhatsApp</a>
@@ -24,7 +24,7 @@ $whatsapp = whatsapp_link();
             <img src="<?= asset('/assets/img/logo-mikato.png') ?>" alt="Mikato">
             <span class="marca__texto">
                 <strong>Estilistas Caninos</strong>
-                <small>Estética · oficio · México</small>
+                <small>Estética · oficio · Guadalajara</small>
             </span>
         </a>
 

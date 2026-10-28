@@ -7,8 +7,8 @@ $whatsapp = whatsapp_link();
         <div class="pie__rejilla">
             <div class="pie__marca">
                 <img src="<?= asset('/assets/img/logo-mikato.png') ?>" alt="Mikato">
-                <p>Estética canina con oficio. Fabricamos productos en México y sostenemos una comunidad de estilistas que cuida a los perros como se debe.</p>
-                <p class="pie__hecho">Mikato · Hecho en México</p>
+                <p>Estética canina con oficio. Elaboramos productos en Guadalajara, Jalisco y sostenemos una comunidad de estilistas que cuida a los perros como se debe.</p>
+                <p class="pie__hecho">Mikato · Hecho en Guadalajara, Jalisco</p>
             </div>
             <div>
                 <h4>Explora</h4>
