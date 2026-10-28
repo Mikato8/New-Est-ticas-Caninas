@@ -29,13 +29,22 @@ declare(strict_types=1);
                     <?= csrf_field() ?>
                     <div class="campo">
                         <label for="password">Contraseña nueva</label>
-                        <input id="password" name="password" type="password" required minlength="8" maxlength="100" autocomplete="new-password" autofocus>
+                        <div class="campo-password">
+                            <input id="password" name="password" type="password" required minlength="8" maxlength="100" autocomplete="new-password" autofocus>
+                            <input id="ver-password" type="checkbox" hidden data-ver-password="password" data-ver-label="ver-password-label">
+                            <label id="ver-password-label" class="password-ver" for="ver-password" hidden>Ver</label>
+                        </div>
                     </div>
                     <div class="campo">
                         <label for="password_confirm">Repite la contraseña</label>
-                        <input id="password_confirm" name="password_confirm" type="password" required minlength="8" maxlength="100" autocomplete="new-password">
+                        <div class="campo-password">
+                            <input id="password_confirm" name="password_confirm" type="password" required minlength="8" maxlength="100" autocomplete="new-password">
+                            <input id="ver-password-confirm" type="checkbox" hidden data-ver-password="password_confirm" data-ver-label="ver-password-confirm-label">
+                            <label id="ver-password-confirm-label" class="password-ver" for="ver-password-confirm" hidden>Ver</label>
+                        </div>
                     </div>
                     <button class="boton boton--bloque" type="submit">Guardar contraseña nueva</button>
+                    <script>(function(){document.querySelectorAll('[data-ver-password]').forEach(function(c){var p=document.getElementById(c.getAttribute('data-ver-password')),l=document.getElementById(c.getAttribute('data-ver-label'));if(!p||!l){return;}l.hidden=false;c.addEventListener('change',function(){p.type=c.checked?'text':'password';l.textContent=c.checked?'Ocultar':'Ver';p.focus();});});})();</script>
                 </form>
                 <p class="auth__cambiar"><a href="<?= url('/entrar') ?>">Volver a entrar</a></p>
             <?php endif; ?>
