@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Controllers\AdminController;
+use App\Controllers\AgendaCompartidaController;
 use App\Controllers\AgendaController;
 use App\Controllers\AuthController;
 use App\Controllers\CalculadoraController;
@@ -68,6 +69,8 @@ return static function (Router $router): void {
     $router->get('/api/calculadora/{tipo}', [CalculadoraController::class, 'api']);
 
     $router->get('/agenda', [AgendaController::class, 'form']);
+    $router->get('/agenda/compartida/{token}', [AgendaCompartidaController::class, 'ver']);
+    $router->get('/agenda/compartida/{token}/csv', [AgendaCompartidaController::class, 'csv']);
     $router->post('/agenda', [AgendaController::class, 'guardar']);
     $router->get('/agenda/disponibilidad', [AgendaController::class, 'disponibilidad']);
     $router->get('/agenda/consultar', [AgendaController::class, 'consultar']);
@@ -107,6 +110,7 @@ return static function (Router $router): void {
     // Panel de gestión
     $router->get('/panel', [PanelController::class, 'dashboard']);
     $router->get('/panel/agenda', [PanelController::class, 'agenda']);
+    $router->get('/panel/agenda/exportar', [PanelController::class, 'agendaExportar']);
     $router->post('/panel/agenda', [PanelController::class, 'citaGuardar']);
     $router->post('/panel/cita/estado', [PanelController::class, 'citaEstado']);
     $router->post('/panel/cita/reagendar', [PanelController::class, 'citaReagendar']);

@@ -21,6 +21,7 @@ use App\Repositories\ProductoRepository;
 use App\Repositories\ServicioRepository;
 use App\Repositories\UsuarioRepository;
 use App\Repositories\VentaRepository;
+use App\Support\AgendaShare;
 use App\Support\Slug;
 use App\Support\Upload;
 use App\Support\Validator;
@@ -123,6 +124,11 @@ final class PanelController
             $fecha = date('Y-m-d');
         }
 
+        $compartirUrl = AgendaShare::url($fecha);
+        $numero = preg_replace('/\D+/', '', (string) config('contacto.whatsapp')) ?: '';
+        $textoWhatsapp = 'Agenda de ' . fecha_larga($fecha) . ': ' . $compartirUrl;
+        $whatsappAgenda = 'https://wa.me/' . $numero . '?text=' . rawurlencode($textoWhatsapp);
+
         return Response::html(view_panel('panel/agenda', [
             'titulo' => 'Agenda',
             'descripcion' => 'Citas del día, cambios de estado y nuevas reservas.',
@@ -134,7 +140,21 @@ final class PanelController
             'clientes' => ClienteRepository::opciones(),
             'mascotas' => MascotaRepository::listar('', 300),
             'horas' => $this->horas(),
+            'compartirUrl' => $compartirUrl,
+            'whatsappAgenda' => $whatsappAgenda,
         ]));
+    }
+
+    public function agendaExportar(Request $peticion): Response
+    {
+        $this->guard();
+        $fecha = $peticion->cadena('fecha', date('Y-m-d'));
+        if (strtotime($fecha) === false) {
+            $fecha = date('Y-m-d');
+        }
+        $citas = CitaRepository::porFecha($fecha);
+        return Response::texto(AgendaShare::csv($fecha, $citas), 200, 'text/csv; charset=UTF-8')
+            ->conCabecera('Content-Disposition', 'attachment; filename="agenda-' . $fecha . '.csv"');
     }
 
     /** @return list<string> */

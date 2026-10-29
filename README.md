@@ -32,11 +32,12 @@
 ### Para estéticas (panel de gestión / CRM)
 
 - Agenda por día, estados de cita, reprogramación y creación de citas.
+- Envío de la agenda por WhatsApp con enlace privado de 7 días y descarga CSV.
 - Clientes, mascotas, historial de estética y alertas de manejo.
 - Catálogo de servicios, productos, paquetes e inventario, con imagen de producto y enlace a la tienda.
 - Ventas con conceptos, descuentos, métodos de pago y ticket imprimible.
 - Gastos, reportes de ventas/utilidad, punto de equilibrio y stock bajo.
-- Usuarios con roles (`admin`, `editor`, `estilista`, `cliente`) y configuración del negocio.
+- Usuarios con roles (`admin`, `editor`, `estilista`, `cliente`), fecha de acceso y configuración del negocio.
 - Moderación de publicaciones, comentarios, fichas del directorio y mensajes.
 
 ![Panel de gestión](docs/capturas/panel.png)

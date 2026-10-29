@@ -17,6 +17,7 @@ $imagenSocial = url('/assets/img/og.png');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= e($titulo ?? config('name')) ?><?= str_contains((string) ($titulo ?? ''), 'Mikato') ? '' : ' · ' . e(config('short')) ?></title>
     <meta name="description" content="<?= e($descripcion ?? config('tagline')) ?>">
+    <?php if (!empty($noindex)): ?><meta name="robots" content="noindex, nofollow"><?php endif; ?>
     <link rel="canonical" href="<?= e($canonica) ?>">
     <meta name="theme-color" content="#245a53">
     <meta property="og:type" content="website">

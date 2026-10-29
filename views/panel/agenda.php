@@ -15,11 +15,14 @@ $acciones = [
         <p><?= count($citas) ?> cita<?= count($citas) === 1 ? '' : 's' ?> · <?= (int) $resumen['completada'] ?> completadas hoy.</p>
     </div>
     <div class="panel__acciones">
+        <a class="boton boton--pequeno" href="<?= e($whatsappAgenda) ?>" target="_blank" rel="noopener"><?= icono('whatsapp') ?> Enviar agenda</a>
+        <a class="boton boton--pequeno boton--contorno" href="<?= url('/panel/agenda/exportar?fecha=' . $fecha) ?>"><?= icono('descargar') ?> Descargar CSV</a>
         <a class="boton boton--pequeno boton--contorno" href="<?= url('/panel/agenda?fecha=' . $ayer) ?>">← <?= e(fecha($ayer, 'd M')) ?></a>
         <a class="boton boton--pequeno boton--contorno" href="<?= url('/panel/agenda?fecha=' . date('Y-m-d')) ?>">Hoy</a>
         <a class="boton boton--pequeno boton--contorno" href="<?= url('/panel/agenda?fecha=' . $manana) ?>"><?= e(fecha($manana, 'd M')) ?> →</a>
     </div>
 </header>
+<p class="texto-tenue" style="font-size:.78rem;margin:-8px 0 14px;">El enlace de WhatsApp es privado y vence en 7 días. Incluye la agenda del día y un botón para descargar el CSV.</p>
 
 <div class="panel__rejilla panel__rejilla--2" style="align-items:start;">
     <section>

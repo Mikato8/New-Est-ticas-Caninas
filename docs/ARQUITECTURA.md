@@ -68,6 +68,7 @@ El esquema es idempotente (`database/schema.sql`). La migración separa sentenci
 - `PaginasController::asistente`: búsqueda léxica en PHP sobre `public/assets/ia/corpus.json`, sin JavaScript.
 - `views/paginas/entrar.php`: único script inline del sitio, para alternar `password`/`text`; se autoriza con hash CSP.
 - `app/Core/Confirmacion.php`: intercepta POST destructivos, muestra una página de confirmación y reenvía los campos al confirmar.
+- `app/Support/AgendaShare.php`: enlaces HMAC de 7 días para compartir la agenda y generar su CSV.
 - `app/Repositories/GuiaMediaRepository.php`: fotos y videos de usuarios por guía; alimenta la galería y el carrusel de portada.
 - Tipografías locales: Fraunces (títulos), Archivo (texto), IBM Plex Mono (datos).
 - Ilustraciones SVG propias: portada, productos, favicon e icono social.

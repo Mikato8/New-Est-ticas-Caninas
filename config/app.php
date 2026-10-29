@@ -15,6 +15,7 @@ return [
     'timezone' => env('APP_TIMEZONE', 'America/Mexico_City'),
     'locale' => env('APP_LOCALE', 'es_MX'),
     'version' => '1.0.0',
+    'key' => env('APP_KEY', ''),
 
     'db' => [
         'url' => env('DATABASE_URL', ''),

@@ -96,6 +96,7 @@ Sube `.env.produccion` como `.env` al directorio superior con el administrador d
 - Eliminar un registro del panel muestra la página de confirmación PHP y solo borra al confirmar.
 - En `/entrar`, “Ver” muestra la contraseña y “Ocultar” vuelve a taparla.
 - En una guía con sesión iniciada, subir una imagen o video crea el archivo en `public/uploads/guias` y aparece en la galería.
+- En `/panel/agenda`, “Enviar agenda” abre WhatsApp con un enlace firmado; “Descargar CSV” baja la agenda del día.
 - `/sitemap.xml` lista guías, comunidad y directorio.
 - La imagen de `public/uploads` se sirve y no ejecuta PHP.
 - El asistente busca en el corpus desde PHP, sin JavaScript ni llamadas externas.
