@@ -36,6 +36,10 @@ return [
         'max_dimension' => 1800,
     ],
 
+    'acceso' => [
+        'dias_default' => env_int('ACCESS_DAYS_DEFAULT', 30),
+    ],
+
     'limites' => [
         'publicaciones_por_dia' => env_int('POSTS_POR_DIA', 3),
         'comentarios_por_hora' => env_int('COMENTARIOS_POR_HORA', 10),

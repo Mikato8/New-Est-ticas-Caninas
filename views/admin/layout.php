@@ -39,6 +39,7 @@ $flashError = Session::flash('error');
             <a class="<?= $activo('/admin/negocios') ?>" href="<?= url('/admin/negocios') ?>"><?= icono('directorio') ?> Directorio</a>
             <a class="<?= $activo('/admin/mensajes') ?>" href="<?= url('/admin/mensajes') ?>"><?= icono('correo') ?> Mensajes</a>
             <a class="<?= $activo('/admin/citas') ?>" href="<?= url('/admin/citas') ?>"><?= icono('agenda') ?> Citas</a>
+            <a class="<?= $activo('/admin/usuarios') ?>" href="<?= url('/admin/usuarios') ?>"><?= icono('perfil') ?> Usuarios y accesos</a>
             <span class="separador-nav">Salón</span>
             <a href="<?= url('/panel') ?>"><?= icono('tijeras') ?> Panel de gestión</a>
             <a href="<?= url('/') ?>" target="_blank"><?= icono('flecha') ?> Ver el sitio</a>

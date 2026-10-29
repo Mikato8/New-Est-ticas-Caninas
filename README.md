@@ -37,9 +37,10 @@
 - Catálogo de servicios, productos, paquetes e inventario, con imagen de producto y enlace a la tienda.
 - Ventas con conceptos, descuentos, métodos de pago y ticket imprimible.
 - Gastos, reportes de ventas/utilidad, punto de equilibrio y stock bajo.
-- Usuarios con roles (`admin`, `editor`, `estilista`, `cliente`), fecha de acceso y configuración del negocio.
+- Usuarios con roles (`admin`, `editor`, `estilista`, `cliente`), fecha de acceso y configuración del negocio. Nuevas cuentas reciben 30 días por defecto; el admin puede cambiarlo o dejar acceso sin límite.
 - Logo o foto del negocio configurable; se usa en cabecera, panel y ticket.
 - Moderación de publicaciones, comentarios, fichas del directorio y mensajes.
+- Administración de usuarios y accesos en `/admin/usuarios`: fecha de vencimiento, roles, suspensión y asignación masiva de días.
 
 ![Panel de gestión](docs/capturas/panel.png)
 

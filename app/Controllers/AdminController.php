@@ -9,10 +9,14 @@ use App\Core\Csrf;
 use App\Core\HttpException;
 use App\Core\Request;
 use App\Core\Response;
+use App\Core\Session;
 use App\Repositories\CitaRepository;
 use App\Repositories\ContactoRepository;
 use App\Repositories\NegocioRepository;
 use App\Repositories\PublicacionRepository;
+use App\Repositories\UsuarioRepository;
+use App\Support\Slug;
+use App\Support\Validator;
 
 final class AdminController
 {
@@ -227,4 +231,147 @@ final class AdminController
             'citas' => CitaRepository::todas(100),
         ]));
     }
+
+    /** @return array<string, mixed> */
+    private function guardAdmin(): array
+    {
+        Auth::requiereRol(['admin']);
+        return Auth::usuario() ?? [];
+    }
+
+    public function usuarios(Request $peticion): Response
+    {
+        $usuario = $this->guardAdmin();
+        return Response::html(view_admin('admin/usuarios', [
+            'titulo' => 'Usuarios y accesos',
+            'descripcion' => 'Tiempo de uso, roles, estado y altas de usuarios del CRM.',
+            'usuario' => $usuario,
+            'usuarios' => UsuarioRepository::listar(),
+            'resumen' => UsuarioRepository::resumenAccesos(),
+            'roles' => ['admin' => 'Administrador', 'editor' => 'Editor', 'estilista' => 'Estilista', 'cliente' => 'Cliente'],
+            'dias_default' => max(1, (int) config('acceso.dias_default', 30)),
+        ]));
+    }
+
+    public function usuarioGuardar(Request $peticion): Response
+    {
+        $usuario = $this->guardAdmin();
+        Csrf::verificar($peticion);
+        $datos = [
+            'nombre' => $peticion->cadena('nombre'),
+            'correo' => mb_strtolower($peticion->cadena('correo')),
+            'rol' => $peticion->cadena('rol', 'cliente'),
+            'password' => (string) $peticion->input('password', ''),
+            'acceso_hasta' => trim($peticion->cadena('acceso_hasta')),
+        ];
+        $errores = Validator::validar($datos, [
+            'nombre' => 'required|min:3|max:120',
+            'correo' => 'required|email|max:160',
+            'password' => 'required|min:8|max:100',
+        ]);
+        if (!in_array($datos['rol'], ['admin', 'editor', 'estilista', 'cliente'], true)) {
+            $errores['rol'] = 'Elige un rol válido.';
+        }
+        if ($datos['acceso_hasta'] !== '') {
+            $fecha = \DateTimeImmutable::createFromFormat('!Y-m-d', $datos['acceso_hasta']);
+            if ($fecha === false || $fecha->format('Y-m-d') !== $datos['acceso_hasta']) {
+                $errores['acceso_hasta'] = 'Escribe una fecha válida.';
+            }
+        }
+        if (UsuarioRepository::existeCorreo($datos['correo'])) {
+            $errores['correo'] = 'Ese correo ya está registrado.';
+        }
+        if ($errores !== []) {
+            Session::put('_errores', $errores);
+            Session::recordarViejo($datos);
+            flash('error', 'Revisa los datos del usuario.');
+            return redirigir('/admin/usuarios');
+        }
+
+        $acceso = $datos['acceso_hasta'];
+        if ($datos['rol'] === 'admin') {
+            $acceso = null;
+        } elseif ($acceso === '') {
+            $acceso = date('Y-m-d', strtotime('+' . max(1, (int) config('acceso.dias_default', 30)) . ' days'));
+        }
+        $base = explode('@', $datos['correo'])[0] ?? 'usuario';
+        UsuarioRepository::crear([
+            'nombre' => $datos['nombre'],
+            'usuario' => Slug::unico($base, static fn (string $c): bool => UsuarioRepository::existeUsuario($c)),
+            'correo' => $datos['correo'],
+            'password_hash' => password_hash($datos['password'], PASSWORD_DEFAULT),
+            'rol' => $datos['rol'],
+            'estado' => 'activo',
+            'acceso_hasta' => $acceso,
+        ]);
+        Session::olvidarViejo();
+        flash('exito', 'Usuario creado con acceso hasta ' . ($acceso ?? 'sin límite') . '.');
+        return redirigir('/admin/usuarios');
+    }
+
+    public function usuarioAcceso(Request $peticion): Response
+    {
+        $this->guardAdmin();
+        Csrf::verificar($peticion);
+        $id = $peticion->entero('id');
+        if (UsuarioRepository::porId($id) === null) {
+            flash('error', 'El usuario ya no existe.');
+            return redirigir('/admin/usuarios');
+        }
+        $fecha = trim($peticion->cadena('acceso_hasta'));
+        if ($fecha !== '') {
+            $valida = \DateTimeImmutable::createFromFormat('!Y-m-d', $fecha);
+            if ($valida === false || $valida->format('Y-m-d') !== $fecha) {
+                flash('error', 'Escribe una fecha de acceso válida.');
+                return redirigir('/admin/usuarios');
+            }
+        }
+        UsuarioRepository::actualizarAcceso($id, $fecha !== '' ? $fecha : null);
+        flash('exito', $fecha !== '' ? 'Fecha de acceso actualizada.' : 'Acceso sin fecha de vencimiento.');
+        return redirigir('/admin/usuarios');
+    }
+
+    public function usuarioEstado(Request $peticion): Response
+    {
+        $usuario = $this->guardAdmin();
+        Csrf::verificar($peticion);
+        $id = $peticion->entero('id');
+        if ($id === (int) $usuario['id']) {
+            flash('error', 'No puedes suspender tu propia cuenta.');
+            return redirigir('/admin/usuarios');
+        }
+        UsuarioRepository::cambiarEstado($id, $peticion->cadena('estado') === 'activo' ? 'activo' : 'suspendido');
+        flash('exito', 'Estado del usuario actualizado.');
+        return redirigir('/admin/usuarios');
+    }
+
+    public function usuarioRol(Request $peticion): Response
+    {
+        $usuario = $this->guardAdmin();
+        Csrf::verificar($peticion);
+        $id = $peticion->entero('id');
+        $rol = $peticion->cadena('rol');
+        if ($id === (int) $usuario['id']) {
+            flash('error', 'No puedes cambiar tu propio rol.');
+            return redirigir('/admin/usuarios');
+        }
+        if (!in_array($rol, ['admin', 'editor', 'estilista', 'cliente'], true)) {
+            flash('error', 'Rol inválido.');
+            return redirigir('/admin/usuarios');
+        }
+        UsuarioRepository::cambiarRol($id, $rol);
+        flash('exito', 'Rol actualizado.');
+        return redirigir('/admin/usuarios');
+    }
+
+    public function usuariosAccesoMasivo(Request $peticion): Response
+    {
+        $this->guardAdmin();
+        Csrf::verificar($peticion);
+        $dias = max(1, min(3650, $peticion->entero('dias') ?: (int) config('acceso.dias_default', 30)));
+        $cantidad = UsuarioRepository::asignarAccesoFaltante($dias);
+        flash('exito', $cantidad . ' cuenta(s) sin fecha recibieron ' . $dias . ' días de acceso.');
+        return redirigir('/admin/usuarios');
+    }
+
 }

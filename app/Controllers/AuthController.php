@@ -134,6 +134,7 @@ final class AuthController
             'password_hash' => password_hash($datos['password'], PASSWORD_DEFAULT),
             'rol' => 'cliente',
             'estado' => 'activo',
+            'acceso_hasta' => date('Y-m-d', strtotime('+' . max(1, (int) config('acceso.dias_default', 30)) . ' days')),
         ]);
         ClienteRepository::asegurarParaUsuario($id);
         Auth::intentar($datos['correo'], $datos['password']);

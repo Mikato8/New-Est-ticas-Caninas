@@ -909,6 +909,7 @@ final class PanelController
             'password_hash' => password_hash($datos['password'], PASSWORD_DEFAULT),
             'rol' => $datos['rol'],
             'estado' => 'activo',
+            'acceso_hasta' => $datos['rol'] === 'admin' ? null : date('Y-m-d', strtotime('+' . max(1, (int) config('acceso.dias_default', 30)) . ' days')),
         ]);
         Session::olvidarViejo();
         flash('exito', 'Usuario creado.');

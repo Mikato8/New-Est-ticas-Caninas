@@ -148,6 +148,12 @@ return static function (Router $router): void {
     $router->post('/panel/configuracion', [PanelController::class, 'configuracionGuardar']);
 
     // Administración
+    $router->get('/admin/usuarios', [AdminController::class, 'usuarios']);
+    $router->post('/admin/usuarios/guardar', [AdminController::class, 'usuarioGuardar']);
+    $router->post('/admin/usuarios/acceso', [AdminController::class, 'usuarioAcceso']);
+    $router->post('/admin/usuarios/estado', [AdminController::class, 'usuarioEstado']);
+    $router->post('/admin/usuarios/rol', [AdminController::class, 'usuarioRol']);
+    $router->post('/admin/usuarios/acceso-masivo', [AdminController::class, 'usuariosAccesoMasivo']);
     $router->get('/admin', [AdminController::class, 'dashboard']);
     $router->get('/admin/publicaciones', [AdminController::class, 'publicaciones']);
     $router->post('/admin/publicaciones/estado', [AdminController::class, 'estadoPublicacion']);
