@@ -24,12 +24,16 @@ final class Auth
         }
 
         $fila = Database::first(
-            'select id, nombre, usuario, correo, rol, estado, ciudad, estado_geo, telefono, whatsapp, bio, avatar, creado_en, ultimo_acceso
+            'select id, nombre, usuario, correo, rol, estado, ciudad, estado_geo, telefono, whatsapp, bio, avatar, acceso_hasta, creado_en, ultimo_acceso
              from usuarios where id = ?',
             [(int) $id]
         );
 
         if ($fila === null || ($fila['estado'] ?? '') !== 'activo') {
+            Session::forget('usuario_id');
+            return null;
+        }
+        if (($fila['rol'] ?? '') !== 'admin' && !empty($fila['acceso_hasta']) && (string) $fila['acceso_hasta'] < date('Y-m-d')) {
             Session::forget('usuario_id');
             return null;
         }
@@ -56,6 +60,9 @@ final class Auth
         }
 
         if (($fila['estado'] ?? '') !== 'activo') {
+            return null;
+        }
+        if (($fila['rol'] ?? '') !== 'admin' && !empty($fila['acceso_hasta']) && (string) $fila['acceso_hasta'] < date('Y-m-d')) {
             return null;
         }
 

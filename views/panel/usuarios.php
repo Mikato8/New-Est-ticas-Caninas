@@ -3,7 +3,7 @@ declare(strict_types=1);
 $errores = errores();
 ?>
 <header class="panel__cabecera">
-    <div><span class="mono texto-oro">Administración</span><h1>Usuarios y personal</h1><p>Altas de personal, roles y acceso. Los clientes se crean desde su registro o desde el panel.</p></div>
+    <div><span class="mono texto-oro">Administración</span><h1>Usuarios y personal</h1><p>Altas de personal, roles, estado y tiempo de acceso. Los clientes se crean desde su registro o desde el panel.</p></div>
 </header>
 
 <div class="panel__rejilla panel__rejilla--2" style="align-items:start;">
@@ -11,8 +11,8 @@ $errores = errores();
         <div class="panel__seccion-titulo"><h2>Usuarios</h2><span class="etiqueta"><?= count($usuarios) ?></span></div>
         <div class="tabla-scroll">
             <table class="tabla" style="table-layout:fixed;">
-                <colgroup><col style="width:30%"><col style="width:28%"><col style="width:22%"><col style="width:20%"></colgroup>
-                <thead><tr><th>Nombre</th><th>Correo</th><th>Rol</th><th>Estado</th></tr></thead>
+                <colgroup><col style="width:25%"><col style="width:23%"><col style="width:17%"><col style="width:16%"><col style="width:19%"></colgroup>
+                <thead><tr><th>Nombre</th><th>Correo</th><th>Rol</th><th>Estado</th><th>Acceso hasta</th></tr></thead>
                 <tbody>
                     <?php foreach ($usuarios as $item): ?>
                         <tr>
@@ -44,6 +44,34 @@ $errores = errores();
                                         <span class="etiqueta">Tú</span>
                                     <?php endif; ?>
                                 </div>
+                            </td>
+                            <td>
+                                <?php if (($item['rol'] ?? '') === 'admin'): ?>
+                                    <span class="texto-tenue" style="font-size:.78rem;">Sin límite (admin)</span>
+                                <?php else: ?>
+                                    <?php
+                                    $acceso = (string) ($item['acceso_hasta'] ?? '');
+                                    $dias = null;
+                                    if ($acceso !== '') {
+                                        $fin = \DateTimeImmutable::createFromFormat('!Y-m-d', $acceso);
+                                        if ($fin !== false) {
+                                            $dias = (int) (new \DateTimeImmutable('today'))->diff($fin)->format('%r%a');
+                                        }
+                                    }
+                                    ?>
+                                    <form method="post" action="<?= url('/panel/usuarios/acceso') ?>" class="flex-centro" style="gap:3px;flex-wrap:nowrap;">
+                                        <?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $item['id'] ?>">
+                                        <input type="date" name="acceso_hasta" value="<?= e($acceso) ?>" style="width:120px;padding:4px 5px;border:1px solid var(--borde-fuerte);border-radius:6px;font-size:.72rem;" aria-label="Fecha de acceso hasta para <?= e($item['nombre']) ?>">
+                                        <button class="boton boton--pequeno boton--contorno" type="submit" title="Guardar fecha">OK</button>
+                                    </form>
+                                    <small class="texto-tenue" style="font-size:.68rem;">
+                                        <?php if ($acceso === ''): ?>Sin límite
+                                        <?php elseif ($dias !== null && $dias < 0): ?>Vencido hace <?= abs($dias) ?> día<?= abs($dias) === 1 ? '' : 's' ?>
+                                        <?php elseif ($dias === 0): ?>Vence hoy
+                                        <?php else: ?>Quedan <?= (int) $dias ?> día<?= $dias === 1 ? '' : 's' ?>
+                                        <?php endif; ?>
+                                    </small>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

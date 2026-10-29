@@ -15,6 +15,7 @@ create table if not exists usuarios (
   estado_geo text,
   bio text,
   avatar text,
+  acceso_hasta date,
   creado_en timestamptz not null default now(),
   ultimo_acceso timestamptz,
   constraint usuarios_rol_valido check (rol in ('admin', 'editor', 'estilista', 'cliente')),
@@ -24,6 +25,8 @@ create table if not exists usuarios (
 create unique index if not exists usuarios_usuario_unico on usuarios (lower(usuario));
 create unique index if not exists usuarios_correo_unico on usuarios (lower(correo));
 create index if not exists usuarios_rol_idx on usuarios (rol);
+
+alter table usuarios add column if not exists acceso_hasta date;
 
 create table if not exists password_resets (
   id bigserial primary key,

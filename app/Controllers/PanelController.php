@@ -936,6 +936,33 @@ final class PanelController
         return redirigir('/panel/usuarios');
     }
 
+    public function usuarioAcceso(Request $peticion): Response
+    {
+        $usuario = $this->guard();
+        if (($usuario['rol'] ?? '') !== 'admin') {
+            throw new HttpException('Solo administración puede gestionar usuarios.', 403);
+        }
+        Csrf::verificar($peticion);
+        $id = $peticion->entero('id');
+        if (UsuarioRepository::porId($id) === null) {
+            flash('error', 'El usuario ya no existe.');
+            return redirigir('/panel/usuarios');
+        }
+
+        $fecha = trim($peticion->cadena('acceso_hasta'));
+        if ($fecha !== '') {
+            $valida = \DateTimeImmutable::createFromFormat('!Y-m-d', $fecha);
+            if ($valida === false || $valida->format('Y-m-d') !== $fecha) {
+                flash('error', 'Escribe una fecha de acceso válida.');
+                return redirigir('/panel/usuarios');
+            }
+        }
+
+        UsuarioRepository::actualizarAcceso($id, $fecha !== '' ? $fecha : null);
+        flash('exito', $fecha !== '' ? 'Fecha de acceso actualizada.' : 'Acceso sin fecha de vencimiento.');
+        return redirigir('/panel/usuarios');
+    }
+
     public function configuracion(Request $peticion): Response
     {
         $usuario = $this->guard();

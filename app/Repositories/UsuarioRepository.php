@@ -73,13 +73,13 @@ final class UsuarioRepository
     {
         if ($rol !== null) {
             return Database::select(
-                'select id, nombre, usuario, correo, telefono, rol, estado, ciudad, creado_en, ultimo_acceso
+                'select id, nombre, usuario, correo, telefono, rol, estado, ciudad, acceso_hasta, creado_en, ultimo_acceso
                  from usuarios where rol = ? order by creado_en desc',
                 [$rol]
             );
         }
         return Database::select(
-            'select id, nombre, usuario, correo, telefono, rol, estado, ciudad, creado_en, ultimo_acceso
+            'select id, nombre, usuario, correo, telefono, rol, estado, ciudad, acceso_hasta, creado_en, ultimo_acceso
              from usuarios order by creado_en desc'
         );
     }
@@ -128,5 +128,10 @@ final class UsuarioRepository
     public static function cambiarRol(int $id, string $rol): void
     {
         Database::execute('update usuarios set rol = ? where id = ?', [$rol, $id]);
+    }
+
+    public static function actualizarAcceso(int $id, ?string $fecha): void
+    {
+        Database::execute('update usuarios set acceso_hasta = ? where id = ?', [$fecha, $id]);
     }
 }
