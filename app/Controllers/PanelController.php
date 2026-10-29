@@ -125,9 +125,8 @@ final class PanelController
         }
 
         $compartirUrl = AgendaShare::url($fecha);
-        $numero = preg_replace('/\D+/', '', (string) config('contacto.whatsapp')) ?: '';
         $textoWhatsapp = 'Agenda de ' . fecha_larga($fecha) . ': ' . $compartirUrl;
-        $whatsappAgenda = 'https://wa.me/' . $numero . '?text=' . rawurlencode($textoWhatsapp);
+        $whatsappAgenda = 'https://wa.me/?text=' . rawurlencode($textoWhatsapp);
 
         return Response::html(view_panel('panel/agenda', [
             'titulo' => 'Agenda',
