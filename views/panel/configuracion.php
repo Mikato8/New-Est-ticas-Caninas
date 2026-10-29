@@ -15,7 +15,7 @@ $campos = [
 </header>
 
 <div class="panel__rejilla panel__rejilla--2" style="align-items:start;">
-    <form class="panel-caja formulario" method="post" action="<?= url('/panel/configuracion') ?>">
+    <form class="panel-caja formulario" method="post" action="<?= url('/panel/configuracion') ?>" enctype="multipart/form-data">
         <?= csrf_field() ?>
         <div class="panel__seccion-titulo"><h2>Datos del negocio</h2></div>
         <?php foreach ($campos as $clave => [$etiqueta, $tipo, $ayuda]): ?>
@@ -25,6 +25,17 @@ $campos = [
                 <span class="ayuda"><?= e($ayuda) ?></span>
             </div>
         <?php endforeach; ?>
+        <div class="campo">
+            <label for="logo_archivo">Logo o foto de la empresa</label>
+            <?php if (!empty($config['negocio_logo'])): ?>
+                <img src="<?= asset((string) $config['negocio_logo']) ?>" alt="Logo actual" style="width:110px;height:110px;object-fit:contain;background:var(--crema-2);border:1px solid var(--borde);border-radius:8px;padding:8px;margin-bottom:8px;">
+            <?php endif; ?>
+            <input id="logo_archivo" name="logo_archivo" type="file" accept="image/jpeg,image/png,image/webp">
+            <span class="ayuda">JPG, PNG o WebP de hasta 3 MB. Se usa en la cabecera y el ticket. Si es una foto, elige una imagen horizontal.</span>
+            <?php if (!empty($config['negocio_logo'])): ?>
+                <label class="campo--inline flex-centro" style="gap:8px;margin-top:8px;font-size:.82rem;"><input type="checkbox" name="quitar_logo" value="1" style="width:16px;height:16px;accent-color:var(--coral);"> Quitar logo actual</label>
+            <?php endif; ?>
+        </div>
         <button class="boton" type="submit">Guardar configuración</button>
     </form>
 

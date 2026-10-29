@@ -28,7 +28,7 @@ $flashError = Session::flash('error');
 <div class="panel panel--admin">
     <aside class="panel__barra" id="panel-barra">
         <a class="panel__marca" href="<?= url('/admin') ?>">
-            <img src="<?= asset('/assets/img/logo-mikato.png') ?>" alt="Mikato">
+            <img src="<?= asset(negocio_logo()) ?>" alt="Mikato">
             <small>Moderación</small>
         </a>
         <label class="panel__cerrar" for="panel-menu">Cerrar menú ×</label>
@@ -53,7 +53,7 @@ $flashError = Session::flash('error');
     </aside>
     <div>
         <div class="panel__barra-movil">
-            <img src="<?= asset('/assets/img/logo-mikato.png') ?>" alt="Mikato">
+            <img src="<?= asset(negocio_logo()) ?>" alt="Mikato">
             <strong style="font-size:.82rem;">Moderación</strong>
             <label for="panel-menu" class="panel__menu-boton" tabindex="0" aria-label="Abrir menú"><?= icono('menu') ?></label>
         </div>

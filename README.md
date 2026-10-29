@@ -38,6 +38,7 @@
 - Ventas con conceptos, descuentos, métodos de pago y ticket imprimible.
 - Gastos, reportes de ventas/utilidad, punto de equilibrio y stock bajo.
 - Usuarios con roles (`admin`, `editor`, `estilista`, `cliente`), fecha de acceso y configuración del negocio.
+- Logo o foto del negocio configurable; se usa en cabecera, panel y ticket.
 - Moderación de publicaciones, comentarios, fichas del directorio y mensajes.
 
 ![Panel de gestión](docs/capturas/panel.png)

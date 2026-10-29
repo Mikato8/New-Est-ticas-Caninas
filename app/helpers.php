@@ -61,6 +61,25 @@ if (!function_exists('url')) {
     }
 }
 
+if (!function_exists('negocio_logo')) {
+    /** Ruta del logo o foto del negocio; cae al logo de Mikato si no existe. */
+    function negocio_logo(): string
+    {
+        static $logo = null;
+        if ($logo === null) {
+            try {
+                $logo = (string) \App\Repositories\ConfiguracionRepository::get('negocio_logo', '');
+            } catch (\Throwable) {
+                $logo = '';
+            }
+            if ($logo === '' || !is_file(BASE_PATH . '/public' . $logo)) {
+                $logo = '/assets/img/logo-mikato.png';
+            }
+        }
+        return $logo;
+    }
+}
+
 if (!function_exists('asset')) {
     function asset(string $ruta): string
     {

@@ -1009,6 +1009,19 @@ final class PanelController
         foreach ($campos as $campo) {
             $datos[$campo] = $peticion->cadena($campo);
         }
+
+        $archivo = $peticion->archivo('logo_archivo');
+        if ($archivo !== null && (int) ($archivo['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
+            $subida = Upload::imagen($archivo, 'negocio');
+            if (!($subida['ok'] ?? false)) {
+                flash('error', (string) ($subida['error'] ?? 'No se pudo subir el logo.'));
+                return redirigir('/panel/configuracion');
+            }
+            $datos['negocio_logo'] = (string) $subida['ruta'];
+        } elseif ($peticion->cadena('quitar_logo') === '1') {
+            $datos['negocio_logo'] = '';
+        }
+
         ConfiguracionRepository::setMany($datos);
         flash('exito', 'Configuración guardada.');
         return redirigir('/panel/configuracion');

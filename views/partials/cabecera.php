@@ -21,7 +21,7 @@ $whatsapp = whatsapp_link();
     <div class="contenedor cabecera__barra">
         <input type="checkbox" id="menu-principal" class="menu-check" aria-hidden="true">
         <a class="marca" href="<?= url('/') ?>" aria-label="Mikato Estilistas Caninos, inicio">
-            <img src="<?= asset('/assets/img/logo-mikato.png') ?>" alt="Mikato">
+            <img src="<?= asset(negocio_logo()) ?>" alt="Mikato">
             <span class="marca__texto">
                 <strong>Estilistas Caninos</strong>
                 <small>CRM · productos · Guadalajara</small>

@@ -16,6 +16,7 @@ $puedeAnular = in_array((string) ($usuario['rol'] ?? ''), ['admin', 'editor'], t
 <div class="ticket">
     <div class="ticket__cabeza">
         <div>
+            <img src="<?= asset(negocio_logo()) ?>" alt="Logo" style="height:42px;max-width:150px;object-fit:contain;display:block;margin-bottom:6px;">
             <h2><?= e(config('negocio.nombre')) ?></h2>
             <p class="texto-tenue" style="font-size:.82rem;margin:0;"><?= e(config('negocio.ciudad')) ?> · <?= e(config('negocio.estado')) ?><br><?= e((string) config('negocio.telefono')) ?></p>
         </div>

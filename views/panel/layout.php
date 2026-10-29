@@ -31,7 +31,7 @@ $flashError = Session::flash('error');
     <input type="checkbox" id="panel-menu" class="menu-check panel-menu-check" aria-hidden="true">
     <aside class="panel__barra" id="panel-barra">
         <a class="panel__marca" href="<?= url('/panel') ?>">
-            <img src="<?= asset('/assets/img/logo-mikato.png') ?>" alt="Mikato">
+            <img src="<?= asset(negocio_logo()) ?>" alt="Mikato">
             <small>Panel</small>
         </a>
         <label class="panel__cerrar" for="panel-menu">Cerrar menú ×</label>
@@ -69,7 +69,7 @@ $flashError = Session::flash('error');
 
     <div>
         <div class="panel__barra-movil">
-            <img src="<?= asset('/assets/img/logo-mikato.png') ?>" alt="Mikato">
+            <img src="<?= asset(negocio_logo()) ?>" alt="Mikato">
             <strong style="font-size:.82rem;">Panel</strong>
             <label for="panel-menu" class="panel__menu-boton" tabindex="0" aria-label="Abrir menú"><?= icono('menu') ?></label>
         </div>
