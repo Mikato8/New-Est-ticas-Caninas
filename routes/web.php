@@ -8,6 +8,7 @@ use App\Controllers\AgendaController;
 use App\Controllers\AuthController;
 use App\Controllers\CalculadoraController;
 use App\Controllers\ComunidadController;
+use App\Controllers\DerechosController;
 use App\Controllers\DirectorioController;
 use App\Controllers\GuiaController;
 use App\Controllers\HomeController;
@@ -102,6 +103,9 @@ return static function (Router $router): void {
 
     $router->get('/herramientas', [PaginasController::class, 'herramientas']);
     $router->get('/fuentes', [PaginasController::class, 'fuentes']);
+    $router->get('/derechos', [DerechosController::class, 'rectificacionForm']);
+    $router->get('/derechos/rectificacion', [DerechosController::class, 'rectificacionForm']);
+    $router->post('/derechos/rectificacion', [DerechosController::class, 'enviarRectificacion']);
     $router->get('/privacidad', [PaginasController::class, 'privacidad']);
     $router->get('/terminos', [PaginasController::class, 'terminos']);
     $router->get('/asistente', [PaginasController::class, 'asistente']);
@@ -148,6 +152,10 @@ return static function (Router $router): void {
     $router->post('/panel/configuracion', [PanelController::class, 'configuracionGuardar']);
 
     // Administración
+    $router->get('/admin/derechos', [AdminController::class, 'derechos']);
+    $router->get('/admin/derechos/{id}', [AdminController::class, 'derechoDetalle']);
+    $router->post('/admin/derechos/estado', [AdminController::class, 'actualizarDerecho']);
+    $router->get('/admin/derechos/{id}/archivo/{tipo}', [AdminController::class, 'archivoDerecho']);
     $router->get('/admin/usuarios', [AdminController::class, 'usuarios']);
     $router->post('/admin/usuarios/guardar', [AdminController::class, 'usuarioGuardar']);
     $router->post('/admin/usuarios/acceso', [AdminController::class, 'usuarioAcceso']);

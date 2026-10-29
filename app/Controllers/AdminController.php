@@ -14,6 +14,7 @@ use App\Repositories\CitaRepository;
 use App\Repositories\ContactoRepository;
 use App\Repositories\NegocioRepository;
 use App\Repositories\PublicacionRepository;
+use App\Repositories\SolicitudArcoRepository;
 use App\Repositories\UsuarioRepository;
 use App\Support\Slug;
 use App\Support\Validator;
@@ -372,6 +373,85 @@ final class AdminController
         $cantidad = UsuarioRepository::asignarAccesoFaltante($dias);
         flash('exito', $cantidad . ' cuenta(s) sin fecha recibieron ' . $dias . ' días de acceso.');
         return redirigir('/admin/usuarios');
+    }
+
+    public function derechos(Request $peticion): Response
+    {
+        $this->guardAdmin();
+        $estado = $peticion->cadena('estado');
+        return Response::html(view_admin('admin/derechos', [
+            'titulo' => 'Derechos ARCO',
+            'descripcion' => 'Solicitudes de rectificación de datos personales.',
+            'solicitudes' => SolicitudArcoRepository::listar($estado),
+            'estado' => $estado,
+            'nuevas' => SolicitudArcoRepository::contarNuevas(),
+        ]));
+    }
+
+    /** @param array<string, string> $parametros */
+    public function derechoDetalle(Request $peticion, array $parametros): Response
+    {
+        $this->guardAdmin();
+        $solicitud = SolicitudArcoRepository::porId((int) ($parametros['id'] ?? 0));
+        if ($solicitud === null) {
+            throw new HttpException('Solicitud no encontrada.', 404);
+        }
+        return Response::html(view_admin('admin/derecho', [
+            'titulo' => 'Solicitud ' . $solicitud['folio'],
+            'descripcion' => 'Detalle y seguimiento de la solicitud de rectificación.',
+            'solicitud' => $solicitud,
+        ]));
+    }
+
+    public function actualizarDerecho(Request $peticion): Response
+    {
+        $this->guardAdmin();
+        Csrf::verificar($peticion);
+        $id = $peticion->entero('id');
+        $solicitud = SolicitudArcoRepository::porId($id);
+        if ($solicitud === null) {
+            throw new HttpException('Solicitud no encontrada.', 404);
+        }
+        $estado = $peticion->cadena('estado');
+        if (!in_array($estado, ['recibida', 'en_revision', 'resuelta', 'rechazada'], true)) {
+            flash('error', 'Estado inválido.');
+            return redirigir('/admin/derechos/' . $id);
+        }
+        SolicitudArcoRepository::actualizarEstado($id, $estado, $peticion->cadena('respuesta'));
+        flash('exito', 'Solicitud actualizada.');
+        return redirigir('/admin/derechos/' . $id);
+    }
+
+    /** @param array<string, string> $parametros */
+    public function archivoDerecho(Request $peticion, array $parametros): Response
+    {
+        $this->guardAdmin();
+        $solicitud = SolicitudArcoRepository::porId((int) ($parametros['id'] ?? 0));
+        if ($solicitud === null) {
+            throw new HttpException('Solicitud no encontrada.', 404);
+        }
+        $tipo = (string) ($parametros['tipo'] ?? '');
+        $columnas = [
+            'identificacion' => 'archivo_identificacion',
+            'representacion' => 'archivo_representacion',
+            'acreditativo' => 'archivo_acreditativo',
+        ];
+        if (!isset($columnas[$tipo])) {
+            throw new HttpException('Archivo no encontrado.', 404);
+        }
+        $ruta = (string) ($solicitud[$columnas[$tipo]] ?? '');
+        if (!str_starts_with($ruta, 'solicitudes/')) {
+            throw new HttpException('Archivo no encontrado.', 404);
+        }
+        $base = realpath(BASE_PATH . '/storage');
+        $absoluta = realpath(BASE_PATH . '/storage/' . $ruta);
+        if ($base === false || $absoluta === false || !str_starts_with($absoluta, $base . '/')) {
+            throw new HttpException('Archivo no encontrado.', 404);
+        }
+        $mime = (new \finfo(FILEINFO_MIME_TYPE))->file($absoluta) ?: 'application/octet-stream';
+        $extension = pathinfo($absoluta, PATHINFO_EXTENSION);
+        return Response::texto((string) file_get_contents($absoluta), 200, $mime)
+            ->conCabecera('Content-Disposition', 'attachment; filename="' . $solicitud['folio'] . '-' . $tipo . '.' . $extension . '"');
     }
 
 }

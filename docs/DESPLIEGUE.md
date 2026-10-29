@@ -98,6 +98,7 @@ Sube `.env.produccion` como `.env` al directorio superior con el administrador d
 - En una guía con sesión iniciada, subir una imagen o video crea el archivo en `public/uploads/guias` y aparece en la galería.
 - En `/panel/agenda`, “Enviar agenda” abre WhatsApp con un enlace firmado; “Descargar CSV” baja la agenda del día.
 - En `/admin/usuarios`, asigna “Acceso hasta”; las cuentas vencidas se bloquean y las nuevas reciben `ACCESS_DAYS_DEFAULT` días.
+- Envía una solicitud ARCO desde `/derechos/rectificacion`; el archivo queda en `storage/solicitudes` (fuera de `public_html`) y se descarga solo desde `/admin/derechos`.
 - En `/panel/configuracion`, subir un logo o foto crea el archivo en `public/uploads/negocio` y lo muestra en cabecera y ticket.
 - `/sitemap.xml` lista guías, comunidad y directorio.
 - La imagen de `public/uploads` se sirve y no ejecuta PHP.

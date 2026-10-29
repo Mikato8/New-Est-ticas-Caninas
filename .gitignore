@@ -11,3 +11,6 @@ public/uploads/*
 .cache/
 node_modules/
 vendor/
+
+storage/solicitudes/*
+!storage/solicitudes/.gitkeep

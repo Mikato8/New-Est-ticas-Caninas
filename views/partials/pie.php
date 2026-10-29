@@ -51,6 +51,7 @@ $whatsapp = whatsapp_link();
             <span>© <?= date('Y') ?> Mikato Estilistas Caninos. Todos los derechos reservados.</span>
             <span>
                 <a href="<?= url('/privacidad') ?>">Aviso de privacidad</a> ·
+                <a href="<?= url('/derechos/rectificacion') ?>">Derechos ARCO</a> ·
                 <a href="<?= url('/terminos') ?>">Términos</a> ·
                 <a href="<?= url('/herramientas') ?>">Fuentes y herramientas</a> ·
                 <a href="<?= url('/sitemap.xml') ?>">Mapa del sitio</a>

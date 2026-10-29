@@ -42,6 +42,42 @@ create table if not exists password_resets (
 create index if not exists password_resets_usuario_idx on password_resets (usuario_id, usado_en);
 create index if not exists password_resets_expira_idx on password_resets (expira_en);
 
+create table if not exists solicitudes_arco (
+  id bigserial primary key,
+  folio text not null unique,
+  tipo text not null default 'rectificacion',
+  nombre_titular text not null,
+  numero_cliente text,
+  correo text not null,
+  telefono text,
+  ciudad text not null,
+  fecha_solicitud date not null default current_date,
+  nombre_representante text,
+  tipo_representacion text,
+  dato_incorrecto text not null,
+  dato_correcto text not null,
+  documento_acreditativo text,
+  notificacion_medio text not null default 'correo',
+  domicilio text,
+  direccion_oficina text,
+  nombre_firma text not null,
+  archivo_identificacion text,
+  archivo_representacion text,
+  archivo_acreditativo text,
+  estado text not null default 'recibida',
+  respuesta text,
+  creado_en timestamptz not null default now(),
+  actualizado_en timestamptz not null default now(),
+  ip text,
+  user_agent text,
+  constraint solicitudes_arco_tipo_valido check (tipo in ('rectificacion')),
+  constraint solicitudes_arco_estado_valido check (estado in ('recibida', 'en_revision', 'resuelta', 'rechazada')),
+  constraint solicitudes_arco_notificacion_valida check (notificacion_medio in ('correo', 'domicilio', 'oficina'))
+);
+
+create index if not exists solicitudes_arco_estado_idx on solicitudes_arco (estado, creado_en desc);
+create index if not exists solicitudes_arco_correo_idx on solicitudes_arco (lower(correo));
+
 create table if not exists guia_media (
   id bigserial primary key,
   usuario_id bigint not null references usuarios (id) on delete cascade,

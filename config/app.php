@@ -33,6 +33,7 @@ return [
         'url' => '/uploads',
         'max_bytes' => env_int('UPLOAD_MAX_BYTES', 3 * 1024 * 1024),
         'video_max_bytes' => env_int('VIDEO_MAX_BYTES', 40 * 1024 * 1024),
+        'documento_max_bytes' => env_int('DOCUMENTO_MAX_BYTES', 5 * 1024 * 1024),
         'max_dimension' => 1800,
     ],
 
@@ -48,6 +49,7 @@ return [
         'contacto_por_hora' => 5,
         'citas_por_dia' => 3,
         'guia_media_por_dia' => 5,
+        'arco_por_hora' => 3,
     ],
 
     'contacto' => [

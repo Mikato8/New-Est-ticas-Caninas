@@ -27,6 +27,7 @@
 - **Galería de trabajos**: usuarios con cuenta suben fotos o videos a cada guía; los trabajos aparecen en la guía y en el carrusel de la portada.
 - **Directorio nacional** de estéticas, con fichas revisadas antes de publicar.
 - **Glosario** de 32 términos del oficio.
+- **Formato de derechos ARCO**: solicitud de rectificación de datos personales, con carga privada de documentos y seguimiento en `/admin/derechos`.
 - **Asistente de búsqueda en servidor** que consulta 164 fragmentos del contenido del sitio con PHP puro, sin JavaScript ni modelos externos.
 
 ### Para estéticas (panel de gestión / CRM)
@@ -81,6 +82,7 @@ Abre <http://127.0.0.1:8090>. El administrador se crea con `ADMIN_USER` y `ADMIN
 | `SESSION_NAME` / `SESSION_LIFETIME` | Cookie de sesión |
 | `UPLOAD_MAX_BYTES` | Límite de imágenes (3 MB por defecto) |
 | `VIDEO_MAX_BYTES` | Límite de videos de galería (40 MB por defecto) |
+| `DOCUMENTO_MAX_BYTES` | Límite de documentos ARCO (5 MB por defecto) |
 | `POSTS_POR_DIA` / `COMENTARIOS_POR_HORA` / `CITAS_POR_DIA` | Límites antispam |
 | `CONTACT_EMAIL` / `WHATSAPP` / `TELEFONO` | Datos de contacto públicos |
 | `MAIL_ENABLED` / `MAIL_HOST` / `MAIL_PORT` / `MAIL_USERNAME` / `MAIL_PASSWORD` / `MAIL_ENCRYPTION` | SMTP autenticado para recuperación de contraseña |

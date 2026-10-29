@@ -57,6 +57,8 @@ $correo = (string) config('contacto.email');
             </ul>
             <p>No hay un directorio público de clientes. Si compartes un enlace privado de agenda, cualquier persona con ese enlace puede consultar la agenda mientras esté vigente; compártelo solo con el equipo autorizado.</p>
 
+            <div class="nota nota--teal mt-3"><strong>¿Quieres corregir un dato?</strong> Usa el <a href="<?= url('/derechos/rectificacion') ?>">formato de solicitud de rectificación</a>. También puedes escribir a <a href="mailto:<?= e($correo) ?>"><?= e($correo) ?></a> para ejercer tus derechos de acceso, cancelación u oposición.</div>
+
             <h2>7. Cookies y sesión</h2>
             <p>Usamos cookies de sesión necesarias para mantener tu cuenta y proteger los formularios (CSRF). No usamos cookies publicitarias de terceros. Puedes bloquear cookies en tu navegador, pero algunas funciones dejarán de funcionar.</p>
 
