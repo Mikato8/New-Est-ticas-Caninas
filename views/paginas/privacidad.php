@@ -30,7 +30,7 @@ $correo = (string) config('contacto.email');
             <h2>3. Finalidades</h2>
             <ul>
                 <li>Agendar, confirmar y dar seguimiento a citas.</li>
-                <li>Prestar servicios de estética y llevar el historial de cada mascota.</li>
+                <li>Operar el CRM de las estéticas y permitir que lleven el historial de cada mascota.</li>
                 <li>Emitir comprobantes, cobrar y administrar la relación comercial.</li>
                 <li>Responder mensajes, solicitudes de mayoreo y reportes.</li>
                 <li>Moderar la comunidad y publicar fichas del directorio.</li>
@@ -47,6 +47,15 @@ $correo = (string) config('contacto.email');
 
             <h2>6. Conservación y seguridad</h2>
             <p>Conservamos los datos mientras exista la relación de servicio y durante los plazos legales aplicables. Aplicamos medidas administrativas, técnicas y físicas razonables: contraseñas con hash, control de acceso por roles, conexiones cifradas, respaldos y registro de incidentes. Ningún sistema es 100% invulnerable; si ocurre un incidente relevante, lo comunicaremos conforme a la ley.</p>
+
+            <h2>6.1. Quién puede ver tu información</h2>
+            <p>Los datos de clientes, mascotas, citas, ventas y expedientes <strong>no se publican</strong> en el sitio ni aparecen en buscadores. El acceso depende del rol de cada cuenta:</p>
+            <ul>
+                <li><strong>Cliente:</strong> solo ve sus propios datos, mascotas, citas y compras.</li>
+                <li><strong>Personal de la estética:</strong> ve la operación que su rol y permisos permiten.</li>
+                <li><strong>Administración de Mikato:</strong> puede ver y administrar las cuentas para dar soporte, controlar accesos y atender obligaciones legales.</li>
+            </ul>
+            <p>No hay un directorio público de clientes. Si compartes un enlace privado de agenda, cualquier persona con ese enlace puede consultar la agenda mientras esté vigente; compártelo solo con el equipo autorizado.</p>
 
             <h2>7. Cookies y sesión</h2>
             <p>Usamos cookies de sesión necesarias para mantener tu cuenta y proteger los formularios (CSRF). No usamos cookies publicitarias de terceros. Puedes bloquear cookies en tu navegador, pero algunas funciones dejarán de funcionar.</p>
