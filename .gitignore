@@ -14,3 +14,4 @@ vendor/
 
 storage/solicitudes/*
 !storage/solicitudes/.gitkeep
+storage/cache/*

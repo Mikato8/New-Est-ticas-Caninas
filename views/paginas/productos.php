@@ -1,14 +1,7 @@
 <?php
 declare(strict_types=1);
-$arte = static function (string $categoria): string {
-    return match ($categoria) {
-        'perfume' => '/assets/img/producto-espray.svg',
-        'cepillo' => '/assets/img/producto-cepillo.svg',
-        'herramienta' => '/assets/img/producto-herramienta.svg',
-        default => '/assets/img/producto-botella.svg',
-    };
-};
 $whatsapp = whatsapp_link();
+$hayCatalogo = $hayCatalogo ?? false;
 ?>
 <div class="contenedor">
     <nav class="migas" aria-label="Ruta"><a href="<?= url('/') ?>">Inicio</a><span>/</span>Productos</nav>
@@ -34,31 +27,48 @@ $whatsapp = whatsapp_link();
     </div>
 </section>
 
+<?php if (!$hayCatalogo): ?>
+<section class="seccion seccion--compacta">
+    <div class="contenedor">
+        <div class="nota nota--teal">
+            <strong>Catálogo en línea.</strong> En este momento no pudimos leer el catálogo de la tienda.
+            Míralo directo en <a href="https://mikato.com.mx/tienda" target="_blank" rel="noopener">mikato.com.mx</a>
+            o escríbenos por WhatsApp y te lo enviamos.
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
 <?php foreach ($agrupados as $categoria => $lista): ?>
 <section class="seccion seccion--compacta">
     <div class="contenedor">
         <div class="encabezado-seccion">
-            <span class="mono texto-oro"><?= e($categorias[$categoria] ?? ucfirst($categoria)) ?></span>
-            <h2><?= e($categorias[$categoria] ?? ucfirst($categoria)) ?></h2>
+            <span class="mono texto-oro"><?= e((string) $categoria) ?></span>
+            <h2><?= e((string) $categoria) ?></h2>
         </div>
         <div class="grid grid--4">
             <?php foreach ($lista as $producto): ?>
+                <?php
+                $enlace = (string) $producto['url'];
+                $imagen = (string) ($producto['imagen'] ?? '');
+                $respaldo = asset('/assets/img/producto-botella.svg');
+                ?>
                 <article class="tarjeta tarjeta-producto">
-                    <div class="tarjeta-producto__imagen">
-                        <?php $imagenProducto = trim((string) ($producto['imagen'] ?? '')); ?>
-                        <img src="<?= e($imagenProducto !== '' ? $imagenProducto : asset($arte((string) $producto['categoria']))) ?>" alt="<?= e($producto['nombre']) ?>" width="170" height="170" loading="lazy">
-                        <?php if (es_verdadero($producto['destacado'])): ?><span class="etiqueta etiqueta--oro" style="position:absolute;top:12px;left:12px;">Destacado</span><?php endif; ?>
-                    </div>
+                    <a class="tarjeta-producto__imagen" href="<?= e($enlace) ?>" target="_blank" rel="noopener">
+                        <img src="<?= e($imagen !== '' ? $imagen : $respaldo) ?>" alt="<?= e((string) $producto['nombre']) ?>" width="480" height="480" loading="lazy" onerror="this.onerror=null;this.src='<?= e($respaldo) ?>';">
+                        <?php if (!empty($producto['agotado'])): ?>
+                            <span class="etiqueta" style="position:absolute;top:12px;left:12px;">Agotado</span>
+                        <?php endif; ?>
+                    </a>
                     <div class="tarjeta-producto__cuerpo">
-                        <h3><?= e($producto['nombre']) ?></h3>
-                        <p><?= e(limitar_texto((string) $producto['descripcion'], 100)) ?></p>
+                        <h3><a href="<?= e($enlace) ?>" target="_blank" rel="noopener" style="text-decoration:none;"><?= e((string) $producto['nombre']) ?></a></h3>
+                        <?php if (trim((string) $producto['descripcion']) !== ''): ?>
+                            <p><?= e(limitar_texto((string) $producto['descripcion'], 100)) ?></p>
+                        <?php endif; ?>
                         <div class="tarjeta-producto__precio">
                             <strong><?= precio($producto['precio']) ?></strong>
-                            <small><?= e((string) ($producto['presentacion'] ?? '')) ?></small>
                         </div>
-                        <?php if ((float) ($producto['precio_mayoreo'] ?? 0) > 0): ?>
-                            <p class="texto-tenue mt-1 mb-0" style="font-size:.75rem;">Mayoreo: <?= precio($producto['precio_mayoreo']) ?></p>
-                        <?php endif; ?>
+                        <a class="boton boton--contorno boton--grande mt-2" href="<?= e($enlace) ?>" target="_blank" rel="noopener">Comprar en la tienda <?= icono('flecha') ?></a>
                     </div>
                 </article>
             <?php endforeach; ?>

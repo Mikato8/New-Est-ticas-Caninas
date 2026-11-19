@@ -18,6 +18,7 @@ use App\Repositories\ProductoRepository;
 use App\Repositories\PublicacionRepository;
 use App\Repositories\ServicioRepository;
 use App\Support\Mailer;
+use App\Support\Tienda;
 use App\Support\Validator;
 
 final class HomeController
@@ -60,7 +61,8 @@ final class HomeController
 
     public function productos(Request $peticion): Response
     {
-        $productos = ProductoRepository::activos();
+        // Catálogo vivo de la tienda: la página no mantiene copia propia.
+        $productos = Tienda::productos();
         $agrupados = [];
         foreach ($productos as $producto) {
             $agrupados[(string) $producto['categoria']][] = $producto;
@@ -70,7 +72,7 @@ final class HomeController
             'titulo' => 'Productos Mikato para estilistas caninos',
             'descripcion' => 'Shampoos, acondicionadores, herramientas y accesorios elaborados en Guadalajara, Jalisco para estéticas caninas.',
             'agrupados' => $agrupados,
-            'categorias' => ProductoRepository::categorias(),
+            'hayCatalogo' => $productos !== [],
         ]));
     }
 

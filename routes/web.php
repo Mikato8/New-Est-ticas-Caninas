@@ -12,6 +12,7 @@ use App\Controllers\DerechosController;
 use App\Controllers\DirectorioController;
 use App\Controllers\GuiaController;
 use App\Controllers\HomeController;
+use App\Controllers\MediaController;
 use App\Controllers\MiCuentaController;
 use App\Controllers\PaginasController;
 use App\Controllers\PanelController;
@@ -39,6 +40,7 @@ return static function (Router $router): void {
     $router->get('/', [HomeController::class, 'index']);
     $router->get('/servicios', [HomeController::class, 'servicios']);
     $router->get('/productos', [HomeController::class, 'productos']);
+    $router->get('/media/tienda/{id}', [MediaController::class, 'tienda']);
     $router->get('/nosotros', [HomeController::class, 'nosotros']);
     $router->get('/contacto', [HomeController::class, 'contacto']);
     $router->post('/contacto', [HomeController::class, 'enviarContacto']);
