@@ -1,6 +1,6 @@
 # Publica el repositorio en Hostinger al hacer push a main.
-# Reemplaza el disparo automático que daba el webhook de hPanel (que ya no existe
-# en el repo de GitHub). No toca .env, uploads ni storage del servidor.
+# Sustituye el disparo automatico que daba el webhook de hPanel (que ya no existe
+# en el repositorio de GitHub). No toca .env, uploads ni storage del servidor.
 name: Desplegar en Hostinger
 
 on:
@@ -21,6 +21,7 @@ jobs:
       SSH_PORT: "65002"
       SSH_USER: u771496034
       REMOTE_ROOT: /home/u771496034/domains/mikatoestilistascaninos.com/public_html
+      HOST_KEY: "[45.93.101.150]:65002 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAqdAHoq28bFeC2B4/jYLfgQN9oKlopTazC8OqJiypkX"
     steps:
       - name: Traer repositorio
         uses: actions/checkout@v4
@@ -33,9 +34,7 @@ jobs:
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
           printf '%s\n' "$HOSTINGER_SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          cat > ~/.ssh/known_hosts <<'KH'
-[45.93.101.150]:65002 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAqdAHoq28bFeC2B4/jYLfgQN9oKlopTazC8OqJiypkX
-KH
+          printf '%s\n' "$HOST_KEY" > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
           ssh-keygen -F "[$SSH_HOST]:$SSH_PORT" -f ~/.ssh/known_hosts >/dev/null
 
@@ -55,7 +54,6 @@ KH
       - name: Ajustes en el servidor
         run: |
           set -euo pipefail
-          ssh -p "$SSH_PORT" -i ~/.ssh/id_ed25519 \
-            -o IdentitiesOnly=yes -o BatchMode=yes \
+          ssh -p "$SSH_PORT" -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes \
             "$SSH_USER@$SSH_HOST" \
-            "cd '$REMOTE_ROOT' && chmod -R u+rwX,go+rX . && php bin/migrate.php || echo '(migracion omitida)'; php bin/build-ia.php || echo '(corpus omitido)'"
+            "cd '$REMOTE_ROOT' && chmod -R u+rwX,go+rX . && (php bin/migrate.php || echo '(migracion omitida)') && (php bin/build-ia.php || echo '(corpus omitido)')"
