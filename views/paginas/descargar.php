@@ -55,7 +55,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
                 <p>La misma app y la misma base para las tres plataformas. Puedes mover tu respaldo de una a otra.</p>
             </div>
         </div>
-        <div class="t-modulos" style="grid-template-columns:repeat(3,minmax(0,1fr));">
+        <div class="t-modulos">
             <article class="t-modulo" id="windows">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
                 <h3>Windows</h3>
@@ -149,7 +149,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
                 <h2>Antes de instalar.</h2>
             </div>
         </div>
-        <div class="t-guias" style="grid-template-columns:1fr 1fr;">
+        <div class="t-guias t-guias--dos">
             <article class="t-guia">
                 <div class="t-guia__cuerpo">
                     <h3>¿Necesito internet?</h3>

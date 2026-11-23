@@ -246,6 +246,7 @@ a { color: var(--t-azul); }
 
 /* ---------- Guías y directorio ---------- */
 .t-guias { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.t-guias--dos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .t-guia { background: #fff; border: 1px solid var(--t-linea); border-radius: var(--t-r2); overflow: hidden; display: flex; flex-direction: column; transition: box-shadow .2s ease, border-color .2s ease; }
 .t-guia:hover { box-shadow: 0 10px 26px rgba(16,24,40,.09); border-color: var(--t-linea-fuerte); }
 .t-guia__franja { padding: 12px 16px; background: var(--t-fondo); border-bottom: 1px solid var(--t-linea); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
@@ -360,7 +361,7 @@ a { color: var(--t-azul); }
   .t-app__estado { display: none; }
   .t-app__fila { grid-template-columns: 36px minmax(0, 1fr); }
   .t-app__flotante { display: none; }
-  .t-modulos, .t-productos, .t-guias, .t-directorio, .t-confianza { grid-template-columns: 1fr; }
+  .t-modulos, .t-productos, .t-guias, .t-guias--dos, .t-directorio, .t-confianza { grid-template-columns: 1fr; }
   .t-productos { gap: 12px; }
   .t-seccion { padding-block: 38px; }
   .t-pie__rejilla { grid-template-columns: 1fr 1fr; gap: 24px; }
