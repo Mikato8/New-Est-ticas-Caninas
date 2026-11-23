@@ -23,6 +23,7 @@ $flashError = Session::flash('error');
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0b2440">
     <link rel="icon" type="image/svg+xml" href="<?= asset('/assets/img/favicon.svg') ?>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= asset('/assets/img/favicon-32x32.png') ?>">
     <link rel="stylesheet" href="<?= asset('/assets/fonts/fonts.css') ?>">
     <link rel="stylesheet" href="<?= asset('/assets/css/app.css') ?>">
     <link rel="stylesheet" href="<?= asset('/assets/css/tienda.css') ?>">

@@ -32,6 +32,7 @@ $imagenSocial = url('/assets/img/og.png');
     <meta name="twitter:description" content="<?= e($descripcion ?? config('tagline')) ?>">
     <link rel="icon" href="<?= asset('/favicon.ico') ?>" sizes="any">
     <link rel="icon" type="image/svg+xml" href="<?= asset('/assets/img/favicon.svg') ?>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= asset('/assets/img/favicon-32x32.png') ?>">
     <link rel="apple-touch-icon" href="<?= asset('/assets/img/apple-touch-icon.png') ?>">
     <link rel="icon" type="image/png" sizes="512x512" href="<?= asset('/assets/img/icono-512.png') ?>">
     <link rel="stylesheet" href="<?= asset('/assets/fonts/fonts.css') ?>">
