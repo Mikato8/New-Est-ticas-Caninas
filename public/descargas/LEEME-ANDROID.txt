@@ -1,0 +1,15 @@
+Mikato CRM 1.0.0 para Android
+=============================
+
+Requisitos: Android 8 o superior, teléfono o tablet arm64.
+
+1. Descarga el archivo .apk en el equipo.
+2. Al abrirlo, Android pedirá permitir la instalación desde esta fuente.
+   Actívala y continúa.
+3. Escribe la clave MKTO-XXXX-XXXX-XXXX que te entregó Mikato. La activación
+   se valida una vez; después la app trabaja sin internet.
+4. Los datos se guardan en la base local de la app. Para moverlos, usa
+   Ajustes > Respaldo y restaura el JSON en el otro equipo.
+
+Nota: es un APK firmado para distribución directa, no está publicado en
+Google Play. Para actualizarlo, instala el APK nuevo encima del anterior.

@@ -12,7 +12,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
             <div>
                 <span class="t-eyebrow">Mikato CRM · Descarga</span>
                 <h1>Tu CRM, en tu computadora.</h1>
-                <p class="t-portada__lead">Instala Mikato CRM en macOS. La agenda, los clientes, las mascotas y las ventas viven en tu equipo: no dependes de una conexión ni de una base compartida. Windows y Android usan el mismo código y se publican al cerrar sus pruebas.</p>
+                <p class="t-portada__lead">Instala Mikato CRM en macOS o Android. La agenda, los clientes, las mascotas y las ventas viven en tu equipo: no dependes de una conexión ni de una base compartida. Windows usa el mismo código y se publica al cerrar sus pruebas.</p>
                 <div class="t-portada__acciones">
                     <a class="t-btn t-btn--azul t-btn--grande" href="#sistemas"><?= icono('descargar') ?> Elegir mi sistema</a>
                     <a class="t-btn t-btn--linea t-btn--grande" href="<?= url('/contacto') ?>">Pedir mi clave</a>
@@ -73,12 +73,12 @@ $whatsapp = $whatsapp ?? whatsapp_link();
             <article class="t-modulo" id="android">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
                 <h3>Android</h3>
-                <p>APK para Android 9 o superior. Para tablet o teléfono del mostrador; se sincroniza con tu respaldo.</p>
-                <div class="t-modulo__pie"><span>En preparación</span><span>beta</span></div>
-                <a class="t-btn t-btn--linea t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/contacto?asunto=descarga-android') ?>">Recibir aviso</a>
+                <p>APK firmado para Android 8 o superior, arm64. Para tablet o teléfono del mostrador; restaura tu respaldo y sigue trabajando.</p>
+                <div class="t-modulo__pie"><span>APK firmado · ≈ 9 MB</span><span>v1.0</span></div>
+                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-android.apk') ?>?v=1.0.1" download>Descargar para Android</a>
             </article>
         </div>
-        <p style="font-size:13px;margin:14px 0 0;color:var(--t-tinta-3);">macOS ya está disponible para probar. Windows y Android se publican al cerrar las pruebas de instalación. El instalador no está notarizado todavía: al abrirlo, macOS puede pedir confirmación en <em>Preferencias del Sistema → Seguridad</em>.</p>
+        <p style="font-size:13px;margin:14px 0 0;color:var(--t-tinta-3);">macOS y Android ya están disponibles para probar. Windows se publica al cerrar sus pruebas. El instalador de macOS aún no está notarizado: al abrirlo puede pedir confirmación en <em>Preferencias del Sistema → Seguridad</em>. En Android, permite instalar apps de esta fuente cuando el sistema lo pregunte.</p>
     </div>
 </section>
 
