@@ -1,0 +1,35 @@
+{
+  "nota": "Registro de demostración. Sustitúyelo por tu base de datos real. Las claves son ficticias.",
+  "licencias": [
+    {
+      "clave": "MKTO-A1B2-C3D4-E5F6",
+      "plan": "comercial",
+      "titular": "Mikato Estilistas Caninos · Cumbres",
+      "negocio": "Mikato Estilistas Caninos",
+      "expira_en": "2027-12-31",
+      "estado": "activa",
+      "equipo": null,
+      "activada_en": null
+    },
+    {
+      "clave": "MKTO-DEM0-2026-0001",
+      "plan": "demo",
+      "titular": "Licencia de demostración",
+      "negocio": "Mikato Estilistas Caninos",
+      "expira_en": "2027-06-30",
+      "estado": "activa",
+      "equipo": null,
+      "activada_en": null
+    },
+    {
+      "clave": "MKTO-REV0-2026-0002",
+      "plan": "comercial",
+      "titular": "Licencia revocada de ejemplo",
+      "negocio": "Mikato Estilistas Caninos",
+      "expira_en": "2027-12-31",
+      "estado": "revocada",
+      "equipo": null,
+      "activada_en": null
+    }
+  ]
+}

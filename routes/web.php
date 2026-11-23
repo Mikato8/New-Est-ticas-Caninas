@@ -12,6 +12,7 @@ use App\Controllers\DerechosController;
 use App\Controllers\DirectorioController;
 use App\Controllers\GuiaController;
 use App\Controllers\HomeController;
+use App\Controllers\LicenciaController;
 use App\Controllers\MediaController;
 use App\Controllers\MiCuentaController;
 use App\Controllers\PaginasController;
@@ -22,6 +23,9 @@ use App\Core\Response;
 use App\Core\Router;
 
 return static function (Router $router): void {
+    $router->get('/api/licencias/salud', [LicenciaController::class, 'salud']);
+    $router->post('/api/licencias/activar', [LicenciaController::class, 'activar']);
+
     $router->get('/api/salud', static function (Request $peticion): Response {
         $base = 'sin conexión';
         try {

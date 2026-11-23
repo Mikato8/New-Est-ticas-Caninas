@@ -15,3 +15,6 @@ vendor/
 storage/solicitudes/*
 !storage/solicitudes/.gitkeep
 storage/cache/*
+
+storage/licencias.json
+storage/cache/licencias-intentos.json
