@@ -68,7 +68,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
                 <h3>macOS</h3>
                 <p>Instalador <strong>.dmg</strong> universal para Apple Silicon e Intel. macOS 12 o superior.</p>
                 <div class="t-modulo__pie"><span>DMG universal · ≈ 7 MB</span><span>v1.0</span></div>
-                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-macOS.dmg') ?>" download>Descargar para macOS</a>
+                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-macOS.dmg') ?>?v=1.0.1" download>Descargar para macOS</a>
             </article>
             <article class="t-modulo" id="android">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
