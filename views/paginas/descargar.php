@@ -55,7 +55,10 @@ $whatsapp = $whatsapp ?? whatsapp_link();
                 <h2>Instálalo como app web.</h2>
                 <p>Se abre en el navegador y se instala como una aplicación. No hay <strong>.exe</strong>, <strong>.apk</strong> ni <strong>.dmg</strong>: Windows no muestra “virus detectado”, Android no pide fuente desconocida y macOS no bloquea la app.</p>
             </div>
-            <a class="t-btn t-btn--azul" href="<?= url('/crm/') ?>" target="_blank" rel="noopener">Abrir app web</a>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <a class="t-btn t-btn--azul" href="<?= url('/crm/') ?>" target="_blank" rel="noopener">Abrir app web</a>
+                <a class="t-btn t-btn--linea" href="<?= url('/instalar') ?>">Ver guía con capturas</a>
+            </div>
         </div>
         <div class="t-guias">
             <article class="t-guia">
@@ -86,7 +89,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
         </div>
         <div class="nota" style="margin-top:16px;font-size:13.5px;line-height:1.55;">
             <strong>Datos y licencia.</strong> La app web guarda la base en IndexedDB de este navegador; exporta un respaldo desde <em>Ajustes → Respaldo</em>. Funciona sin internet después de la primera carga. La licencia se activa con la misma clave y se verifica sin conexión. 
-            <span style="display:block;margin-top:6px;">¿No tienes clave? <a href="<?= url('/contacto') ?>">Pídela aquí</a>.</span>
+            <span style="display:block;margin-top:6px;">¿No tienes clave? <a href="<?= url('/contacto') ?>">Pídela aquí</a> · <a href="<?= url('/instalar') ?>">Guía paso a paso con capturas</a>.</span>
         </div>
     </div>
 </section>

@@ -378,3 +378,16 @@ a { color: var(--t-azul); }
   .t-app__cuerpo { grid-template-columns: 72px minmax(0, 1fr); }
   .t-app__menu span { font-size: 9.5px; }
 }
+
+/* Guía visual de instalación */
+.t-instala__sistemas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.t-instala { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.t-instala__paso { background: #fff; border: 1px solid var(--t-linea); border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(11,36,64,.06); }
+.t-instala__paso img { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--t-linea); background: #eef1f6; }
+.t-instala__cuerpo { padding: 16px 18px 18px; }
+.t-instala__num { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--t-oro); color: #fff; font-size: 12px; font-weight: 800; margin-bottom: 8px; }
+.t-instala__cuerpo h3 { margin: 0 0 6px; font-size: 15px; }
+.t-instala__cuerpo p { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--t-tinta-3); }
+@media (max-width: 960px) { .t-instala { grid-template-columns: 1fr; } }
+.t-instala__zoom { display: block; cursor: zoom-in; }
+.t-instala__zoom:hover img { filter: brightness(1.02); }

@@ -206,7 +206,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
                     <span class="t-sistema__texto"><strong>Android</strong><small>App web · Chrome</small></span>
                     <span class="t-sistema__flecha">Instalar</span>
                 </a>
-                <p style="font-size:12px;color:#9fb3cc;margin:4px 0 0;">Windows, Android y macOS se instalan como <a href="<?= url('/crm/') ?>" style="color:var(--t-oro-claro);">app web, sin avisos ni descargas</a>. No hay instaladores nativos publicados.</p>
+                <p style="font-size:12px;color:#9fb3cc;margin:4px 0 0;">Windows, Android y macOS se instalan como <a href="<?= url('/crm/') ?>" style="color:var(--t-oro-claro);">app web, sin avisos ni descargas</a>. No hay instaladores nativos publicados. <a href="<?= url('/instalar') ?>" style="color:var(--t-oro-claro);">Guía con capturas</a>.</p>
             </div>
         </div>
     </div>

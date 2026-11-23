@@ -61,6 +61,14 @@ final class HomeController
         ]));
     }
 
+    public function instalar(Request $peticion): Response
+    {
+        return Response::html(view('paginas/instalar', [
+            'titulo' => 'Guía para instalar Mikato CRM',
+            'descripcion' => 'Capturas y pasos para instalar Mikato CRM como app web en Windows, Android y macOS, sin descargar instaladores.',
+        ]));
+    }
+
     public function servicios(Request $peticion): Response
     {
         return Response::html(view('paginas/servicios', [

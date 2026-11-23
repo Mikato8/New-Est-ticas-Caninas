@@ -52,3 +52,6 @@ pdftoppm -png -r 110 ../public/descargas/formatos/Mikato-Ficha-de-estilo.pdf /tm
 Base: Ley Federal de Protección al Consumidor (artículos 12 y 32), PROFECO
 *Servicios estéticos para mascotas* (2019) y LFPDPPP. Este material es una guía
 de operación, no asesoría legal.
+
+- `guia-instalacion.html` → `public/descargas/formatos/Mikato-Guia-de-instalacion.pdf`
+  Guía visual de instalación de la PWA para Windows, Android y macOS (6 páginas).
