@@ -18,3 +18,6 @@ storage/cache/*
 
 storage/licencias.json
 storage/cache/licencias-intentos.json
+
+config/licencias/privada.pem
+config/licencias/publica.pem

@@ -161,21 +161,8 @@ final class Licencias
             return null;
         }
 
-        if (function_exists('sodium_crypto_sign_seed_keypair')) {
-            $der = base64_decode((string) preg_replace('/-----[^-]+-----|\s+/', '', $pem), true);
-            if (is_string($der) && strlen($der) >= 32) {
-                $par = sodium_crypto_sign_seed_keypair(substr($der, -32));
-
-                return [
-                    'tipo' => 'sodium',
-                    'secreta' => sodium_crypto_sign_secretkey($par),
-                    'publica' => sodium_crypto_sign_publickey($par),
-                ];
-            }
-        }
-
-        // Hostinger puede traer OpenSSL sin sodium. OpenSSL firma Ed25519 con
-        // algoritmo 0 (sin digest); la firma también mide 64 bytes.
+        // ECDSA P-256 con SHA-256: disponible en el OpenSSL de Hostinger aunque
+        // la extensión sodium no esté habilitada. La firma viaja en DER.
         $llave = openssl_pkey_get_private($pem);
         if ($llave === false) {
             return null;
@@ -183,7 +170,6 @@ final class Licencias
         $detalles = openssl_pkey_get_details($llave);
 
         return [
-            'tipo' => 'openssl',
             'llave' => $llave,
             'publica' => (string) ($detalles['key'] ?? ''),
         ];
@@ -201,20 +187,13 @@ final class Licencias
         }
         $segmento = self::base64url($json);
 
-        if (($llaves['tipo'] ?? '') === 'sodium') {
-            $firma = sodium_crypto_sign_detached($segmento, $llaves['secreta']);
-            if (!sodium_crypto_sign_verify_detached($firma, $segmento, $llaves['publica'])) {
-                return null;
-            }
-        } else {
-            $firma = '';
-            if (!openssl_sign($segmento, $firma, $llaves['llave'], 0)) {
-                return null;
-            }
-            $publica = openssl_pkey_get_public($llaves['publica']);
-            if ($publica === false || openssl_verify($segmento, $firma, $publica, 0) !== 1) {
-                return null;
-            }
+        $firma = '';
+        if (!openssl_sign($segmento, $firma, $llaves['llave'], OPENSSL_ALGO_SHA256)) {
+            return null;
+        }
+        $publica = openssl_pkey_get_public($llaves['publica']);
+        if ($publica === false || openssl_verify($segmento, $firma, $publica, OPENSSL_ALGO_SHA256) !== 1) {
+            return null;
         }
 
         return $segmento . '.' . self::base64url($firma);
