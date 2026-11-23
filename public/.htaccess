@@ -3,6 +3,7 @@ Options -Indexes
     RewriteEngine On
     RewriteRule ^crm/?$ /crm/index.html [L]
     RewriteRule ^app/?$ /crm/ [R=301,L]
+    RewriteRule ^descargas/Mikato-CRM-1\.0\.0-macOS\.dmg$ /crm/ [R=301,L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^ index.php [L]
