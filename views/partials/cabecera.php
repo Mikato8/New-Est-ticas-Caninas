@@ -9,7 +9,7 @@ $cuentaUrl = $usuario !== null
 <div class="t-utilidad">
     <div class="contenedor">
         <span><span class="t-utilidad__punto" aria-hidden="true"></span>Hecho en Guadalajara, Jalisco</span>
-        <span class="t-utilidad__largo"><a href="<?= url('/descargar') ?>">Descarga el CRM para Windows, macOS y Android</a></span>
+        <span class="t-utilidad__largo"><a href="<?= url('/descargar') ?>">Instala el CRM en Windows, macOS y Android</a></span>
         <?php if ($whatsapp !== ''): ?>
             <a href="<?= e($whatsapp) ?>" target="_blank" rel="noopener">WhatsApp</a>
         <?php endif; ?>
@@ -37,7 +37,7 @@ $cuentaUrl = $usuario !== null
                     <?= icono('whatsapp') ?><span class="t-accion__texto">WhatsApp</span>
                 </a>
             <?php endif; ?>
-            <a class="t-btn t-btn--azul t-btn--chico" href="<?= url('/descargar') ?>"><?= icono('descargar') ?> Descargar CRM</a>
+            <a class="t-btn t-btn--azul t-btn--chico" href="<?= url('/descargar') ?>"><?= icono('descargar') ?> Instalar CRM</a>
             <?php if ($usuario !== null): ?>
                 <a class="t-btn t-btn--linea t-btn--chico" href="<?= $cuentaUrl ?>"><?= e(iniciales((string) $usuario['nombre'])) ?></a>
             <?php else: ?>
@@ -56,7 +56,7 @@ $cuentaUrl = $usuario !== null
                 <li><a class="<?= activo('/calculadoras') ?>" href="<?= url('/calculadoras') ?>">Calculadoras</a></li>
                 <li><a class="<?= activo('/productos') ?>" href="<?= url('/productos') ?>">Productos</a></li>
                 <li><a class="<?= activo('/comunidad') ?>" href="<?= url('/comunidad') ?>">Comunidad</a></li>
-                <li><a class="<?= activo('/descargar') ?>" href="<?= url('/descargar') ?>">Descargar</a></li>
+                <li><a class="<?= activo('/descargar') ?>" href="<?= url('/descargar') ?>">Instalar</a></li>
                 <li><a class="<?= activo('/nosotros') ?>" href="<?= url('/nosotros') ?>">Nosotros</a></li>
             </ul>
         </div>

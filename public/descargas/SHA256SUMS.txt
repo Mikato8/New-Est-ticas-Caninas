@@ -1,4 +1,0 @@
-daf8d166b443e38d5deb3ac1307dbdd25ca455c9d39bffe6f2b652c0df484a4c  Mikato-CRM-1.0.0-windows-x64-setup.exe
-30aa3344d68403ea8cfe7023bf4a69b71d027dfc6456f3d3e49d044c326bdd2a  Mikato-CRM-1.0.0-windows-x64.msi
-06756dc306c475ef479482df09f6b75a1be814d6255ed8f4f422d8f536015d46  Mikato-CRM-1.0.0-windows-x64-portable.zip
-be0cc9ffc1d94ce616333c1ee06cadeffcc01ce2d17186bd8ff8e2e1d9994a95  Mikato-CRM-1.0.0-android.apk
