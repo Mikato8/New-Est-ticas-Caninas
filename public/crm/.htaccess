@@ -1,0 +1,2 @@
+# La PWA se sirve como archivo estático; no hay listado de directorio.
+DirectoryIndex index.html

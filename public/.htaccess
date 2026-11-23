@@ -1,6 +1,7 @@
 Options -Indexes
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteRule ^crm/?$ /crm/index.html [L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^ index.php [L]
