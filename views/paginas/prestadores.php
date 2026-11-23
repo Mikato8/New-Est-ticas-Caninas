@@ -37,7 +37,7 @@ $docs = [
     <header class="portada-interior">
         <span class="kicker mono texto-oro">Prestadores de servicios</span>
         <h1>Guías para operar una estética canina con orden.</h1>
-        <p>Cuatro documentos originales de Mikato para dejar por escrito el corte, revisar el ingreso, informar al cliente y responder cuando algo no salió como se acordó. No son copias de formatos de otros salones: están armados para que cualquier estética los adapte a su operación.</p>
+        <p>Cuatro documentos originales de Mikato para dejar por escrito el corte, revisar el ingreso, informar al cliente y responder cuando algo no salió como se acordó. No son copias de formatos de otros salones: están armados para que cualquier estética los adapte a su operación. Mikato no atiende perros; estos documentos son para la estética que los usa.</p>
         <div class="flex-centro mt-3">
             <a class="t-btn t-btn--azul" href="<?= url('/descargas/formatos/Mikato-Guia-prestadores.pdf') ?>?v=1.0" download><?= icono('descargar') ?> Descargar la guía</a>
             <a class="t-btn t-btn--linea" href="#documentos">Ver los cuatro documentos</a>
