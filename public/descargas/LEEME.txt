@@ -1,0 +1,14 @@
+Mikato CRM 1.0.0 para macOS
+============================
+
+Requisitos: macOS 10.15 o superior, Apple Silicon o Intel.
+
+1. Abre el archivo .dmg y arrastra "Mikato CRM" a la carpeta Aplicaciones.
+2. La primera vez, macOS puede bloquear la app porque aún no está notarizada:
+   abre Ajustes del Sistema > Privacidad y seguridad y elige "Abrir de todos modos".
+3. Al abrir, escribe la clave MKTO-XXXX-XXXX-XXXX que te entregó Mikato.
+   La activación se valida una vez; después la app trabaja sin internet.
+4. Tus datos se guardan en:
+   ~/Library/Application Support/mx.mikato.crm/mikato.db
+
+Respaldo: Ajustes > Respaldo, o copia el archivo mikato.db con la app cerrada.

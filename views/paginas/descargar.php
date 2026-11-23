@@ -67,8 +67,8 @@ $whatsapp = $whatsapp ?? whatsapp_link();
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
                 <h3>macOS</h3>
                 <p>Instalador <strong>.dmg</strong> universal para Apple Silicon e Intel. macOS 12 o superior.</p>
-                <div class="t-modulo__pie"><span>≈ 14 MB</span><span>v1.0</span></div>
-                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/contacto?asunto=descarga-macos') ?>">Solicitar instalador</a>
+                <div class="t-modulo__pie"><span>DMG universal</span><span>v1.0</span></div>
+                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-macOS.dmg') ?>" download>Descargar para macOS</a>
             </article>
             <article class="t-modulo" id="android">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
@@ -78,7 +78,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
                 <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/contacto?asunto=descarga-android') ?>">Solicitar instalador</a>
             </article>
         </div>
-        <p style="font-size:13px;margin:14px 0 0;color:var(--t-tinta-3);">Los instaladores se entregan con tu clave de acceso. Si ya eres cliente, escríbenos por WhatsApp y te enviamos el enlace de tu versión.</p>
+        <p style="font-size:13px;margin:14px 0 0;color:var(--t-tinta-3);">macOS ya está disponible para probar. Windows y Android se publican al cerrar las pruebas de instalación. El instalador no está notarizado todavía: al abrirlo, macOS puede pedir confirmación en <em>Preferencias del Sistema → Seguridad</em>.</p>
     </div>
 </section>
 

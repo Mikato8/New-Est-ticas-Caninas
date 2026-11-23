@@ -1,7 +1,7 @@
 # Licencias de Mikato CRM
 
 El sitio expone `POST /api/licencias/activar` para que la app de escritorio
-active una clave `MKTO-XXXX-XXXX-XXXX` y reciba un token firmado con Ed25519.
+active una clave `MKTO-XXXX-XXXX-XXXX` y reciba un token firmado con ECDSA P-256 (SHA-256).
 La app verifica la firma sin conexión con la llave pública embebida: después de
 activar, agenda, clientes y ventas funcionan sin internet.
 
@@ -32,7 +32,7 @@ en `mikato-crm-app/docs/LICENCIA.md`.
 
 ## Antes de vender
 
-1. Genera un par Ed25519 propio (`openssl genpkey -algorithm ED25519`) y guarda
+1. Genera un par ECDSA P-256 propio (`openssl ecparam -name prime256v1 -genkey -noout`) y guarda
    la privada en el entorno del servidor (`LICENCIA_PRIVATE_KEY` en base64) o en
    `config/licencias/privada.pem`, fuera de `public_html`.
 2. Reemplaza la llave pública en `src-tauri/src/licencia.rs`, recompila y firma
