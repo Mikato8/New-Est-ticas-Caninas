@@ -12,7 +12,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
             <div>
                 <span class="t-eyebrow">Mikato CRM · Descarga</span>
                 <h1>Tu CRM, en tu computadora.</h1>
-                <p class="t-portada__lead">Instala Mikato CRM en Windows, macOS o Android. La agenda, los clientes, las mascotas y las ventas viven en tu equipo: no dependes de una conexión ni de una base compartida.</p>
+                <p class="t-portada__lead">Instala Mikato CRM en macOS. La agenda, los clientes, las mascotas y las ventas viven en tu equipo: no dependes de una conexión ni de una base compartida. Windows y Android usan el mismo código y se publican al cerrar sus pruebas.</p>
                 <div class="t-portada__acciones">
                     <a class="t-btn t-btn--azul t-btn--grande" href="#sistemas"><?= icono('descargar') ?> Elegir mi sistema</a>
                     <a class="t-btn t-btn--linea t-btn--grande" href="<?= url('/contacto') ?>">Pedir mi clave</a>
@@ -60,22 +60,22 @@ $whatsapp = $whatsapp ?? whatsapp_link();
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
                 <h3>Windows</h3>
                 <p>Instalador <strong>.exe</strong> para Windows 10 y 11, 64 bits. No requiere permisos de administrador.</p>
-                <div class="t-modulo__pie"><span>≈ 12 MB</span><span>v1.0</span></div>
-                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/contacto?asunto=descarga-windows') ?>">Solicitar instalador</a>
+                <div class="t-modulo__pie"><span>En preparación</span><span>beta</span></div>
+                <a class="t-btn t-btn--linea t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/contacto?asunto=descarga-windows') ?>">Recibir aviso</a>
             </article>
             <article class="t-modulo" id="macos">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
                 <h3>macOS</h3>
                 <p>Instalador <strong>.dmg</strong> universal para Apple Silicon e Intel. macOS 12 o superior.</p>
-                <div class="t-modulo__pie"><span>DMG universal</span><span>v1.0</span></div>
+                <div class="t-modulo__pie"><span>DMG universal · ≈ 7 MB</span><span>v1.0</span></div>
                 <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-macOS.dmg') ?>" download>Descargar para macOS</a>
             </article>
             <article class="t-modulo" id="android">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
                 <h3>Android</h3>
                 <p>APK para Android 9 o superior. Para tablet o teléfono del mostrador; se sincroniza con tu respaldo.</p>
-                <div class="t-modulo__pie"><span>≈ 18 MB</span><span>v1.0</span></div>
-                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/contacto?asunto=descarga-android') ?>">Solicitar instalador</a>
+                <div class="t-modulo__pie"><span>En preparación</span><span>beta</span></div>
+                <a class="t-btn t-btn--linea t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/contacto?asunto=descarga-android') ?>">Recibir aviso</a>
             </article>
         </div>
         <p style="font-size:13px;margin:14px 0 0;color:var(--t-tinta-3);">macOS ya está disponible para probar. Windows y Android se publican al cerrar las pruebas de instalación. El instalador no está notarizado todavía: al abrirlo, macOS puede pedir confirmación en <em>Preferencias del Sistema → Seguridad</em>.</p>

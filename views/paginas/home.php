@@ -55,7 +55,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
                     <a class="t-btn t-btn--linea t-btn--grande" href="<?= url('/servicios') ?>">Ver cómo funciona</a>
                 </div>
                 <ul class="t-portada__pruebas">
-                    <li><?= icono('check') ?> Windows, macOS y Android. La misma cuenta en los tres.</li>
+                    <li><?= icono('check') ?> macOS disponible hoy; Windows y Android en preparación.</li>
                     <li><?= icono('check') ?> Tus datos se guardan en tu equipo, no en un servidor ajeno.</li>
                     <li><?= icono('check') ?> Licencia por clave de acceso y actualizaciones firmadas.</li>
                 </ul>
@@ -169,8 +169,8 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
             <article class="t-modulo">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
                 <h3>App descargable</h3>
-                <p>Se instala en Windows, macOS o Android. Tu base vive en tu equipo y se respalda local.</p>
-                <div class="t-modulo__pie"><span>Sin nube obligatoria</span><span>10 MB</span></div>
+                <p>Se instala en tu equipo. Hoy macOS; Windows y Android usan el mismo código.</p>
+                <div class="t-modulo__pie"><span>Sin nube obligatoria</span><span>7 MB</span></div>
             </article>
         </div>
     </div>
