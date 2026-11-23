@@ -39,7 +39,7 @@ $docs = [
         <h1>Guías para operar una estética canina con orden.</h1>
         <p>Cuatro documentos originales de Mikato para dejar por escrito el corte, revisar el ingreso, informar al cliente y responder cuando algo no salió como se acordó. No son copias de formatos de otros salones: están armados para que cualquier estética los adapte a su operación. Mikato no atiende perros; estos documentos son para la estética que los usa.</p>
         <div class="flex-centro mt-3">
-            <a class="t-btn t-btn--azul" href="<?= url('/descargas/formatos/Mikato-Guia-prestadores.pdf') ?>?v=1.0" download><?= icono('descargar') ?> Descargar la guía</a>
+            <a class="t-btn t-btn--azul" href="<?= url('/descargas/formatos/Mikato-Guia-prestadores.pdf') ?>?v=1.1" download><?= icono('descargar') ?> Descargar la guía</a>
             <a class="t-btn t-btn--linea" href="#documentos">Ver los cuatro documentos</a>
         </div>
     </header>
@@ -66,7 +66,7 @@ $docs = [
                         <h3><?= e($doc['titulo']) ?></h3>
                         <p><?= e($doc['descripcion']) ?></p>
                         <div class="t-guia__meta"><span><?= (int) $doc['paginas'] ?> páginas</span><span>PDF</span></div>
-                        <a class="t-btn t-btn--linea t-btn--chico" style="align-self:flex-start;margin-top:6px;" href="<?= url($doc['archivo']) ?>?v=1.0" download>Descargar</a>
+                        <a class="t-btn t-btn--linea t-btn--chico" style="align-self:flex-start;margin-top:6px;" href="<?= url($doc['archivo']) ?>?v=1.1" download>Descargar</a>
                     </div>
                 </article>
             <?php endforeach; ?>
@@ -166,22 +166,22 @@ $docs = [
                 <p class="t-descarga__nota">Fuente: <a href="https://www.gob.mx/profeco/documentos/servicios-esteticos-para-mascotas-una-cuestion-de-pelos?state=published" target="_blank" rel="noopener">PROFECO · Servicios estéticos para mascotas</a>.</p>
             </div>
             <div class="t-sistemas">
-                <a class="t-sistema" href="<?= url('/descargas/formatos/Mikato-Guia-prestadores.pdf') ?>?v=1.0" download>
+                <a class="t-sistema" href="<?= url('/descargas/formatos/Mikato-Guia-prestadores.pdf') ?>?v=1.1" download>
                     <span class="t-sistema__icono"><?= icono('descargar') ?></span>
                     <span class="t-sistema__texto"><strong>Guía completa</strong><small>6 páginas · obligaciones y responsabilidades</small></span>
                     <span class="t-sistema__flecha">PDF</span>
                 </a>
-                <a class="t-sistema" href="<?= url('/descargas/formatos/Mikato-Ficha-de-estilo.pdf') ?>?v=1.0" download>
+                <a class="t-sistema" href="<?= url('/descargas/formatos/Mikato-Ficha-de-estilo.pdf') ?>?v=1.1" download>
                     <span class="t-sistema__icono"><?= icono('tijeras') ?></span>
                     <span class="t-sistema__texto"><strong>Ficha de estilo</strong><small>2 páginas · acuerdo de corte</small></span>
                     <span class="t-sistema__flecha">PDF</span>
                 </a>
-                <a class="t-sistema" href="<?= url('/descargas/formatos/Mikato-Checklist-de-ingreso.pdf') ?>?v=1.0" download>
+                <a class="t-sistema" href="<?= url('/descargas/formatos/Mikato-Checklist-de-ingreso.pdf') ?>?v=1.1" download>
                     <span class="t-sistema__icono"><?= icono('check') ?></span>
                     <span class="t-sistema__texto"><strong>Checklist de ingreso</strong><small>2 páginas · revisión y autorización</small></span>
                     <span class="t-sistema__flecha">PDF</span>
                 </a>
-                <a class="t-sistema" href="<?= url('/descargas/formatos/Mikato-Carta-de-servicio.pdf') ?>?v=1.0" download>
+                <a class="t-sistema" href="<?= url('/descargas/formatos/Mikato-Carta-de-servicio.pdf') ?>?v=1.1" download>
                     <span class="t-sistema__icono"><?= icono('correo') ?></span>
                     <span class="t-sistema__texto"><strong>Carta de servicio</strong><small>1 página · para el cliente</small></span>
                     <span class="t-sistema__flecha">PDF</span>
