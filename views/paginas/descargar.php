@@ -61,24 +61,33 @@ $whatsapp = $whatsapp ?? whatsapp_link();
                 <h3>Windows</h3>
                 <p>Instalador <strong>.exe</strong> para Windows 10 y 11, 64 bits. Instalación por usuario, sin permisos de administrador.</p>
                 <div class="t-modulo__pie"><span>Instalador · ≈ 3 MB</span><span>v1.0</span></div>
-                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64-setup.exe') ?>?v=1.0.1" download>Descargar para Windows</a>
+                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64-setup.exe') ?>?v=1.0.2" download>Descargar para Windows</a>
+                <p style="font-size:12px;margin:2px 0 0;"><a href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64.msi') ?>?v=1.0.2">Si el .exe se bloquea, usa el .msi</a></p>
             </article>
             <article class="t-modulo" id="macos">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
                 <h3>macOS</h3>
                 <p>Instalador <strong>.dmg</strong> universal para Apple Silicon e Intel. macOS 12 o superior.</p>
                 <div class="t-modulo__pie"><span>DMG universal · ≈ 7 MB</span><span>v1.0</span></div>
-                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-macOS.dmg') ?>?v=1.0.1" download>Descargar para macOS</a>
+                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-macOS.dmg') ?>?v=1.0.2" download>Descargar para macOS</a>
             </article>
             <article class="t-modulo" id="android">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
                 <h3>Android</h3>
                 <p>APK firmado para Android 8 o superior, arm64. Para tablet o teléfono del mostrador; restaura tu respaldo y sigue trabajando.</p>
                 <div class="t-modulo__pie"><span>APK firmado · ≈ 9 MB</span><span>v1.0</span></div>
-                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-android.apk') ?>?v=1.0.1" download>Descargar para Android</a>
+                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-android.apk') ?>?v=1.0.2" download>Descargar para Android</a>
             </article>
         </div>
-        <p style="font-size:13px;margin:14px 0 0;color:var(--t-tinta-3);">Windows, macOS y Android ya están disponibles. Ningún instalador está firmado con un certificado comercial todavía: Windows puede mostrar SmartScreen, macOS puede pedir confirmación en <em>Preferencias del Sistema → Seguridad</em> y Android pide permitir la instalación desde esta fuente.</p>
+        <div class="nota" style="margin-top:16px;font-size:14px;line-height:1.55;">
+            <strong>Si Windows o macOS bloquean la instalación</strong>
+            <p style="margin:6px 0 8px;">No es un virus. Los instaladores todavía no tienen un certificado comercial de plataforma, así que el sistema los marca como desconocidos. Estos son los pasos para continuar:</p>
+            <ul style="margin:0 0 8px;padding-left:20px;">
+                <li><strong>Windows:</strong> en SmartScreen, pulsa <em>Más información</em> y luego <em>Ejecutar de todos modos</em>. Si Defender lo pone en cuarentena, restáuralo desde <em>Protección contra virus y amenazas → Historial de protección</em> y agrega una exclusión. También puedes probar el <a href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64.msi') ?>?v=1.0.2">instalador .msi</a>.</li>
+                <li><strong>macOS:</strong> haz clic derecho sobre <em>Mikato CRM</em> y elige <em>Abrir</em>; confirma <em>Abrir</em>. Si no aparece, ve a <em>Ajustes del Sistema → Privacidad y seguridad</em> y pulsa <em>Abrir igualmente</em>. Si dice que está dañada, abre Terminal y ejecuta <code>xattr -dr com.apple.quarantine "/Applications/Mikato CRM.app"</code>, luego ábrela.</li>
+            </ul>
+            <p style="margin:0;">Puedes comprobar que la descarga es la nuestra con <a href="<?= url('/descargas/SHA256SUMS.txt') ?>">SHA256SUMS.txt</a>.</p>
+        </div>
     </div>
 </section>
 

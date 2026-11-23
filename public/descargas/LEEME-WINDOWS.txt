@@ -5,11 +5,33 @@ Requisitos: Windows 10 u 11, 64 bits.
 
 1. Ejecuta Mikato-CRM-1.0.0-windows-x64-setup.exe.
    Es una instalación por usuario: no pide permisos de administrador.
-2. Windows puede mostrar SmartScreen porque el instalador aún no tiene
-   certificado comercial. Elige "Más información" > "Ejecutar de todos modos".
-3. Al abrir, escribe la clave MKTO-XXXX-XXXX-XXXX que te entregó Mikato.
-   La activación se valida una vez; después la app trabaja sin internet.
-4. Tus datos se guardan en:
-   %APPDATA%\mx.mikato.crm\mikato.db
 
-Respaldo: Ajustes > Respaldo, o copia el archivo mikato.db con la app cerrada.
+2. Si aparece SmartScreen ("Windows protegió tu PC"):
+   - Pulsa "Más información".
+   - Elige "Ejecutar de todos modos".
+
+3. Si Windows Defender lo pone en cuarentena:
+   - Abre Seguridad de Windows > Protección contra virus y amenazas.
+   - Entra en "Historial de protección" y restaura el archivo.
+   - Agrega una exclusión para la carpeta de instalación o para el archivo.
+
+4. Si el .exe sigue bloqueado, prueba el instalador .msi:
+   Mikato-CRM-1.0.0-windows-x64.msi
+   (clic derecho > Instalar). También puede mostrar un aviso, pero es el
+   mismo programa empaquetado de otra forma.
+
+5. Verifica la descarga con SHA256SUMS.txt.
+
+¿Por qué pasa? El instalador todavía no tiene un certificado comercial de
+firma de código. Windows y los antivirus marcan los binarios nuevos o sin
+firma como desconocidos; es un falso positivo, no un virus. La solución
+definitiva es firmar el .exe y el .msi con un certificado de firma de código.
+
+Para reportarlo a Microsoft:
+https://www.microsoft.com/en-us/wdsi/filesubmission
+
+Datos del programa:
+- Nombre: Mikato CRM
+- Versión: 1.0.0
+- Editor: Mikato Estilistas Caninos
+- Instalador: NSIS x64 / MSI x64
