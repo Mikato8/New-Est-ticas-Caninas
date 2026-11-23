@@ -12,7 +12,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
             <div>
                 <span class="t-eyebrow">Mikato CRM · Descarga</span>
                 <h1>Tu CRM, en tu computadora.</h1>
-                <p class="t-portada__lead">Instala Mikato CRM en macOS o Android. La agenda, los clientes, las mascotas y las ventas viven en tu equipo: no dependes de una conexión ni de una base compartida. Windows, macOS y Android usan el mismo código.</p>
+                <p class="t-portada__lead">Instala Mikato CRM en Windows, macOS o Android. La agenda, los clientes, las mascotas y las ventas viven en tu equipo: no dependes de una conexión ni de una base compartida.</p>
                 <div class="t-portada__acciones">
                     <a class="t-btn t-btn--azul t-btn--grande" href="#sistemas"><?= icono('descargar') ?> Elegir mi sistema</a>
                     <a class="t-btn t-btn--linea t-btn--grande" href="<?= url('/contacto') ?>">Pedir mi clave</a>
