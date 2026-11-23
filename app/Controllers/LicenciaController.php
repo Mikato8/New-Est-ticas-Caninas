@@ -23,6 +23,13 @@ final class LicenciaController
             'estado' => 'ok',
             'servicio' => 'mikato-licencias',
             'version' => 1,
+            'firma' => function_exists('sodium_crypto_sign_detached')
+                ? 'sodium'
+                : (function_exists('openssl_sign') ? 'openssl' : 'ninguna'),
+            'registro' => is_file(BASE_PATH . '/storage/licencias.json')
+                || is_file(BASE_PATH . '/config/licencias/demo.json'),
+            'llave' => is_file(BASE_PATH . '/config/licencias/demo-privada.pem')
+                || (string) env('LICENCIA_PRIVATE_KEY', '') !== '',
         ]);
     }
 
