@@ -1,37 +1,41 @@
 Mikato CRM 1.0.0 para Windows
 =============================
 
-Requisitos: Windows 10 u 11, 64 bits.
+Requisitos: Windows 10 u 11, 64 bits. WebView2 (incluido en Windows 11; en
+Windows 10 puede instalarse desde Microsoft).
 
 1. Ejecuta Mikato-CRM-1.0.0-windows-x64-setup.exe.
    Es una instalación por usuario: no pide permisos de administrador.
 
-2. Si aparece SmartScreen ("Windows protegió tu PC"):
+2. Si el navegador bloquea la descarga, elige "Mantener" en el aviso de
+   Chrome o Edge.
+
+3. Si aparece SmartScreen ("Windows protegió tu PC"):
    - Pulsa "Más información".
    - Elige "Ejecutar de todos modos".
 
-3. Si Windows Defender lo pone en cuarentena:
+4. Si Windows Defender lo pone en cuarentena:
    - Abre Seguridad de Windows > Protección contra virus y amenazas.
    - Entra en "Historial de protección" y restaura el archivo.
    - Agrega una exclusión para la carpeta de instalación o para el archivo.
 
-4. Si el .exe sigue bloqueado, prueba el instalador .msi:
-   Mikato-CRM-1.0.0-windows-x64.msi
-   (clic derecho > Instalar). También puede mostrar un aviso, pero es el
-   mismo programa empaquetado de otra forma.
+5. Alternativas si el .exe sigue bloqueado:
+   - Mikato-CRM-1.0.0-windows-x64.msi (clic derecho > Instalar).
+   - Mikato-CRM-1.0.0-windows-x64-portable.zip (extrae la carpeta y ejecuta
+     "Mikato CRM.exe"; no instala nada).
 
-5. Verifica la descarga con SHA256SUMS.txt.
+6. Verifica la descarga con SHA256SUMS.txt.
 
 ¿Por qué pasa? El instalador todavía no tiene un certificado comercial de
 firma de código. Windows y los antivirus marcan los binarios nuevos o sin
 firma como desconocidos; es un falso positivo, no un virus. La solución
 definitiva es firmar el .exe y el .msi con un certificado de firma de código.
 
-Para reportarlo a Microsoft:
+Reportar el falso positivo a Microsoft:
 https://www.microsoft.com/en-us/wdsi/filesubmission
 
 Datos del programa:
 - Nombre: Mikato CRM
 - Versión: 1.0.0
 - Editor: Mikato Estilistas Caninos
-- Instalador: NSIS x64 / MSI x64
+- Instaladores: NSIS x64, MSI x64, portable ZIP x64

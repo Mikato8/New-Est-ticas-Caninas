@@ -62,7 +62,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
                 <p>Instalador <strong>.exe</strong> para Windows 10 y 11, 64 bits. Instalación por usuario, sin permisos de administrador.</p>
                 <div class="t-modulo__pie"><span>Instalador · ≈ 3 MB</span><span>v1.0</span></div>
                 <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64-setup.exe') ?>?v=1.0.2" download>Descargar para Windows</a>
-                <p style="font-size:12px;margin:2px 0 0;"><a href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64.msi') ?>?v=1.0.2">Si el .exe se bloquea, usa el .msi</a></p>
+                <p style="font-size:12px;margin:2px 0 0;"><a href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64.msi') ?>?v=1.0.2">Probar el .msi</a> · <a href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64-portable.zip') ?>?v=1.0.2">Versión portable .zip</a></p>
             </article>
             <article class="t-modulo" id="macos">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
@@ -83,7 +83,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
             <strong>Si Windows o macOS bloquean la instalación</strong>
             <p style="margin:6px 0 8px;">No es un virus. Los instaladores todavía no tienen un certificado comercial de plataforma, así que el sistema los marca como desconocidos. Estos son los pasos para continuar:</p>
             <ul style="margin:0 0 8px;padding-left:20px;">
-                <li><strong>Windows:</strong> en SmartScreen, pulsa <em>Más información</em> y luego <em>Ejecutar de todos modos</em>. Si Defender lo pone en cuarentena, restáuralo desde <em>Protección contra virus y amenazas → Historial de protección</em> y agrega una exclusión. También puedes probar el <a href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64.msi') ?>?v=1.0.2">instalador .msi</a>.</li>
+                <li><strong>Windows:</strong> en SmartScreen, pulsa <em>Más información</em> y luego <em>Ejecutar de todos modos</em>. Si Defender lo pone en cuarentena, restáuralo desde <em>Protección contra virus y amenazas → Historial de protección</em> y agrega una exclusión. También puedes probar el <a href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64.msi') ?>?v=1.0.2">instalador .msi</a> o la <a href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64-portable.zip') ?>?v=1.0.2">versión portable .zip</a> (extrae y ejecuta; requiere WebView2).</li>
                 <li><strong>macOS:</strong> haz clic derecho sobre <em>Mikato CRM</em> y elige <em>Abrir</em>; confirma <em>Abrir</em>. Si no aparece, ve a <em>Ajustes del Sistema → Privacidad y seguridad</em> y pulsa <em>Abrir igualmente</em>. Si dice que está dañada, abre Terminal y ejecuta <code>xattr -dr com.apple.quarantine "/Applications/Mikato CRM.app"</code>, luego ábrela.</li>
             </ul>
             <p style="margin:0;">Puedes comprobar que la descarga es la nuestra con <a href="<?= url('/descargas/SHA256SUMS.txt') ?>">SHA256SUMS.txt</a>.</p>
