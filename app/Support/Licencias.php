@@ -102,6 +102,18 @@ final class Licencias
         ]];
     }
 
+    /** Diagnóstico seguro: intenta firmar un payload de prueba, sin datos de clientes. */
+    public static function probarFirma(): array
+    {
+        try {
+            $token = self::firmar(['v' => 1, 'lic' => 'MKTO-0000-0000-0000', 'plan' => 'demo', 'equipo' => 'diagnostico', 'emitido_en' => time(), 'expira_en' => time() + 60, 'emisor' => 'diagnostico']);
+
+            return ['ok' => $token !== null];
+        } catch (\Throwable $error) {
+            return ['ok' => false, 'error' => get_class($error) . ': ' . $error->getMessage()];
+        }
+    }
+
     /** @return array<string,mixed> */
     private static function leerRegistro(): array
     {

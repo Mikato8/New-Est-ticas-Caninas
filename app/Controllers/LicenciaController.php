@@ -30,6 +30,9 @@ final class LicenciaController
                 || is_file(BASE_PATH . '/config/licencias/demo.json'),
             'llave' => is_file(BASE_PATH . '/config/licencias/demo-privada.pem')
                 || (string) env('LICENCIA_PRIVATE_KEY', '') !== '',
+            'php' => PHP_VERSION,
+            'openssl' => defined('OPENSSL_VERSION_TEXT') ? OPENSSL_VERSION_TEXT : 'sin openssl',
+            'prueba' => Licencias::probarFirma(),
         ]);
     }
 
