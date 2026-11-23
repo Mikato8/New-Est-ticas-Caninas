@@ -12,13 +12,13 @@ $whatsapp = $whatsapp ?? whatsapp_link();
             <div>
                 <span class="t-eyebrow">Mikato CRM · Descarga</span>
                 <h1>Tu CRM, en tu computadora.</h1>
-                <p class="t-portada__lead">Instala Mikato CRM en Windows y Android <strong>como app web, sin avisos de virus</strong>, o usa el instalador de escritorio si prefieres un archivo. La agenda, los clientes, las mascotas y las ventas viven en tu equipo: no dependes de una base compartida.</p>
+                <p class="t-portada__lead">Instala Mikato CRM en Windows, Android y macOS <strong>como app web, sin avisos de virus</strong>. Si prefieres un archivo, hay instaladores para Windows y Android. La agenda, los clientes, las mascotas y las ventas viven en tu equipo: no dependes de una base compartida.</p>
                 <div class="t-portada__acciones">
                     <a class="t-btn t-btn--azul t-btn--grande" href="<?= url('/crm/') ?>" target="_blank" rel="noopener"><?= icono('descargar') ?> Abrir app web</a>
                     <a class="t-btn t-btn--linea t-btn--grande" href="#sistemas">Ver instaladores</a>
                 </div>
                 <ul class="t-portada__pruebas">
-                    <li><?= icono('check') ?> Windows y Android sin SmartScreen ni Gatekeeper.</li>
+                    <li><?= icono('check') ?> Windows, Android y macOS sin SmartScreen ni Gatekeeper.</li>
                     <li><?= icono('check') ?> Datos locales en el navegador o SQLite en escritorio, con respaldo.</li>
                     <li><?= icono('check') ?> Licencia por clave y actualizaciones solo de Mikato.</li>
                 </ul>
@@ -51,13 +51,13 @@ $whatsapp = $whatsapp ?? whatsapp_link();
     <div class="contenedor">
         <div class="t-seccion__cabeza">
             <div>
-                <span class="t-kicker">Windows y Android · sin avisos</span>
+                <span class="t-kicker">Windows, Android y macOS · sin avisos</span>
                 <h2>Instálalo como app web.</h2>
-                <p>Se abre en el navegador y se instala como una aplicación. No hay <strong>.exe</strong> ni <strong>.apk</strong>, así que Windows no muestra SmartScreen y Android no pide instalar de una fuente desconocida.</p>
+                <p>Se abre en el navegador y se instala como una aplicación. No hay <strong>.exe</strong>, <strong>.apk</strong> ni <strong>.dmg</strong>: Windows no muestra SmartScreen, Android no pide fuente desconocida y macOS no bloquea la app.</p>
             </div>
             <a class="t-btn t-btn--azul" href="<?= url('/crm/') ?>" target="_blank" rel="noopener">Abrir app web</a>
         </div>
-        <div class="t-guias t-guias--dos">
+        <div class="t-guias">
             <article class="t-guia">
                 <div class="t-guia__franja"><?= icono('descargar') ?><span>Windows</span></div>
                 <div class="t-guia__cuerpo">
@@ -74,9 +74,18 @@ $whatsapp = $whatsapp ?? whatsapp_link();
                     <div class="t-guia__meta"><span>Sin APK</span><span>Sin fuente desconocida</span></div>
                 </div>
             </article>
+
+            <article class="t-guia">
+                <div class="t-guia__franja"><?= icono('descargar') ?><span>macOS</span></div>
+                <div class="t-guia__cuerpo">
+                    <h3>Safari, Chrome o Edge</h3>
+                    <p>Abre la app web. En Safari usa <strong>Archivo → Agregar al Dock</strong>; en Chrome o Edge, el icono <strong>Instalar</strong> de la barra de direcciones. Queda como una app y no pasa por Gatekeeper.</p>
+                    <div class="t-guia__meta"><span>Sin .dmg</span><span>Sin Gatekeeper</span></div>
+                </div>
+            </article>
         </div>
         <div class="nota" style="margin-top:16px;font-size:13.5px;line-height:1.55;">
-            <strong>Datos y licencia.</strong> La app web guarda la base en IndexedDB de este navegador; exporta un respaldo desde <em>Ajustes → Respaldo</em>. Funciona sin internet después de la primera carga. La licencia se activa con la misma clave y se verifica sin conexión. Si necesitas la base SQLite como archivo, usa el instalador de escritorio.
+            <strong>Datos y licencia.</strong> La app web guarda la base en IndexedDB de este navegador; exporta un respaldo desde <em>Ajustes → Respaldo</em>. Funciona sin internet después de la primera carga. La licencia se activa con la misma clave y se verifica sin conexión. Si necesitas la base SQLite como archivo, usa el instalador de Windows o el APK de Android.
             <span style="display:block;margin-top:6px;">¿No tienes clave? <a href="<?= url('/contacto') ?>">Pídela aquí</a>.</span>
         </div>
     </div>
@@ -88,7 +97,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
             <div>
                 <span class="t-kicker">Instaladores de escritorio</span>
                 <h2>Si prefieres un archivo.</h2>
-                <p>La misma app y la misma base para las tres plataformas. Puedes mover tu respaldo de una a otra. Estos instaladores sí pueden mostrar avisos del sistema.</p>
+                <p>Para Windows y Android. Puedes mover tu respaldo entre equipos. Estos instaladores sí pueden mostrar avisos del sistema; para macOS usa la app web.</p>
             </div>
         </div>
         <div class="t-modulos">
@@ -100,13 +109,6 @@ $whatsapp = $whatsapp ?? whatsapp_link();
                 <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64-setup.exe') ?>?v=1.0.2" download>Descargar para Windows</a>
                 <p style="font-size:12px;margin:2px 0 0;"><a href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64.msi') ?>?v=1.0.2">Probar el .msi</a> · <a href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64-portable.zip') ?>?v=1.0.2">Versión portable .zip</a></p>
             </article>
-            <article class="t-modulo" id="macos">
-                <div class="t-modulo__icono"><?= icono('descargar') ?></div>
-                <h3>macOS</h3>
-                <p>Instalador <strong>.dmg</strong> universal para Apple Silicon e Intel. macOS 12 o superior.</p>
-                <div class="t-modulo__pie"><span>DMG universal · ≈ 7 MB</span><span>v1.0</span></div>
-                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-macOS.dmg') ?>?v=1.0.2" download>Descargar para macOS</a>
-            </article>
             <article class="t-modulo" id="android">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
                 <h3>Android</h3>
@@ -116,11 +118,10 @@ $whatsapp = $whatsapp ?? whatsapp_link();
             </article>
         </div>
         <div class="nota" style="margin-top:16px;font-size:14px;line-height:1.55;">
-            <strong>Si Windows o macOS bloquean la instalación</strong>
+            <strong>Si Windows bloquea la instalación</strong>
             <p style="margin:6px 0 8px;">No es un virus. Los instaladores todavía no tienen un certificado comercial de plataforma, así que el sistema los marca como desconocidos. Estos son los pasos para continuar:</p>
             <ul style="margin:0 0 8px;padding-left:20px;">
                 <li><strong>Windows:</strong> en SmartScreen, pulsa <em>Más información</em> y luego <em>Ejecutar de todos modos</em>. Si Defender lo pone en cuarentena, restáuralo desde <em>Protección contra virus y amenazas → Historial de protección</em> y agrega una exclusión. También puedes probar el <a href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64.msi') ?>?v=1.0.2">instalador .msi</a> o la <a href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64-portable.zip') ?>?v=1.0.2">versión portable .zip</a> (extrae y ejecuta; requiere WebView2).</li>
-                <li><strong>macOS:</strong> haz clic derecho sobre <em>Mikato CRM</em> y elige <em>Abrir</em>; confirma <em>Abrir</em>. Si no aparece, ve a <em>Ajustes del Sistema → Privacidad y seguridad</em> y pulsa <em>Abrir igualmente</em>. Si dice que está dañada, abre Terminal y ejecuta <code>xattr -dr com.apple.quarantine "/Applications/Mikato CRM.app"</code>, luego ábrela.</li>
             </ul>
             <p style="margin:0;">Puedes comprobar que la descarga es la nuestra con <a href="<?= url('/descargas/SHA256SUMS.txt') ?>">SHA256SUMS.txt</a>.</p>
         </div>

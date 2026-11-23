@@ -196,17 +196,17 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
                     <span class="t-sistema__texto"><strong>Windows</strong><small>Instalador .exe · Windows 10 u 11</small></span>
                     <span class="t-sistema__flecha">Descargar</span>
                 </a>
-                <a class="t-sistema" href="<?= url('/descargar#macos') ?>">
+                <a class="t-sistema" href="<?= url('/crm/') ?>" target="_blank" rel="noopener">
                     <span class="t-sistema__icono"><?= icono('descargar') ?></span>
-                    <span class="t-sistema__texto"><strong>macOS</strong><small>Instalador .dmg · Apple Silicon e Intel</small></span>
-                    <span class="t-sistema__flecha">Descargar</span>
+                    <span class="t-sistema__texto"><strong>macOS</strong><small>App web · Safari, Chrome o Edge</small></span>
+                    <span class="t-sistema__flecha">Instalar</span>
                 </a>
                 <a class="t-sistema" href="<?= url('/descargar#android') ?>">
                     <span class="t-sistema__icono"><?= icono('descargar') ?></span>
                     <span class="t-sistema__texto"><strong>Android</strong><small>APK · Android 8 o superior</small></span>
                     <span class="t-sistema__flecha">Descargar</span>
                 </a>
-                <p style="font-size:12px;color:#9fb3cc;margin:4px 0 0;">Windows y Android también se pueden <a href="<?= url('/crm/') ?>" style="color:var(--t-oro-claro);">instalar como app web, sin avisos</a>. macOS y los instaladores de escritorio siguen disponibles.</p>
+                <p style="font-size:12px;color:#9fb3cc;margin:4px 0 0;">Windows, Android y macOS también se pueden <a href="<?= url('/crm/') ?>" style="color:var(--t-oro-claro);">instalar como app web, sin avisos</a>. Los instaladores nativos quedan para Windows y Android.</p>
             </div>
         </div>
     </div>
