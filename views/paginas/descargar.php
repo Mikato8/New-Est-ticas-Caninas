@@ -12,7 +12,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
             <div>
                 <span class="t-eyebrow">Mikato CRM · Descarga</span>
                 <h1>Tu CRM, en tu computadora.</h1>
-                <p class="t-portada__lead">Instala Mikato CRM en macOS o Android. La agenda, los clientes, las mascotas y las ventas viven en tu equipo: no dependes de una conexión ni de una base compartida. Windows usa el mismo código y se publica al cerrar sus pruebas.</p>
+                <p class="t-portada__lead">Instala Mikato CRM en macOS o Android. La agenda, los clientes, las mascotas y las ventas viven en tu equipo: no dependes de una conexión ni de una base compartida. Windows, macOS y Android usan el mismo código.</p>
                 <div class="t-portada__acciones">
                     <a class="t-btn t-btn--azul t-btn--grande" href="#sistemas"><?= icono('descargar') ?> Elegir mi sistema</a>
                     <a class="t-btn t-btn--linea t-btn--grande" href="<?= url('/contacto') ?>">Pedir mi clave</a>
@@ -59,9 +59,9 @@ $whatsapp = $whatsapp ?? whatsapp_link();
             <article class="t-modulo" id="windows">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
                 <h3>Windows</h3>
-                <p>Instalador <strong>.exe</strong> para Windows 10 y 11, 64 bits. No requiere permisos de administrador.</p>
-                <div class="t-modulo__pie"><span>En preparación</span><span>beta</span></div>
-                <a class="t-btn t-btn--linea t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/contacto?asunto=descarga-windows') ?>">Recibir aviso</a>
+                <p>Instalador <strong>.exe</strong> para Windows 10 y 11, 64 bits. Instalación por usuario, sin permisos de administrador.</p>
+                <div class="t-modulo__pie"><span>Instalador · ≈ 3 MB</span><span>v1.0</span></div>
+                <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-windows-x64-setup.exe') ?>?v=1.0.1" download>Descargar para Windows</a>
             </article>
             <article class="t-modulo" id="macos">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
@@ -78,7 +78,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
                 <a class="t-btn t-btn--azul t-btn--chico" style="align-self:flex-start;margin-top:4px;" href="<?= url('/descargas/Mikato-CRM-1.0.0-android.apk') ?>?v=1.0.1" download>Descargar para Android</a>
             </article>
         </div>
-        <p style="font-size:13px;margin:14px 0 0;color:var(--t-tinta-3);">macOS y Android ya están disponibles para probar. Windows se publica al cerrar sus pruebas. El instalador de macOS aún no está notarizado: al abrirlo puede pedir confirmación en <em>Preferencias del Sistema → Seguridad</em>. En Android, permite instalar apps de esta fuente cuando el sistema lo pregunte.</p>
+        <p style="font-size:13px;margin:14px 0 0;color:var(--t-tinta-3);">Windows, macOS y Android ya están disponibles. Ningún instalador está firmado con un certificado comercial todavía: Windows puede mostrar SmartScreen, macOS puede pedir confirmación en <em>Preferencias del Sistema → Seguridad</em> y Android pide permitir la instalación desde esta fuente.</p>
     </div>
 </section>
 

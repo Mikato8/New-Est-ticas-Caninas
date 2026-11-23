@@ -9,7 +9,7 @@ $cuentaUrl = $usuario !== null
 <div class="t-utilidad">
     <div class="contenedor">
         <span><span class="t-utilidad__punto" aria-hidden="true"></span>Hecho en Guadalajara, Jalisco</span>
-        <span class="t-utilidad__largo"><a href="<?= url('/descargar') ?>">Descarga el CRM para macOS y Android</a></span>
+        <span class="t-utilidad__largo"><a href="<?= url('/descargar') ?>">Descarga el CRM para Windows, macOS y Android</a></span>
         <?php if ($whatsapp !== ''): ?>
             <a href="<?= e($whatsapp) ?>" target="_blank" rel="noopener">WhatsApp</a>
         <?php endif; ?>

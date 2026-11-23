@@ -1,0 +1,15 @@
+Mikato CRM 1.0.0 para Windows
+=============================
+
+Requisitos: Windows 10 u 11, 64 bits.
+
+1. Ejecuta Mikato-CRM-1.0.0-windows-x64-setup.exe.
+   Es una instalación por usuario: no pide permisos de administrador.
+2. Windows puede mostrar SmartScreen porque el instalador aún no tiene
+   certificado comercial. Elige "Más información" > "Ejecutar de todos modos".
+3. Al abrir, escribe la clave MKTO-XXXX-XXXX-XXXX que te entregó Mikato.
+   La activación se valida una vez; después la app trabaja sin internet.
+4. Tus datos se guardan en:
+   %APPDATA%\mx.mikato.crm\mikato.db
+
+Respaldo: Ajustes > Respaldo, o copia el archivo mikato.db con la app cerrada.

@@ -55,7 +55,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
                     <a class="t-btn t-btn--linea t-btn--grande" href="<?= url('/servicios') ?>">Ver cómo funciona</a>
                 </div>
                 <ul class="t-portada__pruebas">
-                    <li><?= icono('check') ?> macOS y Android disponibles; Windows en preparación.</li>
+                    <li><?= icono('check') ?> Windows, macOS y Android. La misma app en los tres.</li>
                     <li><?= icono('check') ?> Tus datos se guardan en tu equipo, no en un servidor ajeno.</li>
                     <li><?= icono('check') ?> Licencia por clave de acceso y actualizaciones firmadas.</li>
                 </ul>
@@ -119,7 +119,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
         <div class="t-confianza">
             <div><?= icono('pin') ?><div><strong>Hecho en Guadalajara</strong><span>Productos y software de Mikato.</span></div></div>
             <div><?= icono('escudo') ?><div><strong>Datos en tu equipo</strong><span>Cada estética con su propia base.</span></div></div>
-            <div><?= icono('descargar') ?><div><strong>macOS y Android disponibles</strong><span>Windows en preparación.</span></div></div>
+            <div><?= icono('descargar') ?><div><strong>Windows, macOS y Android</strong><span>Instaladores y actualizaciones firmadas.</span></div></div>
             <div><?= icono('whatsapp') ?><div><strong>Soporte por WhatsApp</strong><span>Te acompañamos en la instalación.</span></div></div>
         </div>
     </div>
@@ -169,7 +169,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
             <article class="t-modulo">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
                 <h3>App descargable</h3>
-                <p>Se instala en tu equipo. Hoy macOS y Android; Windows usa el mismo código.</p>
+                <p>Se instala en tu equipo, con la misma base en Windows, macOS y Android.</p>
                 <div class="t-modulo__pie"><span>Sin nube obligatoria</span><span>7 MB</span></div>
             </article>
         </div>
@@ -194,7 +194,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
                 <a class="t-sistema" href="<?= url('/descargar#windows') ?>">
                     <span class="t-sistema__icono"><?= icono('descargar') ?></span>
                     <span class="t-sistema__texto"><strong>Windows</strong><small>Instalador .exe · Windows 10 u 11</small></span>
-                    <span class="t-sistema__flecha">En preparación</span>
+                    <span class="t-sistema__flecha">Descargar</span>
                 </a>
                 <a class="t-sistema" href="<?= url('/descargar#macos') ?>">
                     <span class="t-sistema__icono"><?= icono('descargar') ?></span>
@@ -206,7 +206,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
                     <span class="t-sistema__texto"><strong>Android</strong><small>APK · Android 8 o superior</small></span>
                     <span class="t-sistema__flecha">Descargar</span>
                 </a>
-                <p style="font-size:12px;color:#9fb3cc;margin:4px 0 0;">macOS y Android disponibles hoy. Windows se publica al cerrar sus pruebas.</p>
+                <p style="font-size:12px;color:#9fb3cc;margin:4px 0 0;">Windows, macOS y Android disponibles hoy. Los tres usan tu base local.</p>
             </div>
         </div>
     </div>
