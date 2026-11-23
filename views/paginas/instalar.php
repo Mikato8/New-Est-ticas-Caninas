@@ -114,6 +114,7 @@ $pasos = [
                     <li>Funciona sin internet después de la primera carga.</li>
                 </ul>
                 <p class="t-descarga__nota">¿No tienes clave? <a href="<?= url('/contacto') ?>">Pídela aquí</a>.</p>
+                <p class="t-descarga__nota">Para cambiar de usuario —por ejemplo, al administrador— haz clic en tu nombre en la esquina superior derecha y elige <strong>Karla Méndez · Administración</strong>.</p>
             </div>
             <div class="t-sistemas">
                 <div class="t-sistema" style="cursor:default;">
