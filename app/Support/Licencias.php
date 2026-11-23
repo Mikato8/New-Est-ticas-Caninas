@@ -66,7 +66,8 @@ final class Licencias
         if ($expira !== null && $expira <= time()) {
             return [410, self::error('licencia_vencida', 'La licencia venció. Renueva tu suscripción para seguir usando Mikato CRM.')];
         }
-        if (($licencia['equipo'] ?? null) !== null && $licencia['equipo'] !== '' && $licencia['equipo'] !== $equipo) {
+        $esDemo = ($licencia['plan'] ?? '') === 'demo';
+        if (!$esDemo && ($licencia['equipo'] ?? null) !== null && $licencia['equipo'] !== '' && $licencia['equipo'] !== $equipo) {
             return [409, self::error('equipo_en_uso', 'Esta licencia ya está activada en otro equipo. Pide a Mikato que la mueva a este identificador.')];
         }
 
@@ -89,9 +90,11 @@ final class Licencias
             return [500, self::error('firma_interna', 'El servidor no pudo firmar el token de licencia.')];
         }
 
-        $registro['licencias'][$indice]['equipo'] = $equipo;
-        $registro['licencias'][$indice]['activada_en'] = gmdate('c', $emitidoEn);
-        self::guardarRegistro($registro);
+        if (!$esDemo) {
+            $registro['licencias'][$indice]['equipo'] = $equipo;
+            $registro['licencias'][$indice]['activada_en'] = gmdate('c', $emitidoEn);
+            self::guardarRegistro($registro);
+        }
 
         return [200, [
             'estado' => 'activa',
