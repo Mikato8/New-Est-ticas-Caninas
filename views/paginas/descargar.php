@@ -14,7 +14,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
                 <h1>Tu CRM, en tu computadora.</h1>
                 <p class="t-portada__lead">Instala Mikato CRM en Windows y Android <strong>como app web, sin avisos de virus</strong>, o usa el instalador de escritorio si prefieres un archivo. La agenda, los clientes, las mascotas y las ventas viven en tu equipo: no dependes de una base compartida.</p>
                 <div class="t-portada__acciones">
-                    <a class="t-btn t-btn--azul t-btn--grande" href="<?= url('/app/') ?>" target="_blank" rel="noopener"><?= icono('descargar') ?> Abrir app web</a>
+                    <a class="t-btn t-btn--azul t-btn--grande" href="<?= url('/crm/') ?>" target="_blank" rel="noopener"><?= icono('descargar') ?> Abrir app web</a>
                     <a class="t-btn t-btn--linea t-btn--grande" href="#sistemas">Ver instaladores</a>
                 </div>
                 <ul class="t-portada__pruebas">
@@ -55,7 +55,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
                 <h2>Instálalo como app web.</h2>
                 <p>Se abre en el navegador y se instala como una aplicación. No hay <strong>.exe</strong> ni <strong>.apk</strong>, así que Windows no muestra SmartScreen y Android no pide instalar de una fuente desconocida.</p>
             </div>
-            <a class="t-btn t-btn--azul" href="<?= url('/app/') ?>" target="_blank" rel="noopener">Abrir app web</a>
+            <a class="t-btn t-btn--azul" href="<?= url('/crm/') ?>" target="_blank" rel="noopener">Abrir app web</a>
         </div>
         <div class="t-guias t-guias--dos">
             <article class="t-guia">
