@@ -21,10 +21,11 @@ $flashError = Session::flash('error');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= e($titulo ?? 'Panel') ?> · <?= e(config('short')) ?></title>
     <meta name="robots" content="noindex, nofollow">
-    <meta name="theme-color" content="#163a36">
+    <meta name="theme-color" content="#0b2440">
     <link rel="icon" type="image/svg+xml" href="<?= asset('/assets/img/favicon.svg') ?>">
     <link rel="stylesheet" href="<?= asset('/assets/fonts/fonts.css') ?>">
     <link rel="stylesheet" href="<?= asset('/assets/css/app.css') ?>">
+    <link rel="stylesheet" href="<?= asset('/assets/css/tienda.css') ?>">
 </head>
 <body>
 <div class="panel">

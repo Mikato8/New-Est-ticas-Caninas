@@ -1,17 +1,11 @@
 <?php
 declare(strict_types=1);
 
-$iconosServicio = ['bano' => 'bano', 'corte' => 'tijeras', 'unas' => 'una', 'oidos' => 'oido', 'spa' => 'chispa', 'paquete' => 'caja'];
-$arteProducto = static function (string $categoria): string {
-    return match ($categoria) {
-        'perfume' => '/assets/img/producto-espray.svg',
-        'cepillo' => '/assets/img/producto-cepillo.svg',
-        'herramienta' => '/assets/img/producto-herramienta.svg',
-        default => '/assets/img/producto-botella.svg',
-    };
-};
-$categoriasPost = \App\Repositories\PublicacionRepository::categorias();
+$catalogo = $catalogo ?? [];
 $whatsapp = whatsapp_link();
+$categoriasPost = \App\Repositories\PublicacionRepository::categorias();
+$categoriasGuia = \App\Domain\Contenido\Guias::categorias();
+$categoriasProducto = \App\Repositories\ProductoRepository::categorias();
 
 $porNombre = [];
 foreach ($servicios as $servicio) {
@@ -19,320 +13,330 @@ foreach ($servicios as $servicio) {
     if (!isset($porNombre[$nombre])) {
         $porNombre[$nombre] = $servicio;
         $porNombre[$nombre]['precio_min'] = (float) $servicio['precio'];
-        $porNombre[$nombre]['tamanos'] = [(string) $servicio['tamano']];
     } else {
         $porNombre[$nombre]['precio_min'] = min((float) $porNombre[$nombre]['precio_min'], (float) $servicio['precio']);
-        $porNombre[$nombre]['tamanos'][] = (string) $servicio['tamano'];
     }
 }
 $serviciosHome = array_slice(array_values($porNombre), 0, 6);
+$productosHome = [];
+if ($catalogo !== []) {
+    $porCategoria = [];
+    foreach ($catalogo as $item) {
+        if ((string) ($item['imagen'] ?? '') === '' || isset($porCategoria[(string) $item['categoria']])) {
+            continue;
+        }
+        $porCategoria[(string) $item['categoria']] = $item;
+    }
+    $productosHome = array_slice(array_values($porCategoria), 0, 4);
+    if (count($productosHome) < 4) {
+        foreach ($catalogo as $item) {
+            if (count($productosHome) >= 4 || (string) ($item['imagen'] ?? '') === '') {
+                continue;
+            }
+            $ids = array_column($productosHome, 'id');
+            if (!in_array($item['id'], $ids, true)) {
+                $productosHome[] = $item;
+            }
+        }
+    }
+}
+$guiasHome = array_slice($guias, 0, 3);
+$negociosHome = array_slice(array_values(array_filter($negocios, static fn (array $n): bool => !es_verdadero($n['es_demo'] ?? false))), 0, 3);
 ?>
-<section class="hero">
+<section class="t-portada">
     <div class="contenedor">
-        <div class="hero__rejilla">
+        <div class="t-portada__rejilla">
             <div>
-                <span class="hero__eyebrow"><span></span>Mikato · CRM y productos para estéticas caninas</span>
-                <h1>El oficio de las estéticas, con <em>técnica y orden</em>.</h1>
-                <p class="hero__lead">Agenda, clientes, mascotas, inventario, ventas y reportes para estéticas caninas. También fabricamos productos profesionales en Guadalajara, Jalisco. Mikato no atiende perros: impulsa a quien lo hace.</p>
-                <div class="hero__acciones">
-                    <a class="boton boton--oro boton--grande" href="<?= url('/servicios') ?>"><?= icono('agenda') ?> Conocer el CRM</a>
-                    <a class="boton boton--contorno boton--grande" href="<?= url('/productos') ?>"><?= icono('caja') ?> Ver productos</a>
+                <span class="t-eyebrow">Software para estéticas caninas</span>
+                <h1>El CRM de las estéticas caninas, con orden.</h1>
+                <p class="t-portada__lead">Agenda, clientes, mascotas, inventario, ventas y reportes en un solo programa. Se instala en tu computadora y trabaja con tus datos, sin depender de la nube.</p>
+                <div class="t-portada__acciones">
+                    <a class="t-btn t-btn--azul t-btn--grande" href="<?= url('/descargar') ?>"><?= icono('descargar') ?> Descargar el CRM</a>
+                    <a class="t-btn t-btn--linea t-btn--grande" href="<?= url('/servicios') ?>">Ver cómo funciona</a>
                 </div>
-                <ul class="hero__pruebas">
-                    <li><?= icono('check') ?> Agenda y expediente por mascota</li>
-                    <li><?= icono('check') ?> Productos hechos en Guadalajara, Jalisco</li>
-                    <li><?= icono('check') ?> Reportes para tomar decisiones</li>
+                <ul class="t-portada__pruebas">
+                    <li><?= icono('check') ?> Windows, macOS y Android. La misma cuenta en los tres.</li>
+                    <li><?= icono('check') ?> Tus datos se guardan en tu equipo, no en un servidor ajeno.</li>
+                    <li><?= icono('check') ?> Licencia por clave de acceso y actualizaciones firmadas.</li>
                 </ul>
             </div>
-            <div class="hero__arte">
-                <img src="<?= asset('/assets/img/hero-perro.svg') ?>" alt="Perro recién bañado y peinado en Mikato" width="470" height="520">
-                <div class="flotante flotante--1">
-                    <?= icono('agenda') ?>
-                    <div><strong>Agenda del salón</strong><small>Módulo de citas y horarios</small></div>
+            <div class="t-app-marco" aria-label="Vista de la agenda del CRM">
+                <div class="t-app">
+                    <div class="t-app__barra">
+                        <span class="t-app__punto"></span><span class="t-app__punto"></span><span class="t-app__punto"></span>
+                        <span class="t-app__titulo">Mikato CRM · Panel</span>
+                    </div>
+                    <div class="t-app__cuerpo">
+                        <aside class="t-app__lado">
+                            <div class="t-app__marca"><span>M</span> Mikato</div>
+                            <div class="t-app__menu">
+                                <span class="activo">Hoy</span>
+                                <span>Agenda</span>
+                                <span>Clientes</span>
+                                <span>Mascotas</span>
+                                <span>Ventas</span>
+                                <span>Reportes</span>
+                            </div>
+                        </aside>
+                        <div class="t-app__principal">
+                            <div class="t-app__cabeza">
+                                <strong>Agenda de hoy</strong>
+                                <small>4 citas</small>
+                            </div>
+                            <div class="t-app__fila">
+                                <span class="t-app__hora">09:00</span>
+                                <span class="t-app__cliente"><strong>Luna · Baño y corte</strong><small>María Fernanda · Golden retriever</small></span>
+                                <span class="t-app__estado">Confirmada</span>
+                            </div>
+                            <div class="t-app__fila">
+                                <span class="t-app__hora">10:30</span>
+                                <span class="t-app__cliente"><strong>Toby · Uñas y oídos</strong><small>Jorge · French poodle</small></span>
+                                <span class="t-app__estado">Confirmada</span>
+                            </div>
+                            <div class="t-app__fila">
+                                <span class="t-app__hora">12:00</span>
+                                <span class="t-app__cliente"><strong>Nina · Baño</strong><small>Paola · Schnauzer</small></span>
+                                <span class="t-app__estado t-app__estado--espera">En espera</span>
+                            </div>
+                            <div class="t-app__fila">
+                                <span class="t-app__hora">13:30</span>
+                                <span class="t-app__cliente"><strong>Rocky · Corte</strong><small>Andrés · Shih tzu</small></span>
+                                <span class="t-app__estado">Confirmada</span>
+                            </div>
+                            <div class="t-app__pie">
+                                <span>Estimado del día</span>
+                                <strong>$1,850</strong>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="flotante flotante--2">
-                    <?= icono('libro') ?>
-                    <div><strong><?= (int) ($stats['guias'] ?? 12) ?> guías de oficio</strong><small>Baño, corte, uñas y negocio</small></div>
-                </div>
-                <div class="flotante flotante--3">
-                    <?= icono('directorio') ?>
-                    <div><strong>Directorio nacional</strong><small>Estéticas en México</small></div>
+                <div class="t-app__flotante">
+                    <?= icono('check') ?>
+                    <div><strong>Datos en tu equipo</strong><small>Respaldo local automático</small></div>
                 </div>
             </div>
         </div>
-        <div class="hero__cinta">
-            <span><?= icono('agenda') ?> Agenda · clientes · inventario · ventas</span>
-            <span><?= icono('escudo') ?> Manejo de bajo estrés</span>
-            <span><?= icono('grafica') ?> Reportes y control del negocio</span>
-            <span><?= icono('pin') ?> Hecho en Guadalajara, Jalisco</span>
+        <div class="t-confianza">
+            <div><?= icono('pin') ?><div><strong>Hecho en Guadalajara</strong><span>Productos y software de Mikato.</span></div></div>
+            <div><?= icono('escudo') ?><div><strong>Datos en tu equipo</strong><span>Cada estética con su propia base.</span></div></div>
+            <div><?= icono('descargar') ?><div><strong>Windows, macOS y Android</strong><span>Instaladores firmados y actualizaciones.</span></div></div>
+            <div><?= icono('whatsapp') ?><div><strong>Soporte por WhatsApp</strong><span>Te acompañamos en la instalación.</span></div></div>
         </div>
     </div>
 </section>
 
-<section class="seccion seccion--compacta">
+<section class="t-seccion">
     <div class="contenedor">
-        <div class="encabezado-seccion encabezado-seccion--fila">
+        <div class="t-seccion__cabeza">
             <div>
-                <span class="mono texto-oro">Galería de la comunidad</span>
-                <h2>Trabajos de estilistas, en sus propias palabras.</h2>
-                <p>Fotos y videos que suben las estéticas en las guías. Desliza para ver más; si tienes cuenta, comparte tu trabajo.</p>
+                <span class="t-kicker">Módulos</span>
+                <h2>Todo el salón, en un solo programa.</h2>
+                <p>Lo que hoy está en cuadernos, hojas de cálculo y mensajes sueltos, ordenado en una pantalla.</p>
             </div>
-            <a class="boton boton--pequeno" href="<?= url('/guias') ?>">Compartir mi trabajo</a>
+            <a href="<?= url('/servicios') ?>">Ver el detalle del CRM</a>
         </div>
-        <div class="carrusel" tabindex="0" aria-label="Trabajos de la comunidad">
-            <?php if (($trabajos ?? []) !== []): ?>
-                <?php foreach ($trabajos as $trabajo): ?>
-                    <article class="carrusel__slide">
-                        <div class="carrusel__imagen"><img src="<?= e($trabajo['ruta']) ?>" alt="<?= e($trabajo['titulo']) ?>" loading="lazy"></div>
-                        <div class="carrusel__texto">
-                            <h3><?= e($trabajo['titulo']) ?></h3>
-                            <p>Por <?= e($trabajo['autor']) ?></p>
-                            <a class="enlace-flecha" href="<?= url('/guias/' . $trabajo['guia_slug'] . '#galeria') ?>">Ver en la guía <?= icono('flecha') ?></a>
+        <div class="t-modulos">
+            <article class="t-modulo">
+                <div class="t-modulo__icono"><?= icono('agenda') ?></div>
+                <h3>Agenda del salón</h3>
+                <p>Citas por día, estados, reprogramación y avisos por WhatsApp con enlace privado.</p>
+                <div class="t-modulo__pie"><span>Vista diaria</span><span>1 min</span></div>
+            </article>
+            <article class="t-modulo">
+                <div class="t-modulo__icono"><?= icono('pata') ?></div>
+                <h3>Clientes y mascotas</h3>
+                <p>Expediente por mascota, historial de estética, alertas de manejo y datos de contacto.</p>
+                <div class="t-modulo__pie"><span>Ficha completa</span><span>3 min</span></div>
+            </article>
+            <article class="t-modulo">
+                <div class="t-modulo__icono"><?= icono('caja') ?></div>
+                <h3>Inventario y catálogo</h3>
+                <p>Servicios, productos y paquetes con precio, duración, tamaño y existencias.</p>
+                <div class="t-modulo__pie"><span>Stock y precios</span><span>2 min</span></div>
+            </article>
+            <article class="t-modulo">
+                <div class="t-modulo__icono"><?= icono('dinero') ?></div>
+                <h3>Ventas y gastos</h3>
+                <p>Ticket imprimible, descuentos, métodos de pago y gastos del día.</p>
+                <div class="t-modulo__pie"><span>Corte de caja</span><span>1 min</span></div>
+            </article>
+            <article class="t-modulo">
+                <div class="t-modulo__icono"><?= icono('grafica') ?></div>
+                <h3>Reportes</h3>
+                <p>Ventas, utilidad, punto de equilibrio y stock bajo para decidir con números.</p>
+                <div class="t-modulo__pie"><span>Por mes</span><span>1 min</span></div>
+            </article>
+            <article class="t-modulo">
+                <div class="t-modulo__icono"><?= icono('descargar') ?></div>
+                <h3>App descargable</h3>
+                <p>Se instala en Windows, macOS o Android. Tu base vive en tu equipo y se respalda local.</p>
+                <div class="t-modulo__pie"><span>Sin nube obligatoria</span><span>10 MB</span></div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="t-seccion t-seccion--fondo">
+    <div class="contenedor">
+        <div class="t-descarga">
+            <div>
+                <span class="t-kicker" style="color:var(--t-oro-claro);">Descarga</span>
+                <h2>Tu CRM, instalado en tu equipo.</h2>
+                <p>Descarga el programa, activa tu licencia con la clave de acceso y empieza a trabajar. No cargas la base completa de nadie: cada estética guarda la suya.</p>
+                <ul class="t-descarga__puntos">
+                    <li>Funciona sin internet para agenda, clientes y ventas.</li>
+                    <li>Actualizaciones firmadas: solo Mikato publica versiones.</li>
+                    <li>Respaldo local exportable cuando quieras.</li>
+                </ul>
+                <p class="t-descarga__nota">¿Primera vez? <a href="<?= url('/contacto') ?>">Pide tu clave de acceso</a> y te acompañamos en la instalación.</p>
+            </div>
+            <div class="t-sistemas">
+                <a class="t-sistema" href="<?= url('/descargar#windows') ?>">
+                    <span class="t-sistema__icono"><?= icono('descargar') ?></span>
+                    <span class="t-sistema__texto"><strong>Windows</strong><small>Instalador .exe · Windows 10 u 11</small></span>
+                    <span class="t-sistema__flecha">Descargar</span>
+                </a>
+                <a class="t-sistema" href="<?= url('/descargar#macos') ?>">
+                    <span class="t-sistema__icono"><?= icono('descargar') ?></span>
+                    <span class="t-sistema__texto"><strong>macOS</strong><small>Instalador .dmg · Apple Silicon e Intel</small></span>
+                    <span class="t-sistema__flecha">Descargar</span>
+                </a>
+                <a class="t-sistema" href="<?= url('/descargar#android') ?>">
+                    <span class="t-sistema__icono"><?= icono('descargar') ?></span>
+                    <span class="t-sistema__texto"><strong>Android</strong><small>APK · Android 9 o superior</small></span>
+                    <span class="t-sistema__flecha">Descargar</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="t-seccion">
+    <div class="contenedor">
+        <div class="t-seccion__cabeza">
+            <div>
+                <span class="t-kicker">Productos Mikato</span>
+                <h2>El producto que usa el salón.</h2>
+                <p>Shampoos, acondicionadores, aromas y herramientas que probamos con estilistas. El catálogo vive en mikato.com.mx.</p>
+            </div>
+            <a href="<?= url('/productos') ?>">Ver catálogo completo</a>
+        </div>
+        <div class="t-productos">
+            <?php if ($productosHome !== []): ?>
+                <?php foreach ($productosHome as $producto): ?>
+                    <article class="t-producto">
+                        <a class="t-producto__media" href="<?= e((string) $producto['url']) ?>" target="_blank" rel="noopener">
+                            <?php if ((string) ($producto['imagen'] ?? '') !== ''): ?>
+                                <img src="<?= e((string) $producto['imagen']) ?>" alt="<?= e((string) $producto['nombre']) ?>" width="480" height="480" loading="lazy">
+                            <?php else: ?>
+                                <img src="<?= asset('/assets/img/producto-botella.svg') ?>" alt="<?= e((string) $producto['nombre']) ?>" width="480" height="480" loading="lazy">
+                            <?php endif; ?>
+                        </a>
+                        <div class="t-producto__cuerpo">
+                            <p class="t-producto__marca"><?= e((string) $producto['categoria']) ?></p>
+                            <h3 class="t-producto__nombre"><a href="<?= e((string) $producto['url']) ?>" target="_blank" rel="noopener"><?= e((string) $producto['nombre']) ?></a></h3>
+                            <div class="t-producto__precio"><?= precio((float) $producto['precio']) ?><span>Precio en pesos mexicanos</span></div>
+                        </div>
+                        <div class="t-producto__accion">
+                            <a class="t-btn t-btn--linea t-btn--chico" href="<?= e((string) $producto['url']) ?>" target="_blank" rel="noopener">Comprar en la tienda</a>
                         </div>
                     </article>
                 <?php endforeach; ?>
             <?php else: ?>
-                <?php for ($i = 0; $i < 3; $i++): ?>
-                    <article class="carrusel__slide carrusel__slide--vacio">
-                        <div class="carrusel__imagen"><img src="<?= asset('/assets/img/hero-perro.svg') ?>" alt="Espacio para el trabajo de una estética" loading="lazy"></div>
-                        <div class="carrusel__texto">
-                            <h3>Tu trabajo aquí</h3>
-                            <p>Sube una foto o un video en cualquiera de las guías y aparece en esta galería.</p>
-                            <a class="enlace-flecha" href="<?= url('/guias') ?>">Elegir una guía <?= icono('flecha') ?></a>
+                <?php foreach (array_slice($productos, 0, 4) as $producto): ?>
+                    <article class="t-producto">
+                        <a class="t-producto__media" href="<?= e((string) ($producto['enlace'] ?? url('/productos'))) ?>">
+                            <img src="<?= asset('/assets/img/producto-botella.svg') ?>" alt="<?= e((string) $producto['nombre']) ?>" width="480" height="480" loading="lazy">
+                        </a>
+                        <div class="t-producto__cuerpo">
+                            <p class="t-producto__marca"><?= e($categoriasProducto[(string) $producto['categoria']] ?? (string) $producto['categoria']) ?></p>
+                            <h3 class="t-producto__nombre"><a href="<?= url('/productos') ?>"><?= e((string) $producto['nombre']) ?></a></h3>
+                            <div class="t-producto__precio"><?= precio((float) $producto['precio']) ?><span>Precio en pesos mexicanos</span></div>
                         </div>
-                    </article>
-                <?php endfor; ?>
-            <?php endif; ?>
-        </div>
-    </div>
-</section>
-
-<section class="seccion--compacta">
-    <div class="contenedor">
-        <div class="grid grid--4">
-            <div class="tarjeta-dato">
-                <span class="mono">Guías publicadas</span>
-                <strong class="dato"><?= (int) ($stats['guias'] ?? 0) ?></strong>
-                <span class="texto-tenue" style="font-size:.8rem;">De baño, corte, salud y negocio</span>
-            </div>
-            <div class="tarjeta-dato">
-                <span class="mono">Casos en comunidad</span>
-                <strong class="dato"><?= (int) ($stats['publicaciones'] ?? 0) ?></strong>
-                <span class="texto-tenue" style="font-size:.8rem;">Compartidos por estilistas</span>
-            </div>
-            <div class="tarjeta-dato">
-                <span class="mono">Estéticas en el directorio</span>
-                <strong class="dato"><?= (int) ($stats['negocios'] ?? 0) ?></strong>
-                <span class="texto-tenue" style="font-size:.8rem;">Fichas revisadas por Mikato</span>
-            </div>
-            <div class="tarjeta-dato">
-                <span class="mono">Citas agendadas</span>
-                <strong class="dato"><?= (int) ($stats['citas'] ?? 0) ?></strong>
-                <span class="texto-tenue" style="font-size:.8rem;">Reservas en línea y mostrador</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="seccion" id="servicios">
-    <div class="contenedor">
-        <div class="encabezado-seccion encabezado-seccion--fila">
-            <div>
-                <span class="mono">Módulo de servicios</span>
-                <h2>Así se ve tu catálogo en el CRM.</h2>
-                <p>Configura baño, corte, uñas, oídos y spa con precio, duración y tamaño. Tus clientes reservan en línea y el panel calcula el resto.</p>
-            </div>
-            <a class="enlace-flecha" href="<?= url('/servicios') ?>">Cómo funciona el CRM <?= icono('flecha') ?></a>
-        </div>
-        <div class="grid grid--3">
-            <?php foreach ($serviciosHome as $servicio): ?>
-                <article class="tarjeta tarjeta--enlace tarjeta-servicio">
-                    <div class="tarjeta__cuerpo">
-                        <div class="tarjeta-servicio__icono"><?= icono($iconosServicio[(string) $servicio['categoria']] ?? 'pata') ?></div>
-                        <h3><?= e($servicio['nombre']) ?></h3>
-                        <p><?= e(limitar_texto((string) $servicio['descripcion'], 110)) ?></p>
-                        <div class="tarjeta-servicio__precio">
-                            <strong>Desde <?= precio($servicio['precio_min'] ?? $servicio['precio']) ?></strong>
-                            <small><?= count($servicio['tamanos'] ?? [1]) > 1 ? 'Varios tamaños' : e(tamano_label((string) $servicio['tamano'])) ?></small>
-                        </div>
-                    </div>
-                </article>
-            <?php endforeach; ?>
-        </div>
-        <p class="texto-tenue mt-3" style="font-size:.84rem;">Estos son datos de ejemplo del módulo. En tu cuenta configuras tus propios servicios, precios y tiempos; la agenda pública es una demostración.</p>
-    </div>
-</section>
-
-<section class="seccion seccion--crema">
-    <div class="contenedor">
-        <div class="split">
-            <div>
-                <span class="mono texto-oro">Para estilistas caninos</span>
-                <h2>Tu oficio también se estudia.</h2>
-                <p class="texto-suave">Doce guías escritas para el día a día del salón: cómo bañar sin resecar, hasta dónde cortar una uña, cómo secar sin riesgo, cómo cotizar sin regalar el trabajo y qué verificar para abrir tu estética en México.</p>
-                <ul class="sin-lista" style="display:grid;gap:12px;margin:24px 0;">
-                    <li class="flex-centro"><?= icono('check', 'texto-teal') ?> <span>Guías con tablas, checklists y fuentes.</span></li>
-                    <li class="flex-centro"><?= icono('check', 'texto-teal') ?> <span>Calculadoras de dilución, precio, secado y rentabilidad.</span></li>
-                    <li class="flex-centro"><?= icono('check', 'texto-teal') ?> <span>Comunidad moderada para casos y dudas reales.</span></li>
-                </ul>
-                <div class="flex-centro">
-                    <a class="boton" href="<?= url('/guias') ?>">Explorar las guías</a>
-                    <a class="boton boton--contorno" href="<?= url('/calculadoras') ?>">Abrir calculadoras</a>
-                </div>
-            </div>
-            <div class="grid grid--2">
-                <?php foreach (array_slice($guias, 0, 4) as $guia): ?>
-                    <article class="tarjeta tarjeta--enlace tarjeta-guia">
-                        <div class="tarjeta-guia__portada tarjeta-guia__portada--<?= e($guia['categoria']) ?>">
-                            <?= icono($guia['icono']) ?>
-                            <span class="etiqueta etiqueta--oscura"><?= e(\App\Domain\Contenido\Guias::categorias()[$guia['categoria']] ?? $guia['categoria']) ?></span>
-                        </div>
-                        <div class="tarjeta-guia__cuerpo">
-                            <h3><a href="<?= url('/guias/' . $guia['slug']) ?>"><?= e($guia['titulo']) ?></a></h3>
-                            <p><?= e(limitar_texto($guia['resumen'], 90)) ?></p>
-                            <div class="tarjeta-guia__meta">
-                                <span><?= e($guia['nivel']) ?></span>
-                                <span><?= (int) $guia['minutos'] ?> min</span>
-                            </div>
+                        <div class="t-producto__accion">
+                            <a class="t-btn t-btn--linea t-btn--chico" href="<?= url('/productos') ?>">Ver en el catálogo</a>
                         </div>
                     </article>
                 <?php endforeach; ?>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="seccion">
-    <div class="contenedor">
-        <div class="encabezado-seccion encabezado-seccion--fila">
-            <div>
-                <span class="mono">Productos Mikato</span>
-                <h2>Elaborados en Guadalajara, Jalisco, para el salón.</h2>
-                <p>Shampoos, acondicionadores, aromas y herramientas. Lo que probamos con estilistas y recomendamos a otras estéticas.</p>
-            </div>
-            <a class="enlace-flecha" href="<?= url('/productos') ?>">Ver catálogo <?= icono('flecha') ?></a>
-        </div>
-        <div class="grid grid--4">
-            <?php foreach (array_slice($productos, 0, 4) as $producto): ?>
-                <article class="tarjeta tarjeta--enlace tarjeta-producto">
-                    <div class="tarjeta-producto__imagen">
-                        <img src="<?= asset($arteProducto((string) $producto['categoria'])) ?>" alt="<?= e($producto['nombre']) ?>" width="170" height="170" loading="lazy">
-                    </div>
-                    <div class="tarjeta-producto__cuerpo">
-                        <span class="etiqueta"><?= e(\App\Repositories\ProductoRepository::categorias()[(string) $producto['categoria']] ?? $producto['categoria']) ?></span>
-                        <h3 class="mt-1"><?= e($producto['nombre']) ?></h3>
-                        <p><?= e(limitar_texto((string) $producto['descripcion'], 80)) ?></p>
-                        <div class="tarjeta-producto__precio">
-                            <strong><?= precio($producto['precio']) ?></strong>
-                            <small><?= e((string) ($producto['presentacion'] ?? '')) ?></small>
-                        </div>
-                    </div>
-                </article>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
-
-<section class="seccion seccion--crema">
-    <div class="contenedor">
-        <div class="encabezado-seccion">
-            <span class="mono">Comunidad</span>
-            <h2>Lo que se habla en el salón.</h2>
-            <p>Casos, técnicas y dudas de estilistas caninos de todo México. Un foro moderado, sin ruido y con respuestas útiles.</p>
-        </div>
-        <div class="grid grid--3">
-            <?php foreach ($publicaciones as $publicacion): ?>
-                <article class="tarjeta tarjeta--enlace tarjeta-post">
-                    <div class="tarjeta-post__meta">
-                        <span class="etiqueta etiqueta--teal"><?= e($categoriasPost[(string) $publicacion['categoria']] ?? $publicacion['categoria']) ?></span>
-                        <span><?= e(fecha($publicacion['creado_en'], 'd M')) ?></span>
-                    </div>
-                    <h3><a href="<?= url('/comunidad/' . $publicacion['slug']) ?>"><?= e($publicacion['titulo']) ?></a></h3>
-                    <p><?= e(limitar_texto((string) ($publicacion['resumen'] ?: $publicacion['contenido']), 120)) ?></p>
-                    <div class="tarjeta-post__pie">
-                        <span class="flex-centro"><span class="avatar" style="width:26px;height:26px;font-size:.65rem;"><?= e(iniciales((string) $publicacion['autor_nombre'])) ?></span> <?= e($publicacion['autor_nombre']) ?></span>
-                        <span><?= (int) $publicacion['comentarios'] ?> respuestas</span>
-                    </div>
-                </article>
-            <?php endforeach; ?>
-            <?php if ($publicaciones === []): ?>
-                <div class="tarjeta tarjeta__cuerpo" style="grid-column:1/-1;">
-                    <h3>Sé la primera persona en compartir</h3>
-                    <p class="texto-suave">Publica un caso, una técnica o una duda. La comunidad crece con lo que compartes.</p>
-                    <a class="boton" href="<?= url('/comunidad/publicar') ?>">Publicar en la comunidad</a>
-                </div>
             <?php endif; ?>
         </div>
-        <div class="flex-centro mt-3">
-            <a class="boton boton--contorno" href="<?= url('/comunidad') ?>">Entrar a la comunidad</a>
-            <a class="enlace-flecha" href="<?= url('/comunidad/publicar') ?>">Compartir mi caso <?= icono('flecha') ?></a>
+    </div>
+</section>
+
+<section class="t-seccion t-seccion--fondo">
+    <div class="contenedor">
+        <div class="t-seccion__cabeza">
+            <div>
+                <span class="t-kicker">Guías de oficio</span>
+                <h2>El oficio también se estudia.</h2>
+                <p>Doce guías escritas para el día a día del salón: baño, uñas, oídos, secado, manejo y precios.</p>
+            </div>
+            <a href="<?= url('/guias') ?>">Ver las 12 guías</a>
+        </div>
+        <div class="t-guias">
+            <?php foreach ($guiasHome as $guia): ?>
+                <article class="t-guia">
+                    <div class="t-guia__franja">
+                        <?= icono((string) $guia['icono']) ?>
+                        <span><?= e($categoriasGuia[(string) $guia['categoria']] ?? (string) $guia['categoria']) ?></span>
+                    </div>
+                    <div class="t-guia__cuerpo">
+                        <h3><a href="<?= url('/guias/' . $guia['slug']) ?>"><?= e((string) $guia['titulo']) ?></a></h3>
+                        <p><?= e(limitar_texto((string) $guia['resumen'], 100)) ?></p>
+                        <div class="t-guia__meta"><span><?= e((string) $guia['nivel']) ?></span><span><?= (int) $guia['minutos'] ?> min de lectura</span></div>
+                    </div>
+                </article>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
 
-<section class="seccion">
+<section class="t-seccion">
     <div class="contenedor">
-        <div class="encabezado-seccion encabezado-seccion--fila">
+        <div class="t-seccion__cabeza">
             <div>
-                <span class="mono">Directorio</span>
-                <h2>Estéticas que cuidan como tú.</h2>
-                <p>Encuentra estilistas y estéticas caninas por estado. Cada ficha pasa por revisión antes de publicarse.</p>
+                <span class="t-kicker">Directorio</span>
+                <h2>Estéticas que ya trabajan con orden.</h2>
+                <p>Fichas revisadas por Mikato en todo el país. Busca por estado o registra tu estética.</p>
             </div>
-            <a class="enlace-flecha" href="<?= url('/directorio') ?>">Buscar por estado <?= icono('flecha') ?></a>
+            <a href="<?= url('/directorio') ?>">Abrir el directorio</a>
         </div>
-        <div class="grid grid--3">
-            <?php foreach ($negocios as $negocio): ?>
-                <article class="tarjeta tarjeta--enlace tarjeta-negocio">
-                    <div class="tarjeta-negocio__cabeza">
-                        <span class="avatar avatar--grande avatar--oro"><?= e(iniciales((string) $negocio['nombre'])) ?></span>
-                        <div>
-                            <h3><a href="<?= url('/directorio/' . $negocio['slug']) ?>" style="text-decoration:none;"><?= e($negocio['nombre']) ?></a></h3>
-                            <span class="tarjeta-negocio__ciudad"><?= e($negocio['ciudad']) ?>, <?= e($negocio['estado_geo']) ?></span>
-                        </div>
+        <div class="t-directorio">
+            <?php if ($negociosHome === []): ?>
+                <article class="t-ficha-negocio" style="grid-column:1 / -1;flex-direction:row;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
+                    <div>
+                        <h3>Tu estética puede ser la primera ficha verificada</h3>
+                        <p>Revisamos cada ficha antes de publicarla. Sin datos de ejemplo ni reseñas inventadas.</p>
                     </div>
+                    <a class="t-btn t-btn--azul t-btn--chico" href="<?= url('/directorio/registrar') ?>">Registrar mi estética</a>
+                </article>
+            <?php endif; ?>
+            <?php foreach ($negociosHome as $negocio): ?>
+                <article class="t-ficha-negocio">
+                    <h3><a href="<?= url('/directorio/' . $negocio['slug']) ?>" style="color:inherit;text-decoration:none;"><?= e((string) $negocio['nombre']) ?></a></h3>
+                    <p><?= e((string) $negocio['ciudad']) ?>, <?= e((string) $negocio['estado_geo']) ?></p>
                     <p><?= e(limitar_texto((string) $negocio['descripcion'], 110)) ?></p>
-                    <div class="tarjeta-negocio__pie">
-                        <?php if (es_verdadero($negocio['es_demo'])): ?>
-                            <span class="etiqueta etiqueta--coral">Ejemplo</span>
-                        <?php elseif (es_verdadero($negocio['verificado'])): ?>
-                            <span class="verificado"><?= icono('escudo') ?> Verificada</span>
-                        <?php else: ?>
-                            <span class="etiqueta">Ficha revisada</span>
-                        <?php endif; ?>
-                        <a class="enlace-flecha" href="<?= url('/directorio/' . $negocio['slug']) ?>">Ver ficha <?= icono('flecha') ?></a>
+                    <div class="t-ficha-negocio__meta">
+                        <span><?= es_verdadero($negocio['verificado']) ? 'Ficha verificada' : 'Ficha revisada' ?></span>
+                        <a href="<?= url('/directorio/' . $negocio['slug']) ?>">Ver ficha</a>
                     </div>
                 </article>
             <?php endforeach; ?>
-            <?php if ($negocios === []): ?>
-                <div class="tarjeta tarjeta__cuerpo" style="grid-column:1/-1;">
-                    <div class="flex-centro" style="align-items:flex-start;">
-                        <span class="tarjeta-servicio__icono" style="margin:0;"><?= icono('directorio') ?></span>
-                        <div>
-                            <h3>El directorio está abriendo</h3>
-                            <p class="texto-suave mb-0">Estamos revisando las primeras fichas de estéticas caninas. Si tienes una, regístrala y aparece cuando la aprobemos.</p>
-                            <a class="boton boton--pequeno mt-2" href="<?= url('/directorio/registrar') ?>">Registrar mi estética</a>
-                        </div>
-                    </div>
-                </div>
-            <?php endif; ?>
         </div>
     </div>
 </section>
 
-<section class="seccion seccion--compacta">
+<section class="t-seccion t-seccion--ajustada">
     <div class="contenedor">
-        <div class="cta">
+        <div class="t-banda-final">
             <div>
-                <span class="mono texto-oro">CRM para estéticas</span>
-                <h2>Haz que tu estética trabaje con orden.</h2>
-                <p>Agenda, clientes, mascotas, inventario y reportes en un solo panel. Solicita una demo y te mostramos el flujo con tus propios servicios.</p>
+                <h2>¿Lo vemos con tu salón?</h2>
+                <p>Te mostramos el CRM con tus servicios y tus precios. Si decides instalarlo, te damos la clave de acceso y el respaldo inicial.</p>
             </div>
-            <div class="cta__acciones">
-                <a class="boton boton--oro boton--grande" href="<?= url('/contacto') ?>">Solicitar demo</a>
+            <div class="t-banda-final__acciones">
+                <a class="t-btn t-btn--azul" href="<?= url('/contacto') ?>">Solicitar una demo</a>
                 <?php if ($whatsapp !== ''): ?>
-                    <a class="boton boton--fantasma boton--grande" href="<?= e($whatsapp) ?>" target="_blank" rel="noopener"><?= icono('whatsapp') ?> WhatsApp</a>
-                <?php else: ?>
-                    <a class="boton boton--fantasma boton--grande" href="<?= url('/contacto') ?>">Escribirnos</a>
+                    <a class="t-btn t-btn--linea" href="<?= e($whatsapp) ?>" target="_blank" rel="noopener"><?= icono('whatsapp') ?> WhatsApp</a>
                 <?php endif; ?>
             </div>
         </div>

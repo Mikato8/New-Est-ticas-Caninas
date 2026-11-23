@@ -22,16 +22,6 @@ $categoriaEtiqueta = Guias::categorias()[$guia['categoria']] ?? $guia['categoria
     </header>
 </div>
 
-<div class="contenedor">
-    <div class="articulo__portada">
-        <div>
-            <strong><?= e($guia['titulo']) ?></strong>
-            <p><?= e($guia['resumen']) ?></p>
-        </div>
-        <?= icono($iconos[$guia['categoria']] ?? 'libro') ?>
-    </div>
-</div>
-
 <section class="seccion seccion--compacta" style="padding-top:0;">
     <div class="contenedor">
         <div class="articulo">

@@ -30,7 +30,11 @@ final class MediaController
 
         $ruta = BASE_PATH . '/storage/cache/tienda/' . $id . '-' . self::ANCHO . '.webp';
         if (!is_file($ruta)) {
-            self::generar($id, $ruta);
+            try {
+                self::generar($id, $ruta);
+            } catch (\Throwable) {
+                // Sin caché escribible se cae al respaldo de la tienda.
+            }
         }
         if (!is_file($ruta)) {
             return Response::redirigir(Tienda::baseUrl() . '/api/v1/images/' . rawurlencode($id), 302);

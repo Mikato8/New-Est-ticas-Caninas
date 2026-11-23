@@ -39,6 +39,7 @@ return static function (Router $router): void {
     });
     $router->get('/', [HomeController::class, 'index']);
     $router->get('/servicios', [HomeController::class, 'servicios']);
+    $router->get('/descargar', [HomeController::class, 'descargar']);
     $router->get('/productos', [HomeController::class, 'productos']);
     $router->get('/media/tienda/{id}', [MediaController::class, 'tienda']);
     $router->get('/nosotros', [HomeController::class, 'nosotros']);

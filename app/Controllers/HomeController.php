@@ -34,6 +34,7 @@ final class HomeController
         return Response::html(view('paginas/home', [
             'titulo' => 'CRM y productos para estéticas caninas · Mikato',
             'descripcion' => 'CRM para estéticas caninas: agenda, clientes, mascotas, inventario, ventas y reportes. Productos Mikato elaborados en Guadalajara, Jalisco.',
+            'catalogo' => Tienda::productos(),
             'servicios' => $servicios,
             'categoriasServicio' => ServicioRepository::categorias(),
             'productos' => $productos,
@@ -48,6 +49,15 @@ final class HomeController
                 'citas' => CitaRepository::contar(),
             ],
             'usuario' => Auth::usuario(),
+        ]));
+    }
+
+    public function descargar(Request $peticion): Response
+    {
+        return Response::html(view('paginas/descargar', [
+            'titulo' => 'Descargar el CRM para estéticas caninas',
+            'descripcion' => 'Descarga Mikato CRM para Windows, macOS o Android. Tus datos se guardan en tu equipo, la licencia se activa con una clave y solo Mikato publica actualizaciones.',
+            'whatsapp' => whatsapp_link(),
         ]));
     }
 

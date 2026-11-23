@@ -239,6 +239,7 @@ final class PaginasController
         $urls = [
             ['loc' => '/', 'prioridad' => '1.0'],
             ['loc' => '/servicios', 'prioridad' => '0.9'],
+            ['loc' => '/descargar', 'prioridad' => '0.9'],
             ['loc' => '/productos', 'prioridad' => '0.8'],
             ['loc' => '/guias', 'prioridad' => '0.9'],
             ['loc' => '/comunidad', 'prioridad' => '0.8'],

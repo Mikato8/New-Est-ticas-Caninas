@@ -19,7 +19,7 @@ $imagenSocial = url('/assets/img/og.png');
     <meta name="description" content="<?= e($descripcion ?? config('tagline')) ?>">
     <?php if (!empty($noindex)): ?><meta name="robots" content="noindex, nofollow"><?php endif; ?>
     <link rel="canonical" href="<?= e($canonica) ?>">
-    <meta name="theme-color" content="#245a53">
+    <meta name="theme-color" content="#0b2440">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="<?= e(config('name')) ?>">
     <meta property="og:title" content="<?= e($titulo ?? config('name')) ?>">
@@ -36,6 +36,7 @@ $imagenSocial = url('/assets/img/og.png');
     <link rel="icon" type="image/png" sizes="512x512" href="<?= asset('/assets/img/icono-512.png') ?>">
     <link rel="stylesheet" href="<?= asset('/assets/fonts/fonts.css') ?>">
     <link rel="stylesheet" href="<?= asset('/assets/css/app.css') ?>">
+    <link rel="stylesheet" href="<?= asset('/assets/css/tienda.css') ?>">
 </head>
 <body>
 <a class="sr-only" href="#contenido">Saltar al contenido</a>
