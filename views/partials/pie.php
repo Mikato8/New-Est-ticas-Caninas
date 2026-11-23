@@ -24,6 +24,7 @@ $whatsapp = whatsapp_link();
                 <h3>Contenido</h3>
                 <ul>
                     <li><a href="<?= url('/guias') ?>">Guías de oficio</a></li>
+                    <li><a href="<?= url('/prestadores') ?>">Guías para prestadores</a></li>
                     <li><a href="<?= url('/comunidad') ?>">Comunidad</a></li>
                     <li><a href="<?= url('/directorio') ?>">Directorio nacional</a></li>
                     <li><a href="<?= url('/glosario') ?>">Glosario</a></li>

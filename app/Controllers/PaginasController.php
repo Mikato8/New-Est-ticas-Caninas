@@ -138,6 +138,14 @@ final class PaginasController
         ]));
     }
 
+    public function prestadores(Request $peticion): Response
+    {
+        return Response::html(view('paginas/prestadores', [
+            'titulo' => 'Guías para prestadores de servicios estéticos caninos',
+            'descripcion' => 'Formatos originales de Mikato para estéticas caninas: ficha de estilo, checklist de ingreso, carta de servicio y guía de obligaciones y responsabilidades.',
+        ]));
+    }
+
     public function privacidad(Request $peticion): Response
     {
         return Response::html(view('paginas/privacidad', [
@@ -239,6 +247,7 @@ final class PaginasController
         $urls = [
             ['loc' => '/', 'prioridad' => '1.0'],
             ['loc' => '/servicios', 'prioridad' => '0.9'],
+            ['loc' => '/prestadores', 'prioridad' => '0.8'],
             ['loc' => '/descargar', 'prioridad' => '0.9'],
             ['loc' => '/productos', 'prioridad' => '0.8'],
             ['loc' => '/guias', 'prioridad' => '0.9'],

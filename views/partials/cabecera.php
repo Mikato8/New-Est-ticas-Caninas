@@ -52,6 +52,7 @@ $cuentaUrl = $usuario !== null
                 <li><a class="<?= activo('/servicios') ?>" href="<?= url('/servicios') ?>">CRM</a></li>
                 <li><a class="<?= activo('/guias') ?>" href="<?= url('/guias') ?>">Guías</a></li>
                 <li><a class="<?= activo('/directorio') ?>" href="<?= url('/directorio') ?>">Directorio</a></li>
+                <li><a class="<?= activo('/prestadores') ?>" href="<?= url('/prestadores') ?>">Prestadores</a></li>
                 <li><a class="<?= activo('/calculadoras') ?>" href="<?= url('/calculadoras') ?>">Calculadoras</a></li>
                 <li><a class="<?= activo('/productos') ?>" href="<?= url('/productos') ?>">Productos</a></li>
                 <li><a class="<?= activo('/comunidad') ?>" href="<?= url('/comunidad') ?>">Comunidad</a></li>

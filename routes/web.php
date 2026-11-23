@@ -109,6 +109,7 @@ return static function (Router $router): void {
     $router->get('/api/buscar', [SearchController::class, 'api']);
 
     $router->get('/herramientas', [PaginasController::class, 'herramientas']);
+    $router->get('/prestadores', [PaginasController::class, 'prestadores']);
     $router->get('/fuentes', [PaginasController::class, 'fuentes']);
     $router->get('/derechos', [DerechosController::class, 'rectificacionForm']);
     $router->get('/derechos/rectificacion', [DerechosController::class, 'rectificacionForm']);
