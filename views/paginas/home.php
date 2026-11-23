@@ -206,7 +206,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
                     <span class="t-sistema__texto"><strong>Android</strong><small>APK · Android 8 o superior</small></span>
                     <span class="t-sistema__flecha">Descargar</span>
                 </a>
-                <p style="font-size:12px;color:#9fb3cc;margin:4px 0 0;">Windows, macOS y Android disponibles hoy. Los tres usan tu base local.</p>
+                <p style="font-size:12px;color:#9fb3cc;margin:4px 0 0;">Windows y Android también se pueden <a href="<?= url('/app/') ?>" style="color:var(--t-oro-claro);">instalar como app web, sin avisos</a>. macOS y los instaladores de escritorio siguen disponibles.</p>
             </div>
         </div>
     </div>

@@ -36,11 +36,21 @@ final class LicenciaController
         ]);
     }
 
+    public function preflight(Request $peticion): Response
+    {
+        return Response::texto('', 204)
+            ->conCabecera('Access-Control-Allow-Origin', '*')
+            ->conCabecera('Access-Control-Allow-Methods', 'POST, OPTIONS')
+            ->conCabecera('Access-Control-Allow-Headers', 'Content-Type, Accept')
+            ->conCabecera('Access-Control-Max-Age', '86400');
+    }
+
     public function activar(Request $peticion): Response
     {
         [$estado, $cuerpo] = Licencias::activar($peticion->cuerpo(), $peticion->ip());
 
         return Response::json($cuerpo, $estado)
-            ->conCabecera('Cache-Control', 'no-store');
+            ->conCabecera('Cache-Control', 'no-store')
+            ->conCabecera('Access-Control-Allow-Origin', '*');
     }
 }

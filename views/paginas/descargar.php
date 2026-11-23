@@ -12,15 +12,15 @@ $whatsapp = $whatsapp ?? whatsapp_link();
             <div>
                 <span class="t-eyebrow">Mikato CRM · Descarga</span>
                 <h1>Tu CRM, en tu computadora.</h1>
-                <p class="t-portada__lead">Instala Mikato CRM en Windows, macOS o Android. La agenda, los clientes, las mascotas y las ventas viven en tu equipo: no dependes de una conexión ni de una base compartida.</p>
+                <p class="t-portada__lead">Instala Mikato CRM en Windows y Android <strong>como app web, sin avisos de virus</strong>, o usa el instalador de escritorio si prefieres un archivo. La agenda, los clientes, las mascotas y las ventas viven en tu equipo: no dependes de una base compartida.</p>
                 <div class="t-portada__acciones">
-                    <a class="t-btn t-btn--azul t-btn--grande" href="#sistemas"><?= icono('descargar') ?> Elegir mi sistema</a>
-                    <a class="t-btn t-btn--linea t-btn--grande" href="<?= url('/contacto') ?>">Pedir mi clave</a>
+                    <a class="t-btn t-btn--azul t-btn--grande" href="<?= url('/app/') ?>" target="_blank" rel="noopener"><?= icono('descargar') ?> Abrir app web</a>
+                    <a class="t-btn t-btn--linea t-btn--grande" href="#sistemas">Ver instaladores</a>
                 </div>
                 <ul class="t-portada__pruebas">
-                    <li><?= icono('check') ?> Instalador ligero, sin dependencias ni servidor propio.</li>
-                    <li><?= icono('check') ?> Base SQLite local con respaldo exportable.</li>
-                    <li><?= icono('check') ?> Actualizaciones firmadas: solo Mikato publica versiones.</li>
+                    <li><?= icono('check') ?> Windows y Android sin SmartScreen ni Gatekeeper.</li>
+                    <li><?= icono('check') ?> Datos locales en el navegador o SQLite en escritorio, con respaldo.</li>
+                    <li><?= icono('check') ?> Licencia por clave y actualizaciones solo de Mikato.</li>
                 </ul>
             </div>
             <div class="t-app-marco">
@@ -46,13 +46,49 @@ $whatsapp = $whatsapp ?? whatsapp_link();
     </div>
 </section>
 
+
+<section class="t-seccion" id="app-web" style="padding-block:42px 0;">
+    <div class="contenedor">
+        <div class="t-seccion__cabeza">
+            <div>
+                <span class="t-kicker">Windows y Android · sin avisos</span>
+                <h2>Instálalo como app web.</h2>
+                <p>Se abre en el navegador y se instala como una aplicación. No hay <strong>.exe</strong> ni <strong>.apk</strong>, así que Windows no muestra SmartScreen y Android no pide instalar de una fuente desconocida.</p>
+            </div>
+            <a class="t-btn t-btn--azul" href="<?= url('/app/') ?>" target="_blank" rel="noopener">Abrir app web</a>
+        </div>
+        <div class="t-guias t-guias--dos">
+            <article class="t-guia">
+                <div class="t-guia__franja"><?= icono('descargar') ?><span>Windows</span></div>
+                <div class="t-guia__cuerpo">
+                    <h3>Edge o Chrome</h3>
+                    <p>Abre la app web, pulsa el icono <strong>Instalar</strong> de la barra de direcciones o entra al menú <strong>Aplicaciones → Instalar este sitio</strong>. Queda en el menú de inicio y se abre en su propia ventana.</p>
+                    <div class="t-guia__meta"><span>Sin .exe</span><span>Sin SmartScreen</span></div>
+                </div>
+            </article>
+            <article class="t-guia">
+                <div class="t-guia__franja"><?= icono('descargar') ?><span>Android</span></div>
+                <div class="t-guia__cuerpo">
+                    <h3>Chrome</h3>
+                    <p>Abre la app web y usa el menú <strong>Agregar a pantalla de inicio</strong> o <strong>Instalar aplicación</strong>. Funciona como una app y guarda los datos en este dispositivo.</p>
+                    <div class="t-guia__meta"><span>Sin APK</span><span>Sin fuente desconocida</span></div>
+                </div>
+            </article>
+        </div>
+        <div class="nota" style="margin-top:16px;font-size:13.5px;line-height:1.55;">
+            <strong>Datos y licencia.</strong> La app web guarda la base en IndexedDB de este navegador; exporta un respaldo desde <em>Ajustes → Respaldo</em>. Funciona sin internet después de la primera carga. La licencia se activa con la misma clave y se verifica sin conexión. Si necesitas la base SQLite como archivo, usa el instalador de escritorio.
+            <span style="display:block;margin-top:6px;">¿No tienes clave? <a href="<?= url('/contacto') ?>">Pídela aquí</a>.</span>
+        </div>
+    </div>
+</section>
+
 <section class="t-seccion" id="sistemas">
     <div class="contenedor">
         <div class="t-seccion__cabeza">
             <div>
-                <span class="t-kicker">Instaladores</span>
-                <h2>Elige tu sistema.</h2>
-                <p>La misma app y la misma base para las tres plataformas. Puedes mover tu respaldo de una a otra.</p>
+                <span class="t-kicker">Instaladores de escritorio</span>
+                <h2>Si prefieres un archivo.</h2>
+                <p>La misma app y la misma base para las tres plataformas. Puedes mover tu respaldo de una a otra. Estos instaladores sí pueden mostrar avisos del sistema.</p>
             </div>
         </div>
         <div class="t-modulos">

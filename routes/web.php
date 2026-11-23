@@ -25,6 +25,7 @@ use App\Core\Router;
 return static function (Router $router): void {
     $router->get('/api/licencias/salud', [LicenciaController::class, 'salud']);
     $router->post('/api/licencias/activar', [LicenciaController::class, 'activar']);
+    $router->options('/api/licencias/activar', [LicenciaController::class, 'preflight']);
 
     $router->get('/api/salud', static function (Request $peticion): Response {
         $base = 'sin conexión';

@@ -19,6 +19,11 @@ final class Router
         $this->agregar('POST', $patron, $handler);
     }
 
+    public function options(string $patron, mixed $handler): void
+    {
+        $this->agregar('OPTIONS', $patron, $handler);
+    }
+
     private function agregar(string $metodo, string $patron, mixed $handler): void
     {
         $patron = '/' . trim($patron, '/');
@@ -60,7 +65,7 @@ final class Router
         }
 
         if ($rutaEncontrada) {
-            return Response::texto('Método no permitido', 405)->conCabecera('Allow', 'GET, POST');
+            return Response::texto('Método no permitido', 405)->conCabecera('Allow', 'GET, POST, OPTIONS');
         }
 
         throw new HttpException('La página que buscas no existe.', 404);
