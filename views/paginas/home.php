@@ -119,7 +119,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
         <div class="t-confianza">
             <div><?= icono('pin') ?><div><strong>Hecho en Guadalajara</strong><span>Productos y software de Mikato.</span></div></div>
             <div><?= icono('escudo') ?><div><strong>Datos en tu equipo</strong><span>Cada estética con su propia base.</span></div></div>
-            <div><?= icono('descargar') ?><div><strong>Windows, macOS y Android</strong><span>Instaladores firmados y actualizaciones.</span></div></div>
+            <div><?= icono('descargar') ?><div><strong>macOS disponible</strong><span>Windows y Android en preparación.</span></div></div>
             <div><?= icono('whatsapp') ?><div><strong>Soporte por WhatsApp</strong><span>Te acompañamos en la instalación.</span></div></div>
         </div>
     </div>
@@ -194,7 +194,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
                 <a class="t-sistema" href="<?= url('/descargar#windows') ?>">
                     <span class="t-sistema__icono"><?= icono('descargar') ?></span>
                     <span class="t-sistema__texto"><strong>Windows</strong><small>Instalador .exe · Windows 10 u 11</small></span>
-                    <span class="t-sistema__flecha">Descargar</span>
+                    <span class="t-sistema__flecha">En preparación</span>
                 </a>
                 <a class="t-sistema" href="<?= url('/descargar#macos') ?>">
                     <span class="t-sistema__icono"><?= icono('descargar') ?></span>
@@ -204,8 +204,9 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
                 <a class="t-sistema" href="<?= url('/descargar#android') ?>">
                     <span class="t-sistema__icono"><?= icono('descargar') ?></span>
                     <span class="t-sistema__texto"><strong>Android</strong><small>APK · Android 9 o superior</small></span>
-                    <span class="t-sistema__flecha">Descargar</span>
+                    <span class="t-sistema__flecha">En preparación</span>
                 </a>
+                <p style="font-size:12px;color:#9fb3cc;margin:4px 0 0;">macOS disponible hoy. Windows y Android se publican al cerrar sus pruebas.</p>
             </div>
         </div>
     </div>
