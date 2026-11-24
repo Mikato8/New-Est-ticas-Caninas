@@ -54,6 +54,8 @@ $flashError = Session::flash('error');
                 <span class="separador-nav">Administración</span>
                 <a class="<?= $activo('/panel/usuarios') ?>" href="<?= url('/panel/usuarios') ?>"><?= icono('perfil') ?> Usuarios</a>
                 <a class="<?= $activo('/panel/configuracion') ?>" href="<?= url('/panel/configuracion') ?>"><?= icono('config') ?> Configuración</a>
+                <a class="<?= $activo('/panel/licencias') ?>" href="<?= url('/panel/licencias') ?>"><?= icono('escudo') ?> Licencias</a>
+                <a href="<?= url('/crm/') ?>" target="_blank" rel="noopener"><?= icono('flecha') ?> Abrir CRM</a>
             <?php endif; ?>
             <?php if ($puedeModerar): ?>
                 <a class="<?= $activo('/admin') ?>" href="<?= url('/admin') ?>"><?= icono('escudo') ?> Moderación</a>

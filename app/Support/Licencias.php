@@ -105,6 +105,104 @@ final class Licencias
         ]];
     }
 
+
+    /** @return list<array<string,mixed>> */
+    public static function listar(): array
+    {
+        $registro = self::leerRegistro();
+        $licencias = $registro['licencias'];
+        usort($licencias, static fn (array $a, array $b): int => ((string) ($b['creada_en'] ?? '')) <=> ((string) ($a['creada_en'] ?? '')));
+
+        return $licencias;
+    }
+
+    /**
+     * Crea una clave en el registro. La firma del token ocurre al activar.
+     *
+     * @return array{ok:bool,mensaje:string,clave:string}
+     */
+    public static function crear(string $titular, string $plan, string $expira, string $negocio): array
+    {
+        $titular = trim($titular);
+        $negocio = trim($negocio);
+        $plan = strtolower(trim($plan));
+        $expira = trim($expira);
+        if ($titular === '' || mb_strlen($titular) > 120) {
+            return ['ok' => false, 'mensaje' => 'Escribe el nombre del cliente o de la estética.', 'clave' => ''];
+        }
+        if (!in_array($plan, ['comercial', 'multi', 'demo'], true)) {
+            return ['ok' => false, 'mensaje' => 'Elige un plan válido.', 'clave' => ''];
+        }
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $expira) !== 1 || strtotime($expira) === false) {
+            return ['ok' => false, 'mensaje' => 'La fecha de vencimiento debe ser YYYY-MM-DD.', 'clave' => ''];
+        }
+        if (strtotime($expira . ' 23:59:59') <= time()) {
+            return ['ok' => false, 'mensaje' => 'La fecha de vencimiento debe ser futura.', 'clave' => ''];
+        }
+        if ($negocio === '') {
+            $negocio = 'Mikato Estilistas Caninos';
+        }
+
+        $registro = self::leerRegistro();
+        $alfabeto = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        $grupo = static function () use ($alfabeto): string {
+            $texto = '';
+            for ($i = 0; $i < 4; $i++) {
+                $texto .= $alfabeto[random_int(0, strlen($alfabeto) - 1)];
+            }
+
+            return $texto;
+        };
+        $existentes = array_column($registro['licencias'], 'clave');
+        do {
+            $clave = sprintf('MKTO-%s-%s-%s', $grupo(), $grupo(), $grupo());
+        } while (in_array($clave, $existentes, true));
+
+        $registro['licencias'][] = [
+            'clave' => $clave,
+            'plan' => $plan,
+            'titular' => $titular,
+            'negocio' => $negocio,
+            'expira_en' => $expira,
+            'estado' => 'activa',
+            'equipo' => null,
+            'activada_en' => null,
+            'creada_en' => gmdate('c'),
+        ];
+        self::guardarRegistro($registro);
+
+        return ['ok' => true, 'mensaje' => 'Clave creada.', 'clave' => $clave];
+    }
+
+    public static function revocar(string $clave): bool
+    {
+        $clave = strtoupper(trim($clave));
+        $registro = self::leerRegistro();
+        $encontrada = false;
+        foreach ($registro['licencias'] as $i => $fila) {
+            if (($fila['clave'] ?? '') === $clave) {
+                $registro['licencias'][$i]['estado'] = 'revocada';
+                $encontrada = true;
+            }
+        }
+        if ($encontrada) {
+            self::guardarRegistro($registro);
+        }
+
+        return $encontrada;
+    }
+
+    /** Indica de dónde sale la llave que firma: entorno, demo o ninguna. */
+    public static function origenLlave(): string
+    {
+        $pem = (string) env('LICENCIA_PRIVATE_KEY', '');
+        if ($pem !== '') {
+            return 'entorno';
+        }
+
+        return is_file(BASE_PATH . self::LLAVE_DEMO) ? 'demo' : 'ninguna';
+    }
+
     /** Diagnóstico seguro: intenta firmar un payload de prueba, sin datos de clientes. */
     public static function probarFirma(): array
     {

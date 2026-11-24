@@ -22,6 +22,7 @@ use App\Repositories\ServicioRepository;
 use App\Repositories\UsuarioRepository;
 use App\Repositories\VentaRepository;
 use App\Support\AgendaShare;
+use App\Support\Licencias;
 use App\Support\Slug;
 use App\Support\Upload;
 use App\Support\Validator;
@@ -853,6 +854,59 @@ final class PanelController
             'serie' => VentaRepository::serieDias($desde, $hasta),
             'gastosCategoria' => GastoRepository::porCategoria($desde, $hasta),
         ]));
+    }
+
+
+    public function licencias(Request $peticion): Response
+    {
+        Auth::requiereRol(['admin']);
+        $nueva = strtoupper(trim($peticion->cadena('nueva')));
+        if (preg_match(Licencias::PATRON, $nueva) !== 1) {
+            $nueva = '';
+        }
+
+        return view_panel('panel/licencias', [
+            'titulo' => 'Licencias',
+            'descripcion' => 'Genera y administra las claves de activación de Mikato CRM.',
+            'usuario' => Auth::usuario() ?? [],
+            'licencias' => Licencias::listar(),
+            'nueva' => $nueva,
+            'origenLlave' => Licencias::origenLlave(),
+            'endpoint' => url('/api/licencias/activar'),
+        ]);
+    }
+
+    public function licenciaCrear(Request $peticion): Response
+    {
+        Auth::requiereRol(['admin']);
+        Csrf::verificar($peticion);
+        $resultado = Licencias::crear(
+            $peticion->cadena('titular'),
+            $peticion->cadena('plan'),
+            $peticion->cadena('expira'),
+            $peticion->cadena('negocio'),
+        );
+        if (!$resultado['ok']) {
+            Session::flash('error', $resultado['mensaje']);
+            Session::recordarViejo($peticion->cuerpo());
+            return redirigir('/panel/licencias');
+        }
+        Session::flash('exito', 'Clave creada: ' . $resultado['clave'] . '. Cópiala y entrégala al cliente.');
+        return redirigir('/panel/licencias?nueva=' . urlencode($resultado['clave']));
+    }
+
+    public function licenciaRevocar(Request $peticion): Response
+    {
+        Auth::requiereRol(['admin']);
+        Csrf::verificar($peticion);
+        $clave = strtoupper(trim($peticion->cadena('clave')));
+        if (!Licencias::revocar($clave)) {
+            Session::flash('error', 'No se encontró la clave ' . $clave . '.');
+        } else {
+            Session::flash('exito', 'Clave revocada: ' . $clave . '.');
+        }
+
+        return redirigir('/panel/licencias');
     }
 
     public function usuarios(Request $peticion): Response

@@ -153,6 +153,9 @@ return static function (Router $router): void {
     $router->post('/panel/gastos/guardar', [PanelController::class, 'gastoGuardar']);
     $router->post('/panel/gastos/eliminar', [PanelController::class, 'gastoEliminar']);
     $router->get('/panel/reportes', [PanelController::class, 'reportes']);
+    $router->get('/panel/licencias', [PanelController::class, 'licencias']);
+    $router->post('/panel/licencias/crear', [PanelController::class, 'licenciaCrear']);
+    $router->post('/panel/licencias/revocar', [PanelController::class, 'licenciaRevocar']);
     $router->get('/panel/usuarios', [PanelController::class, 'usuarios']);
     $router->post('/panel/usuarios/guardar', [PanelController::class, 'usuarioGuardar']);
     $router->post('/panel/usuarios/estado', [PanelController::class, 'usuarioEstado']);

@@ -37,7 +37,7 @@ $cuentaUrl = $usuario !== null
                     <?= icono('whatsapp') ?><span class="t-accion__texto">WhatsApp</span>
                 </a>
             <?php endif; ?>
-            <a class="t-btn t-btn--azul t-btn--chico" href="<?= url('/descargar') ?>"><?= icono('descargar') ?> Instalar CRM</a>
+            <a class="t-btn t-btn--azul t-btn--chico" href="<?= url('/crm/') ?>" target="_blank" rel="noopener"><?= icono('flecha') ?> Abrir CRM</a>
             <?php if ($usuario !== null): ?>
                 <a class="t-btn t-btn--linea t-btn--chico" href="<?= $cuentaUrl ?>"><?= e(iniciales((string) $usuario['nombre'])) ?></a>
             <?php else: ?>
