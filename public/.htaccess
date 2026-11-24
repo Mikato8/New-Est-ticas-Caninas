@@ -1,7 +1,7 @@
 Options -Indexes
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^crm/?$ /crm/index.html [L]
+    RewriteRule ^crm(/|$) /panel [R=302,L]
     RewriteRule ^app/?$ /crm/ [R=301,L]
     RewriteRule ^descargas/Mikato-CRM-1\.0\.0-(macOS\.dmg|windows-x64-setup\.exe|windows-x64\.msi|windows-x64-portable\.zip|android\.apk)$ /crm/ [R=301,L]
     RewriteCond %{REQUEST_FILENAME} !-f

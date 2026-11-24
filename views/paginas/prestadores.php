@@ -163,7 +163,7 @@ $docs = [
                     <li>LFPDPPP: aviso de privacidad y derechos ARCO.</li>
                     <li>No hay una NOM federal específica de estética canina; revisa reglas estatales y municipales.</li>
                 </ul>
-                <p class="t-descarga__nota">Fuente: <a href="https://www.gob.mx/profeco/documentos/servicios-esteticos-para-mascotas-una-cuestion-de-pelos?state=published" target="_blank" rel="noopener">PROFECO · Servicios estéticos para mascotas</a>.</p>
+                <p class="t-descarga__nota">Fuente: <a href="https://www.gob.mx/profeco/documentos/servicios-esteticos-para-mascotas-una-cuestion-de-pelos?state=published">PROFECO · Servicios estéticos para mascotas</a>.</p>
             </div>
             <div class="t-sistemas">
                 <a class="t-sistema" href="<?= url('/descargas/formatos/Mikato-Guia-prestadores.pdf') ?>?v=1.1" download>
@@ -199,9 +199,9 @@ $docs = [
                 <p>Los formatos se pueden imprimir y archivar; el CRM guarda la ficha, el historial y el respaldo de cada mascota.</p>
             </div>
             <div class="t-banda-final__acciones">
-                <a class="t-btn t-btn--azul" href="<?= url('/crm/') ?>" target="_blank" rel="noopener">Abrir el CRM</a>
+                <a class="t-btn t-btn--azul" href="<?= url('/panel') ?>">Abrir el CRM</a>
                 <?php if ($whatsapp !== ''): ?>
-                    <a class="t-btn t-btn--linea" href="<?= e($whatsapp) ?>" target="_blank" rel="noopener"><?= icono('whatsapp') ?> WhatsApp</a>
+                    <a class="t-btn t-btn--linea" href="<?= e($whatsapp) ?>"><?= icono('whatsapp') ?> WhatsApp</a>
                 <?php endif; ?>
             </div>
         </div>

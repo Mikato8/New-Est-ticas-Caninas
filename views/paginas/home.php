@@ -49,15 +49,15 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
             <div>
                 <span class="t-eyebrow">Software para estéticas caninas</span>
                 <h1>El CRM de las estéticas caninas, con orden.</h1>
-                <p class="t-portada__lead">Agenda, clientes, mascotas, inventario, ventas y reportes en un solo programa. Se usa desde el navegador, sin instalar archivos, y trabaja con tus datos sin depender de la nube.</p>
+                <p class="t-portada__lead">Agenda, clientes, mascotas, inventario, ventas y reportes en un solo programa. Se usa desde el navegador, sin instalar archivos, y todo el equipo trabaja sobre la misma base.</p>
                 <div class="t-portada__acciones">
-                    <a class="t-btn t-btn--azul t-btn--grande" href="<?= url('/crm/') ?>" target="_blank" rel="noopener"><?= icono('flecha') ?> Abrir el CRM</a>
+                    <a class="t-btn t-btn--azul t-btn--grande" href="<?= url('/panel') ?>"><?= icono('flecha') ?> Abrir el CRM</a>
                     <a class="t-btn t-btn--linea t-btn--grande" href="<?= url('/servicios') ?>">Ver cómo funciona</a>
                 </div>
                 <ul class="t-portada__pruebas">
                     <li><?= icono('check') ?> Software en línea: se usa desde cualquier navegador, sin instalar.</li>
-                    <li><?= icono('check') ?> Tus datos se guardan en tu equipo, no en un servidor ajeno.</li>
-                    <li><?= icono('check') ?> Licencia por clave de acceso y actualizaciones firmadas.</li>
+                    <li><?= icono('check') ?> Cuentas conectadas: recepción, estilistas y administración ven lo mismo.</li>
+                    <li><?= icono('check') ?> Roles y permisos por persona, desde el panel.</li>
                 </ul>
             </div>
             <div class="t-app-marco" aria-label="Vista de la agenda del CRM">
@@ -118,9 +118,9 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
         </div>
         <div class="t-confianza">
             <div><?= icono('pin') ?><div><strong>Hecho en Guadalajara</strong><span>Productos y software de Mikato.</span></div></div>
-            <div><?= icono('escudo') ?><div><strong>Datos en tu equipo</strong><span>Cada estética con su propia base.</span></div></div>
+            <div><?= icono('escudo') ?><div><strong>Datos conectados</strong><span>Todo el equipo en una sola base.</span></div></div>
             <div><?= icono('descargar') ?><div><strong>Software en línea</strong><span>Se usa desde el navegador, sin instalar.</span></div></div>
-            <div><?= icono('whatsapp') ?><div><strong>Soporte por WhatsApp</strong><span>Te acompañamos en la instalación.</span></div></div>
+            <div><?= icono('whatsapp') ?><div><strong>Soporte por WhatsApp</strong><span>Te acompañamos a empezar.</span></div></div>
         </div>
     </div>
 </section>
@@ -182,21 +182,21 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
             <div>
                 <span class="t-kicker" style="color:var(--t-oro-claro);">CRM en línea</span>
                 <h2>Tu CRM, listo en tu navegador.</h2>
-                <p>Abre el CRM en línea, activa tu licencia con la clave de acceso y empieza a trabajar. No cargas la base completa de nadie: cada estética guarda la suya.</p>
+                <p>Entra con tu cuenta desde cualquier dispositivo. Tu equipo comparte clientes, mascotas, citas y ventas en una sola base.</p>
                 <ul class="t-descarga__puntos">
-                    <li>Funciona en cualquier navegador moderno, sin instalar nada.</li>
-                    <li>Actualizaciones automáticas: solo Mikato publica versiones.</li>
-                    <li>Respaldo local exportable cuando quieras.</li>
+                    <li>Cuentas para recepción, estilistas y administración.</li>
+                    <li>Los cambios se ven al instante en todos los dispositivos.</li>
+                    <li>Sin instalar nada: se entra desde el navegador.</li>
                 </ul>
-                <p class="t-descarga__nota">¿Primera vez? <a href="<?= url('/contacto') ?>">Pide tu clave de acceso</a> y te acompañamos.</p>
+                <p class="t-descarga__nota">¿Primera vez? <a href="<?= url('/contacto') ?>">Pide tu cuenta de acceso</a> y te acompañamos.</p>
             </div>
             <div class="t-sistemas">
-                <a class="t-sistema" href="<?= url('/crm/') ?>" target="_blank" rel="noopener">
+                <a class="t-sistema" href="<?= url('/panel') ?>">
                     <span class="t-sistema__icono"><?= icono('flecha') ?></span>
                     <span class="t-sistema__texto"><strong>CRM en línea</strong><small>Sin instalación · desde cualquier navegador</small></span>
                     <span class="t-sistema__flecha">Abrir</span>
                 </a>
-                <p style="font-size:12px;color:#9fb3cc;margin:4px 0 0;">El CRM es <a href="<?= url('/crm/') ?>" style="color:var(--t-oro-claro);">software en línea</a>: se abre desde el navegador y no se descarga ningún archivo.</p>
+                <p style="font-size:12px;color:#9fb3cc;margin:4px 0 0;">El CRM es <a href="<?= url('/panel') ?>" style="color:var(--t-oro-claro);">software en línea</a>: se abre desde el navegador y no se descarga ningún archivo.</p>
             </div>
         </div>
     </div>
@@ -216,7 +216,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
             <?php if ($productosHome !== []): ?>
                 <?php foreach ($productosHome as $producto): ?>
                     <article class="t-producto">
-                        <a class="t-producto__media" href="<?= e((string) $producto['url']) ?>" target="_blank" rel="noopener">
+                        <a class="t-producto__media" href="<?= e((string) $producto['url']) ?>">
                             <?php if ((string) ($producto['imagen'] ?? '') !== ''): ?>
                                 <img src="<?= e((string) $producto['imagen']) ?>" alt="<?= e((string) $producto['nombre']) ?>" width="480" height="480" loading="lazy">
                             <?php else: ?>
@@ -225,11 +225,11 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
                         </a>
                         <div class="t-producto__cuerpo">
                             <p class="t-producto__marca"><?= e((string) $producto['categoria']) ?></p>
-                            <h3 class="t-producto__nombre"><a href="<?= e((string) $producto['url']) ?>" target="_blank" rel="noopener"><?= e((string) $producto['nombre']) ?></a></h3>
+                            <h3 class="t-producto__nombre"><a href="<?= e((string) $producto['url']) ?>"><?= e((string) $producto['nombre']) ?></a></h3>
                             <div class="t-producto__precio"><?= precio((float) $producto['precio']) ?><span>Precio en pesos mexicanos</span></div>
                         </div>
                         <div class="t-producto__accion">
-                            <a class="t-btn t-btn--linea t-btn--chico" href="<?= e((string) $producto['url']) ?>" target="_blank" rel="noopener">Comprar en la tienda</a>
+                            <a class="t-btn t-btn--linea t-btn--chico" href="<?= e((string) $producto['url']) ?>">Comprar en la tienda</a>
                         </div>
                     </article>
                 <?php endforeach; ?>
@@ -322,12 +322,12 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
         <div class="t-banda-final">
             <div>
                 <h2>¿Lo vemos con tu salón?</h2>
-                <p>Te mostramos el CRM con tus servicios y tus precios. Si decides usarlo, te damos la clave de acceso y el respaldo inicial.</p>
+                <p>Te mostramos el CRM con tus servicios y tus precios. Si decides usarlo, te creamos la cuenta y te acompañamos con la carga inicial.</p>
             </div>
             <div class="t-banda-final__acciones">
                 <a class="t-btn t-btn--azul" href="<?= url('/contacto') ?>">Solicitar una demo</a>
                 <?php if ($whatsapp !== ''): ?>
-                    <a class="t-btn t-btn--linea" href="<?= e($whatsapp) ?>" target="_blank" rel="noopener"><?= icono('whatsapp') ?> WhatsApp</a>
+                    <a class="t-btn t-btn--linea" href="<?= e($whatsapp) ?>"><?= icono('whatsapp') ?> WhatsApp</a>
                 <?php endif; ?>
             </div>
         </div>

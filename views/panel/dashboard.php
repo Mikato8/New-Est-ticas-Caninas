@@ -15,7 +15,6 @@ foreach ($serie as $dia) { $maxSerie = max($maxSerie, (float) $dia['total']); }
     <div class="panel__acciones">
         <a class="boton boton--pequeno" href="<?= url('/panel/ventas/nueva') ?>"><?= icono('mas') ?> Nueva venta</a>
         <a class="boton boton--oro boton--pequeno" href="<?= url('/panel/agenda') ?>"><?= icono('agenda') ?> Agenda</a>
-        <a class="boton boton--contorno boton--pequeno" href="<?= url('/crm/') ?>" target="_blank" rel="noopener"><?= icono('flecha') ?> Abrir CRM</a>
     </div>
 </header>
 

@@ -13,8 +13,7 @@ $whatsapp = whatsapp_link();
             <div>
                 <h3>CRM</h3>
                 <ul>
-                    <li><a href="<?= url('/crm/') ?>" target="_blank" rel="noopener">CRM en línea</a></li>
-                    <li><a href="<?= url('/crm/') ?>">Abrir app web</a></li>
+                    <li><a href="<?= url('/panel') ?>">CRM en línea</a></li>
                     <li><a href="<?= url('/servicios') ?>">Servicios y precios</a></li>
                     <li><a href="<?= url('/agenda') ?>">Demo de agenda</a></li>
                     <li><a href="<?= url('/calculadoras') ?>">Calculadoras</a></li>
@@ -36,7 +35,7 @@ $whatsapp = whatsapp_link();
                 <h3>Contacto</h3>
                 <ul>
                     <li><a href="<?= url('/contacto') ?>">Escríbenos</a></li>
-                    <?php if ($whatsapp !== ''): ?><li><a href="<?= e($whatsapp) ?>" target="_blank" rel="noopener">WhatsApp</a></li><?php endif; ?>
+                    <?php if ($whatsapp !== ''): ?><li><a href="<?= e($whatsapp) ?>">WhatsApp</a></li><?php endif; ?>
                     <?php if ((string) config('contacto.email') !== ''): ?><li><a href="mailto:<?= e(config('contacto.email')) ?>"><?= e(config('contacto.email')) ?></a></li><?php endif; ?>
                     <li><span style="color:var(--t-tinta-3);"><?= e(config('contacto.horario')) ?></span></li>
                     <li><a href="<?= url('/buenas-practicas') ?>">Buenas prácticas</a></li>
