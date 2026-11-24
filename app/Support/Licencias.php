@@ -169,7 +169,9 @@ final class Licencias
             'activada_en' => null,
             'creada_en' => gmdate('c'),
         ];
-        self::guardarRegistro($registro);
+        if (!self::guardarRegistro($registro)) {
+            return ['ok' => false, 'mensaje' => 'No se pudo guardar el registro de licencias. Revisa permisos de storage/.', 'clave' => ''];
+        }
 
         return ['ok' => true, 'mensaje' => 'Clave creada.', 'clave' => $clave];
     }
@@ -185,11 +187,11 @@ final class Licencias
                 $encontrada = true;
             }
         }
-        if ($encontrada) {
-            self::guardarRegistro($registro);
+        if (!$encontrada) {
+            return false;
         }
 
-        return $encontrada;
+        return self::guardarRegistro($registro);
     }
 
     /** Indica de dónde sale la llave que firma: entorno, demo o ninguna. */
@@ -231,17 +233,23 @@ final class Licencias
         return $datos;
     }
 
-    private static function guardarRegistro(array $datos): void
+    private static function guardarRegistro(array $datos): bool
     {
         $ruta = BASE_PATH . self::REGISTRO;
         $json = json_encode($datos, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         if ($json === false) {
-            return;
+            return false;
         }
         $temporal = $ruta . '.tmp';
-        if (@file_put_contents($temporal, $json, LOCK_EX) !== false) {
-            @rename($temporal, $ruta);
+        if (@file_put_contents($temporal, $json, LOCK_EX) === false) {
+            return false;
         }
+        if (!@rename($temporal, $ruta)) {
+            @unlink($temporal);
+            return false;
+        }
+
+        return true;
     }
 
     /** @return array<string,mixed>|null */
