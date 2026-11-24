@@ -865,15 +865,14 @@ final class PanelController
             $nueva = '';
         }
 
-        return view_panel('panel/licencias', [
+        return Response::html(view_panel('panel/licencias', [
             'titulo' => 'Licencias',
             'descripcion' => 'Genera y administra las claves de activación de Mikato CRM.',
             'usuario' => Auth::usuario() ?? [],
             'licencias' => Licencias::listar(),
             'nueva' => $nueva,
             'origenLlave' => Licencias::origenLlave(),
-            'endpoint' => url('/api/licencias/activar'),
-        ]);
+        ]));
     }
 
     public function licenciaCrear(Request $peticion): Response
