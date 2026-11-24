@@ -49,9 +49,9 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
             <div>
                 <span class="t-eyebrow">Software para estéticas caninas</span>
                 <h1>El CRM de las estéticas caninas, con orden.</h1>
-                <p class="t-portada__lead">Agenda, clientes, mascotas, inventario, ventas y reportes en un solo programa. Se instala en tu computadora y trabaja con tus datos, sin depender de la nube.</p>
+                <p class="t-portada__lead">Agenda, clientes, mascotas, inventario, ventas y reportes en un solo programa. Se usa desde el navegador, sin instalar archivos, y trabaja con tus datos sin depender de la nube.</p>
                 <div class="t-portada__acciones">
-                    <a class="t-btn t-btn--azul t-btn--grande" href="<?= url('/descargar') ?>"><?= icono('descargar') ?> Descargar el CRM</a>
+                    <a class="t-btn t-btn--azul t-btn--grande" href="<?= url('/crm/') ?>" target="_blank" rel="noopener"><?= icono('flecha') ?> Abrir el CRM</a>
                     <a class="t-btn t-btn--linea t-btn--grande" href="<?= url('/servicios') ?>">Ver cómo funciona</a>
                 </div>
                 <ul class="t-portada__pruebas">
@@ -119,7 +119,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
         <div class="t-confianza">
             <div><?= icono('pin') ?><div><strong>Hecho en Guadalajara</strong><span>Productos y software de Mikato.</span></div></div>
             <div><?= icono('escudo') ?><div><strong>Datos en tu equipo</strong><span>Cada estética con su propia base.</span></div></div>
-            <div><?= icono('descargar') ?><div><strong>Windows, macOS y Android</strong><span>Instaladores y actualizaciones firmadas.</span></div></div>
+            <div><?= icono('descargar') ?><div><strong>Windows, macOS y Android</strong><span>App web instalable, sin descargas.</span></div></div>
             <div><?= icono('whatsapp') ?><div><strong>Soporte por WhatsApp</strong><span>Te acompañamos en la instalación.</span></div></div>
         </div>
     </div>
@@ -168,8 +168,8 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
             </article>
             <article class="t-modulo">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
-                <h3>App descargable</h3>
-                <p>Se instala en tu equipo, con la misma base en Windows, macOS y Android.</p>
+                <h3>App web instalable</h3>
+                <p>Se abre en tu navegador y se instala como app, con la misma base en Windows, macOS y Android.</p>
                 <div class="t-modulo__pie"><span>Sin nube obligatoria</span><span>7 MB</span></div>
             </article>
         </div>
@@ -180,9 +180,9 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
     <div class="contenedor">
         <div class="t-descarga">
             <div>
-                <span class="t-kicker" style="color:var(--t-oro-claro);">Descarga</span>
-                <h2>Tu CRM, instalado en tu equipo.</h2>
-                <p>Descarga el programa, activa tu licencia con la clave de acceso y empieza a trabajar. No cargas la base completa de nadie: cada estética guarda la suya.</p>
+                <span class="t-kicker" style="color:var(--t-oro-claro);">Instalación</span>
+                <h2>Tu CRM, listo en tu navegador.</h2>
+                <p>Abre la app web, activa tu licencia con la clave de acceso y empieza a trabajar. No cargas la base completa de nadie: cada estética guarda la suya.</p>
                 <ul class="t-descarga__puntos">
                     <li>Funciona sin internet para agenda, clientes y ventas.</li>
                     <li>Actualizaciones firmadas: solo Mikato publica versiones.</li>
@@ -332,7 +332,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
         <div class="t-banda-final">
             <div>
                 <h2>¿Lo vemos con tu salón?</h2>
-                <p>Te mostramos el CRM con tus servicios y tus precios. Si decides instalarlo, te damos la clave de acceso y el respaldo inicial.</p>
+                <p>Te mostramos el CRM con tus servicios y tus precios. Si decides usarlo, te damos la clave de acceso y el respaldo inicial.</p>
             </div>
             <div class="t-banda-final__acciones">
                 <a class="t-btn t-btn--azul" href="<?= url('/contacto') ?>">Solicitar una demo</a>
