@@ -12,7 +12,7 @@ $whatsapp = $whatsapp ?? whatsapp_link();
             <div>
                 <span class="t-eyebrow">Mikato CRM · Software en línea</span>
                 <h1>Tu CRM, en línea.</h1>
-                <p class="t-portada__lead">Mikato CRM es <strong>software en línea</strong>: se abre desde el navegador, se activa con tu clave y se usa en Windows, macOS o Android. <strong>No se descarga ningún archivo</strong>, así que no hay avisos de virus ni instaladores.</p>
+                <p class="t-portada__lead">Mikato CRM es <strong>software en línea</strong>: se abre desde el navegador, se activa con tu clave y se usa desde cualquier dispositivo con navegador moderno. <strong>No se descarga ningún archivo</strong>, así que no hay avisos de virus ni instaladores.</p>
                 <div class="t-portada__acciones">
                     <a class="t-btn t-btn--azul t-btn--grande" href="<?= url('/crm/') ?>" target="_blank" rel="noopener"><?= icono('flecha') ?> Abrir CRM</a>
                     <a class="t-btn t-btn--linea t-btn--grande" href="#como-usar">Cómo funciona</a>

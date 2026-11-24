@@ -169,7 +169,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
             <article class="t-modulo">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
                 <h3>Software en línea</h3>
-                <p>Se abre desde el navegador, sin instalar archivos. Funciona en Windows, macOS y Android.</p>
+                <p>Se abre desde el navegador, sin instalar archivos. Funciona en cualquier dispositivo con navegador moderno.</p>
                 <div class="t-modulo__pie"><span>Sin instaladores</span><span>En línea</span></div>
             </article>
         </div>
@@ -193,7 +193,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
             <div class="t-sistemas">
                 <a class="t-sistema" href="<?= url('/crm/') ?>" target="_blank" rel="noopener">
                     <span class="t-sistema__icono"><?= icono('flecha') ?></span>
-                    <span class="t-sistema__texto"><strong>CRM en línea</strong><small>Sin instalación · Windows, macOS y Android</small></span>
+                    <span class="t-sistema__texto"><strong>CRM en línea</strong><small>Sin instalación · desde cualquier navegador</small></span>
                     <span class="t-sistema__flecha">Abrir</span>
                 </a>
                 <p style="font-size:12px;color:#9fb3cc;margin:4px 0 0;">El CRM es <a href="<?= url('/crm/') ?>" style="color:var(--t-oro-claro);">software en línea</a>: se abre desde el navegador y no se descarga ningún archivo.</p>
