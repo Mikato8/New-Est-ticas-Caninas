@@ -13,8 +13,7 @@ $whatsapp = whatsapp_link();
             <div>
                 <h3>CRM</h3>
                 <ul>
-                    <li><a href="<?= url('/descargar') ?>">Instalar el CRM</a></li>
-                    <li><a href="<?= url('/instalar') ?>">Guía de instalación</a></li>
+                    <li><a href="<?= url('/crm/') ?>" target="_blank" rel="noopener">CRM en línea</a></li>
                     <li><a href="<?= url('/crm/') ?>">Abrir app web</a></li>
                     <li><a href="<?= url('/servicios') ?>">Servicios y precios</a></li>
                     <li><a href="<?= url('/agenda') ?>">Demo de agenda</a></li>

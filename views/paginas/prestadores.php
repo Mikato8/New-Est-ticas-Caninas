@@ -199,7 +199,7 @@ $docs = [
                 <p>Los formatos se pueden imprimir y archivar; el CRM guarda la ficha, el historial y el respaldo de cada mascota.</p>
             </div>
             <div class="t-banda-final__acciones">
-                <a class="t-btn t-btn--azul" href="<?= url('/descargar') ?>">Descargar el CRM</a>
+                <a class="t-btn t-btn--azul" href="<?= url('/crm/') ?>" target="_blank" rel="noopener">Abrir el CRM</a>
                 <?php if ($whatsapp !== ''): ?>
                     <a class="t-btn t-btn--linea" href="<?= e($whatsapp) ?>" target="_blank" rel="noopener"><?= icono('whatsapp') ?> WhatsApp</a>
                 <?php endif; ?>

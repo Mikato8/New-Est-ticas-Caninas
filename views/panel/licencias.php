@@ -13,7 +13,6 @@ $totalActivas = count(array_filter($licencias, static fn (array $l): bool => ($l
     </div>
     <div class="panel__acciones">
         <a class="boton boton--pequeno" href="<?= url('/crm/') ?>" target="_blank" rel="noopener"><?= icono('flecha') ?> Abrir CRM</a>
-        <a class="boton boton--contorno boton--pequeno" href="<?= url('/instalar') ?>" target="_blank" rel="noopener">Guía de instalación</a>
     </div>
 </header>
 
@@ -89,7 +88,7 @@ $totalActivas = count(array_filter($licencias, static fn (array $l): bool => ($l
             <li><strong>Cópiala</strong> del recuadro dorado que aparece arriba.</li>
             <li>Envíala por WhatsApp o correo junto con la liga:<br><a href="<?= url('/crm/') ?>" target="_blank" rel="noopener">mikatoestilistascaninos.com/crm/</a></li>
             <li>El cliente abre la liga, escribe la clave en <strong>Activación</strong> y pulsa <strong>Activar licencia</strong>.</li>
-            <li>La app queda activa en ese equipo. Puede usarla desde el navegador, sin instalar archivos.</li>
+            <li>El CRM queda activo en ese navegador. No se instala ningún archivo.</li>
         </ol>
         <div style="margin-top:14px;border-top:1px solid var(--borde);padding-top:12px;font-size:.82rem;line-height:1.6;" class="texto-tenue">
             <strong style="color:var(--tinta);">Para mover la licencia a otro equipo</strong><br>

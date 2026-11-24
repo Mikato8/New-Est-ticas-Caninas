@@ -55,18 +55,15 @@ final class HomeController
     public function descargar(Request $peticion): Response
     {
         return Response::html(view('paginas/descargar', [
-            'titulo' => 'Instalar el CRM para estéticas caninas',
-            'descripcion' => 'Instala Mikato CRM como app web en Windows, macOS o Android. Tus datos se guardan en tu equipo, la licencia se activa con una clave y solo Mikato publica actualizaciones.',
+            'titulo' => 'Usar el CRM en línea para estéticas caninas',
+            'descripcion' => 'Usa Mikato CRM en línea desde el navegador, en Windows, macOS o Android. Tus datos se guardan en tu equipo, la licencia se activa con una clave y solo Mikato publica actualizaciones.',
             'whatsapp' => whatsapp_link(),
         ]));
     }
 
     public function instalar(Request $peticion): Response
     {
-        return Response::html(view('paginas/instalar', [
-            'titulo' => 'Guía para instalar Mikato CRM',
-            'descripcion' => 'Capturas y pasos para instalar Mikato CRM como app web en Windows, Android y macOS, sin descargar instaladores.',
-        ]));
+        return redirigir('/crm/');
     }
 
     public function servicios(Request $peticion): Response

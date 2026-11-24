@@ -249,7 +249,6 @@ final class PaginasController
             ['loc' => '/servicios', 'prioridad' => '0.9'],
             ['loc' => '/prestadores', 'prioridad' => '0.8'],
             ['loc' => '/descargar', 'prioridad' => '0.9'],
-            ['loc' => '/instalar', 'prioridad' => '0.8'],
             ['loc' => '/productos', 'prioridad' => '0.8'],
             ['loc' => '/guias', 'prioridad' => '0.9'],
             ['loc' => '/comunidad', 'prioridad' => '0.8'],

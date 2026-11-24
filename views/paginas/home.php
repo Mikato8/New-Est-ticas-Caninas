@@ -55,7 +55,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
                     <a class="t-btn t-btn--linea t-btn--grande" href="<?= url('/servicios') ?>">Ver cómo funciona</a>
                 </div>
                 <ul class="t-portada__pruebas">
-                    <li><?= icono('check') ?> Windows, macOS y Android. La misma app en los tres.</li>
+                    <li><?= icono('check') ?> Software en línea: se usa desde cualquier navegador, sin instalar.</li>
                     <li><?= icono('check') ?> Tus datos se guardan en tu equipo, no en un servidor ajeno.</li>
                     <li><?= icono('check') ?> Licencia por clave de acceso y actualizaciones firmadas.</li>
                 </ul>
@@ -119,7 +119,7 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
         <div class="t-confianza">
             <div><?= icono('pin') ?><div><strong>Hecho en Guadalajara</strong><span>Productos y software de Mikato.</span></div></div>
             <div><?= icono('escudo') ?><div><strong>Datos en tu equipo</strong><span>Cada estética con su propia base.</span></div></div>
-            <div><?= icono('descargar') ?><div><strong>Windows, macOS y Android</strong><span>App web instalable, sin descargas.</span></div></div>
+            <div><?= icono('descargar') ?><div><strong>Software en línea</strong><span>Se usa desde el navegador, sin instalar.</span></div></div>
             <div><?= icono('whatsapp') ?><div><strong>Soporte por WhatsApp</strong><span>Te acompañamos en la instalación.</span></div></div>
         </div>
     </div>
@@ -168,9 +168,9 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
             </article>
             <article class="t-modulo">
                 <div class="t-modulo__icono"><?= icono('descargar') ?></div>
-                <h3>App web instalable</h3>
-                <p>Se abre en tu navegador y se instala como app, con la misma base en Windows, macOS y Android.</p>
-                <div class="t-modulo__pie"><span>Sin nube obligatoria</span><span>7 MB</span></div>
+                <h3>Software en línea</h3>
+                <p>Se abre desde el navegador, sin instalar archivos. Funciona en Windows, macOS y Android.</p>
+                <div class="t-modulo__pie"><span>Sin instaladores</span><span>En línea</span></div>
             </article>
         </div>
     </div>
@@ -180,33 +180,23 @@ $negociosHome = array_slice(array_values(array_filter($negocios, static fn (arra
     <div class="contenedor">
         <div class="t-descarga">
             <div>
-                <span class="t-kicker" style="color:var(--t-oro-claro);">Instalación</span>
+                <span class="t-kicker" style="color:var(--t-oro-claro);">CRM en línea</span>
                 <h2>Tu CRM, listo en tu navegador.</h2>
-                <p>Abre la app web, activa tu licencia con la clave de acceso y empieza a trabajar. No cargas la base completa de nadie: cada estética guarda la suya.</p>
+                <p>Abre el CRM en línea, activa tu licencia con la clave de acceso y empieza a trabajar. No cargas la base completa de nadie: cada estética guarda la suya.</p>
                 <ul class="t-descarga__puntos">
-                    <li>Funciona sin internet para agenda, clientes y ventas.</li>
-                    <li>Actualizaciones firmadas: solo Mikato publica versiones.</li>
+                    <li>Funciona en cualquier navegador moderno, sin instalar nada.</li>
+                    <li>Actualizaciones automáticas: solo Mikato publica versiones.</li>
                     <li>Respaldo local exportable cuando quieras.</li>
                 </ul>
-                <p class="t-descarga__nota">¿Primera vez? <a href="<?= url('/contacto') ?>">Pide tu clave de acceso</a> y te acompañamos en la instalación.</p>
+                <p class="t-descarga__nota">¿Primera vez? <a href="<?= url('/contacto') ?>">Pide tu clave de acceso</a> y te acompañamos.</p>
             </div>
             <div class="t-sistemas">
                 <a class="t-sistema" href="<?= url('/crm/') ?>" target="_blank" rel="noopener">
-                    <span class="t-sistema__icono"><?= icono('descargar') ?></span>
-                    <span class="t-sistema__texto"><strong>Windows</strong><small>App web · Edge o Chrome</small></span>
-                    <span class="t-sistema__flecha">Instalar</span>
+                    <span class="t-sistema__icono"><?= icono('flecha') ?></span>
+                    <span class="t-sistema__texto"><strong>CRM en línea</strong><small>Sin instalación · Windows, macOS y Android</small></span>
+                    <span class="t-sistema__flecha">Abrir</span>
                 </a>
-                <a class="t-sistema" href="<?= url('/crm/') ?>" target="_blank" rel="noopener">
-                    <span class="t-sistema__icono"><?= icono('descargar') ?></span>
-                    <span class="t-sistema__texto"><strong>macOS</strong><small>App web · Safari, Chrome o Edge</small></span>
-                    <span class="t-sistema__flecha">Instalar</span>
-                </a>
-                <a class="t-sistema" href="<?= url('/crm/') ?>" target="_blank" rel="noopener">
-                    <span class="t-sistema__icono"><?= icono('descargar') ?></span>
-                    <span class="t-sistema__texto"><strong>Android</strong><small>App web · Chrome</small></span>
-                    <span class="t-sistema__flecha">Instalar</span>
-                </a>
-                <p style="font-size:12px;color:#9fb3cc;margin:4px 0 0;">Windows, Android y macOS se instalan como <a href="<?= url('/crm/') ?>" style="color:var(--t-oro-claro);">app web, sin avisos ni descargas</a>. No hay instaladores nativos publicados. <a href="<?= url('/instalar') ?>" style="color:var(--t-oro-claro);">Guía con capturas</a>.</p>
+                <p style="font-size:12px;color:#9fb3cc;margin:4px 0 0;">El CRM es <a href="<?= url('/crm/') ?>" style="color:var(--t-oro-claro);">software en línea</a>: se abre desde el navegador y no se descarga ningún archivo.</p>
             </div>
         </div>
     </div>
