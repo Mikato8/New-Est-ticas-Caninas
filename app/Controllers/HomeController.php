@@ -56,7 +56,7 @@ final class HomeController
     {
         return Response::html(view('paginas/descargar', [
             'titulo' => 'Usar el CRM en línea para estéticas caninas',
-            'descripcion' => 'Usa Mikato CRM en línea desde el navegador, en Windows, macOS o Android. Tus datos se guardan en tu equipo, la licencia se activa con una clave y solo Mikato publica actualizaciones.',
+            'descripcion' => 'Usa Mikato CRM en línea desde cualquier navegador. Tus datos se guardan en tu equipo, la licencia se activa con una clave y solo Mikato publica actualizaciones.',
             'whatsapp' => whatsapp_link(),
         ]));
     }
